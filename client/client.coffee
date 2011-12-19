@@ -1,0 +1,1 @@
+Safari.safariextension/client.coffee
