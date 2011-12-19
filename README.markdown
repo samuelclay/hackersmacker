@@ -25,6 +25,6 @@ A blend of friends and foes illustrating the transformative experience of HACKER
 
 ## The Bad News
  
-Unfortunately, at the current time, browser's do not allow a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
+Unfortunately, at the current time, browsers do not allow a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
 
 If you find a way around this, contact Samuel Clay: samuel@ofbrooklyn.com.
