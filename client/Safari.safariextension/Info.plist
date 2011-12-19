@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Author</key>
+	<string>Samuel Clay</string>
+	<key>Builder Version</key>
+	<string>7534.52.7</string>
+	<key>CFBundleDisplayName</key>
+	<string>Hacker Smacker</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.newsblur.HackerSmacker</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>Chrome</key>
+	<dict/>
+	<key>Content</key>
+	<dict>
+		<key>Scripts</key>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>client.js</string>
+			</array>
+			<key>Start</key>
+			<array>
+				<string>jquery-171.min.js</string>
+				<string>underscore-1.2.3.min.js</string>
+				<string>jquery.easing.js</string>
+			</array>
+		</dict>
+		<key>Stylesheets</key>
+		<array>
+			<string>client.css</string>
+		</array>
+	</dict>
+	<key>Description</key>
+	<string>Highlight (friend) and filter (foe) individual authors on Hacker News</string>
+	<key>ExtensionInfoDictionaryVersion</key>
+	<string>1.0</string>
+	<key>Permissions</key>
+	<dict>
+		<key>Website Access</key>
+		<dict>
+			<key>Allowed Domains</key>
+			<array>
+				<string>news.ycombinator.com</string>
+				<string>nb.local.host</string>
+				<string>nb.local.host:3030</string>
+			</array>
+			<key>Level</key>
+			<string>Some</string>
+		</dict>
+	</dict>
+	<key>Website</key>
+	<string>http://www.hackersmacker.org</string>
+</dict>
+</plist>

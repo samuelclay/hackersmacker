@@ -1,0 +1,14 @@
+# HACKERSMACKER
+### Friend/foe individual writers on Hacker News.
+
+## Synopsis
+
+If you've read Slashdot you know all about the friend/foe system. Next to each author is an orb that shows your relationship to the author -- if you've friended or foe'd them. This helps you identify quality authors and filter out obnoxious commenters.
+
+This system provides two parts:
+ * **Client**: the extension that gets injected into Hacker News and reports back with usernames to compare) and the server.
+ * **Server**: the Node.js/Express.js/Redis system that keeps track of all friends/foes and friend of a friend and foe of a friend relationships.
+ 
+Unfortunately, at the current time, browser's do not allow a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
+
+If you find a way around this, contact Samuel Clay: samuel@ofbrooklyn.com.
