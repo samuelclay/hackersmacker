@@ -1,1 +1,89 @@
-Safari.safariextension/client.css
+.HS-rater {
+    display: inline-block;
+    width: 22px;
+    height: 13px;
+    position: relative;
+    margin: 0 2px 0 8px;
+/*    display: none;*/
+}    
+
+.HS-rater-button {
+    width: 18px;
+    height: 9px;
+    border-radius: 9px;
+    top: 2px;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.HS-rater-button.HS-rater-neutral {
+    border: 1px solid #8A8B7C;
+    z-index: 1;
+    background-color: #F5EFDB;
+        background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #EAE5D3),
+        color-stop(0.84, #F5EFDB)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #EAE5D3 16%,
+        #F5EFDB 84%
+    );
+}
+
+.HS-rater-button.HS-rater-friend {
+    border: 1px solid #8A8B7C;
+    background-color: #90F090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #4F934D),
+        color-stop(0.84, #54AB54)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #4F934D 16%,
+        #54AB54 84%
+    );
+}
+
+.HS-rater-button.HS-rater-foe {
+    border: 1px solid #8A8B7C;
+    background-color: #F09090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #AC473B),
+        color-stop(0.84, #C2483B)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #AC473B 16%,
+        #C2483B 84%
+    );
+}
+
+.HS-rater.HS-friend .HS-rater-neutral {
+    z-index: 0;
+}
+.HS-rater.HS-friend .HS-rater-friend {
+    z-index: 1;
+}
+.HS-rater.HS-foe .HS-rater-neutral {
+    z-index: 0;
+}
+.HS-rater.HS-foe .HS-rater-foe {
+    z-index: 1;
+}
+.HS-rater.HS-friend .HS-rater-neutral,
+.HS-rater.HS-foe .HS-rater-neutral {
+    z-index: 0;
+}
