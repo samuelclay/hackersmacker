@@ -1,0 +1,45 @@
+<!DOCTYPE html>  <html> <head>   <title>graph.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="client.html">                 client.coffee               </a>                                           <a class="source" href="graph.html">                 graph.coffee               </a>                                           <a class="source" href="server.html">                 server.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               graph.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nv">redis = </span><span class="nx">require</span> <span class="s1">&#39;redis&#39;</span>
+<span class="nv">client = </span><span class="nx">redis</span><span class="p">.</span><span class="nx">createClient</span><span class="p">()</span>
+
+<span class="nv">USER_FRIENDS_WITH = </span><span class="s2">&quot;F&quot;</span>
+<span class="nv">USER_FRIENDED_BY = </span><span class="s2">&quot;f&quot;</span>
+<span class="nv">USER_FOES_WITH = </span><span class="s2">&quot;X&quot;</span>
+<span class="nv">USER_FOED_BY = </span><span class="s2">&quot;x&quot;</span>
+
+<span class="nv">module.exports =</span>
+    <span class="nv">saveRelationship: </span><span class="nf">(originalUsername, relationship, username) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot; ---&gt; [#{originalUsername}] Adding #{username} as a #{relationship}.&quot;</span>
+        <span class="nv">friendsWith = </span><span class="s2">&quot;G:#{originalUsername}:#{USER_FRIENDS_WITH}&quot;</span>
+        <span class="nv">friendedBy  = </span><span class="s2">&quot;G:#{username}:#{USER_FRIENDED_BY}&quot;</span>
+        <span class="nv">foesWith    = </span><span class="s2">&quot;G:#{originalUsername}:#{USER_FOES_WITH}&quot;</span>
+        <span class="nv">foedBy      = </span><span class="s2">&quot;G:#{username}:#{USER_FOED_BY}&quot;</span>
+        <span class="k">if</span> <span class="nx">relationship</span> <span class="o">is</span> <span class="s1">&#39;friend&#39;</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">sadd</span> <span class="nx">friendsWith</span><span class="p">,</span> <span class="nx">username</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">sadd</span> <span class="nx">friendedBy</span><span class="p">,</span> <span class="nx">originalUsername</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">foesWith</span><span class="p">,</span> <span class="nx">username</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">foedBy</span><span class="p">,</span> <span class="nx">originalUsername</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="nx">relationship</span> <span class="o">is</span> <span class="s1">&#39;foe&#39;</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">friendsWith</span><span class="p">,</span> <span class="nx">username</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">friendedBy</span><span class="p">,</span> <span class="nx">originalUsername</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">sadd</span> <span class="nx">foesWith</span><span class="p">,</span> <span class="nx">username</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">sadd</span> <span class="nx">foedBy</span><span class="p">,</span> <span class="nx">originalUsername</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="nx">relationship</span> <span class="o">is</span> <span class="s1">&#39;neutral&#39;</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">friendsWith</span><span class="p">,</span> <span class="nx">username</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">friendedBy</span><span class="p">,</span> <span class="nx">originalUsername</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">foesWith</span><span class="p">,</span> <span class="nx">username</span>
+            <span class="nx">client</span><span class="p">.</span><span class="nx">srem</span> <span class="nx">foedBy</span><span class="p">,</span> <span class="nx">originalUsername</span>
+    
+    <span class="nv">findRelationships: </span><span class="nf">(originalUsername, usernames, callback) -&gt;</span>
+        <span class="nv">multi = </span><span class="nx">client</span><span class="p">.</span><span class="nx">multi</span><span class="p">()</span>
+        <span class="nv">graph = friends: </span><span class="p">[],</span> <span class="nv">foes: </span><span class="p">[],</span> <span class="nv">foaf_friends: </span><span class="p">[</span><span class="s1">&#39;nhashem&#39;</span><span class="p">,</span> <span class="s1">&#39;ejames&#39;</span><span class="p">],</span> <span class="nv">foaf_foes: </span><span class="p">[</span><span class="s1">&#39;electromagnetic&#39;</span><span class="p">,</span> <span class="s1">&#39;nas&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="nx">username</span> <span class="k">in</span> <span class="nx">usernames</span>
+            <span class="p">(</span><span class="nf">(username) -&gt;</span>
+                <span class="nx">multi</span><span class="p">.</span><span class="nx">sismember</span> <span class="s2">&quot;G:#{originalUsername}:#{USER_FRIENDS_WITH}&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nf">(e, m) -&gt;</span>
+                    <span class="nx">graph</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span> <span class="nx">username</span> <span class="k">if</span> <span class="nx">m</span>
+                <span class="nx">multi</span><span class="p">.</span><span class="nx">sismember</span> <span class="s2">&quot;G:#{originalUsername}:#{USER_FOES_WITH}&quot;</span><span class="p">,</span> <span class="nx">username</span><span class="p">,</span> <span class="nf">(e, m) -&gt;</span>
+                    <span class="nx">graph</span><span class="p">.</span><span class="nx">foes</span><span class="p">.</span><span class="nx">push</span> <span class="nx">username</span> <span class="k">if</span> <span class="nx">m</span>
+            <span class="p">)(</span><span class="nx">username</span><span class="p">)</span>
+        <span class="nx">multi</span><span class="p">.</span><span class="nx">exec</span> <span class="nf">(e, m) -&gt;</span>
+            <span class="nx">callback</span> <span class="nx">graph</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

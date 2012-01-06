@@ -1,0 +1,27 @@
+<!DOCTYPE html>  <html> <head>   <title>server.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="client.html">                 client.coffee               </a>                                           <a class="source" href="graph.html">                 graph.coffee               </a>                                           <a class="source" href="server.html">                 server.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               server.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nv">express = </span><span class="nx">require</span> <span class="s1">&#39;express&#39;</span>
+<span class="nv">app = </span><span class="nx">express</span><span class="p">.</span><span class="nx">createServer</span><span class="p">()</span>
+<span class="nv">graph = </span><span class="nx">require</span> <span class="s1">&#39;./graph&#39;</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">bodyParser</span><span class="p">());</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span> <span class="s1">&#39;/load&#39;</span><span class="p">,</span> <span class="nf">(req, res) -&gt;</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">header</span> <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">,</span> <span class="s1">&#39;http://news.ycombinator.com&#39;</span>
+    <span class="nv">originalUsername = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">me</span>
+    <span class="nv">usernames = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">u</span>
+    <span class="nx">graph</span><span class="p">.</span><span class="nx">findRelationships</span> <span class="nx">originalUsername</span><span class="p">,</span> <span class="nx">usernames</span><span class="p">,</span> <span class="nf">(m) -&gt;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot; ---&gt; [#{originalUsername}] Load #{req.headers.referer}: #{usernames.length} users - #{m.friends.length} friends, #{m.foes.length} foes&quot;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">contentType</span> <span class="s1">&#39;json&#39;</span>
+        <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s2">&quot;#{JSON.stringify(m)}&quot;</span>
+    
+<span class="nx">app</span><span class="p">.</span><span class="nx">get</span> <span class="s1">&#39;/save&#39;</span><span class="p">,</span> <span class="nf">(req, res) -&gt;</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">header</span> <span class="s1">&#39;Access-Control-Allow-Origin&#39;</span><span class="p">,</span> <span class="s1">&#39;http://news.ycombinator.com&#39;</span>
+    <span class="nv">username = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">username</span>
+    <span class="nv">relationship = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">relationship</span>
+    <span class="nv">originalUsername = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">me</span>
+    <span class="nx">graph</span><span class="p">.</span><span class="nx">saveRelationship</span> <span class="nx">originalUsername</span><span class="p">,</span> <span class="nx">relationship</span><span class="p">,</span> <span class="nx">username</span>
+    <span class="nv">response = code: </span><span class="mi">1</span><span class="p">,</span> <span class="nv">message: </span><span class="s2">&quot;OK&quot;</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s2">&quot;#{JSON.stringify(response)}&quot;</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span> <span class="mi">3030</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 

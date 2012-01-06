@@ -1,0 +1,143 @@
+<!DOCTYPE html>  <html> <head>   <title>client.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="client.html">                 client.coffee               </a>                                           <a class="source" href="graph.html">                 graph.coffee               </a>                                           <a class="source" href="server.html">                 server.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               client.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="nb">window</span><span class="p">.</span><span class="nv">_HS = </span><span class="nf">(e) -&gt;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s2">&quot;HS&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="p">]);</span>
+    
+<span class="k">class</span> <span class="nb">window</span><span class="p">.</span><span class="nx">HSGraph</span>
+    <span class="nv">constructor: </span><span class="o">-&gt;</span>
+        <span class="nx">@decorateComments</span><span class="p">()</span>
+        
+    <span class="nv">decorateComments: </span><span class="o">-&gt;</span>
+        <span class="nx">@findCurrentUser</span><span class="p">()</span>
+        <span class="nx">@findUsernames</span><span class="p">()</span>
+        <span class="nx">@loadRelationships</span><span class="p">()</span>
+        <span class="nx">@attachSharers</span><span class="p">()</span>
+        
+    <span class="nv">findCurrentUser: </span><span class="o">-&gt;</span>
+        <span class="vi">@me = </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.pagetop a[href^=user]&#39;</span><span class="p">).</span><span class="nx">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;user?id=&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        
+    <span class="nv">findUsernames: </span><span class="o">-&gt;</span>
+        <span class="vi">@usernames = </span><span class="nx">_</span><span class="p">.</span><span class="nx">uniq</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a[href^=user]&#39;</span><span class="p">).</span><span class="nx">map</span> <span class="o">-&gt;</span>
+            <span class="nx">$</span><span class="p">(</span><span class="err">@</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;user?id=&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    
+    <span class="nv">loadRelationships: </span><span class="o">-&gt;</span>
+        <span class="nv">data = </span>
+            <span class="nv">u: </span><span class="nx">@usernames</span>
+            <span class="nv">me: </span><span class="nx">@me</span>
+        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span> 
+            <span class="nv">url: </span><span class="s1">&#39;http://nb.local.host:3030/load&#39;</span>
+            <span class="nv">data: </span><span class="nx">data</span>
+            <span class="nv">traditional: </span><span class="kc">true</span>
+            <span class="nv">success: </span><span class="nx">@attachRaters</span>
+        
+    <span class="nv">attachRaters: </span><span class="p">(</span><span class="nx">@graph</span><span class="p">)</span> <span class="o">=&gt;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>@graph = JSON.parse graphJSON</p>             </td>             <td class="code">               <div class="highlight"><pre>        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s1">&#39;graph&#39;</span><span class="p">,</span> <span class="nx">@graph</span>
+        <span class="k">new</span> <span class="nx">HSRater</span> <span class="nx">$</span><span class="p">(</span><span class="nx">$user</span><span class="p">),</span> <span class="nx">@me</span> <span class="k">for</span> <span class="nx">$user</span> <span class="k">in</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.default a[href^=user], .subtext a[href^=user]&#39;</span><span class="p">)</span>
+
+    <span class="nv">attachSharers: </span><span class="o">-&gt;</span>
+
+<span class="k">class</span> <span class="nb">window</span><span class="p">.</span><span class="nx">HSRater</span>
+    
+    <span class="nv">constructor: </span><span class="nf">(@$user, @me, @username) -&gt;</span>
+        <span class="vi">@username = </span><span class="nx">@$user</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">).</span><span class="nx">replace</span><span class="p">(</span><span class="s1">&#39;user?id=&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="nx">@clear</span><span class="p">()</span>
+        <span class="nx">@build</span><span class="p">()</span>
+        <span class="nx">@attach</span><span class="p">()</span>
+        <span class="nx">@handle</span><span class="p">()</span>
+        <span class="k">return</span>
+    
+    <span class="nv">clear: </span><span class="o">-&gt;</span>
+        <span class="nx">@$user</span><span class="p">.</span><span class="nx">siblings</span><span class="p">(</span><span class="s1">&#39;.HS-rater&#39;</span><span class="p">).</span><span class="nx">remove</span><span class="p">()</span>
+        
+    <span class="nv">build: </span><span class="o">-&gt;</span>
+        <span class="nv">graphStatus = </span><span class="s2">&quot;&quot;</span>
+        <span class="nv">graphStatus = </span><span class="s2">&quot;HS-friend&quot;</span> <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">friends</span><span class="p">,</span> <span class="nx">@username</span><span class="p">)</span>
+        <span class="nv">graphStatus = </span><span class="s2">&quot;HS-foe&quot;</span> <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">foes</span><span class="p">,</span> <span class="nx">@username</span><span class="p">)</span>
+        <span class="nv">foafStatus = </span><span class="s2">&quot;HS-foaf-friend&quot;</span> <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">foaf_friends</span><span class="p">,</span> <span class="nx">@username</span><span class="p">)</span>
+        <span class="nv">foafStatus = </span><span class="s2">&quot;HS-foaf-foe&quot;</span> <span class="k">if</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">foaf_foes</span><span class="p">,</span> <span class="nx">@username</span><span class="p">)</span>
+        <span class="nv">$pills = </span><span class="nx">$</span> <span class="s2">&quot;&quot;&quot;&lt;div class=&quot;</span><span class="nx">HS</span><span class="o">-</span><span class="nx">rater</span> <span class="c1">#{graphStatus}&quot; data-username=&quot;#{@username}&quot;&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&quot;HS-rater-button HS-rater-neutral&quot;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&quot;HS-rater-button HS-rater-friend&quot;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&quot;HS-rater-button HS-rater-foe&quot;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+        <span class="o">&lt;</span><span class="err">/div&gt;</span>
+        <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&quot;HS-foaf #{foafStatus}&quot;</span><span class="o">&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&quot;HS-foaf-start&quot;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+          <span class="o">&lt;</span><span class="nx">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&quot;HS-foaf-end&quot;</span><span class="o">&gt;&lt;</span><span class="err">/div&gt;</span>
+        <span class="o">&lt;</span><span class="err">/div&gt;&quot;&quot;&quot;</span>
+        <span class="vi">@rater = </span><span class="nx">$pills</span><span class="p">.</span><span class="nx">filter</span> <span class="s1">&#39;.HS-rater&#39;</span>
+        <span class="vi">@foaf = </span><span class="nx">$pills</span><span class="p">.</span><span class="nx">filter</span> <span class="s1">&#39;.HS-foaf&#39;</span>
+        <span class="vi">@neutral = </span><span class="nx">$</span> <span class="s1">&#39;.HS-rater-neutral&#39;</span><span class="p">,</span> <span class="nx">@rater</span>
+        <span class="vi">@foe     = </span><span class="nx">$</span> <span class="s1">&#39;.HS-rater-foe&#39;</span><span class="p">,</span>     <span class="nx">@rater</span>
+        <span class="vi">@friend  = </span><span class="nx">$</span> <span class="s1">&#39;.HS-rater-friend&#39;</span><span class="p">,</span>  <span class="nx">@rater</span>
+        
+    <span class="nv">attach: </span><span class="o">-&gt;</span>
+        <span class="nx">@$user</span><span class="p">.</span><span class="nx">after</span> <span class="nx">@foaf</span>
+        <span class="nx">@$user</span><span class="p">.</span><span class="nx">after</span> <span class="nx">@rater</span>
+    
+    <span class="nv">handle: </span><span class="o">-&gt;</span>
+        <span class="vi">@animationOpts = </span>
+            <span class="nv">duration : </span><span class="mi">300</span><span class="p">,</span>
+            <span class="nv">easing   : </span><span class="s1">&#39;easeOutQuint&#39;</span>
+            <span class="nv">queue    : </span><span class="kc">false</span>
+        <span class="nx">@rater</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s1">&#39;.HS-rater&#39;</span><span class="p">).</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;mouseenter&#39;</span><span class="p">,</span> <span class="nx">@expand</span><span class="p">)</span>
+              <span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="s1">&#39;mouseleave&#39;</span><span class="p">,</span> <span class="nx">@collapse</span><span class="p">)</span>
+        <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="p">[</span><span class="nx">@friend</span><span class="p">,</span> <span class="nx">@foe</span><span class="p">,</span> <span class="nx">@neutral</span><span class="p">],</span> <span class="p">(</span><span class="nx">$button</span><span class="p">)</span> <span class="o">=&gt;</span>
+            <span class="nx">$button</span><span class="p">.</span><span class="nx">bind</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span>
+                <span class="nx">@save</span> <span class="nx">e</span>
+        <span class="k">return</span>
+                
+    <span class="nv">expand: </span><span class="o">=&gt;</span>
+        <span class="nx">clearTimeout</span> <span class="nx">@collapseTimeout</span>
+        <span class="nx">@rater</span><span class="p">.</span><span class="nx">animate</span>  <span class="nv">width: </span><span class="mi">70</span><span class="p">,</span> <span class="nx">@animationOpts</span>
+        <span class="nx">@friend</span><span class="p">.</span><span class="nx">animate</span> <span class="nv">left: </span> <span class="mi">24</span><span class="p">,</span> <span class="nx">@animationOpts</span>
+        <span class="nx">@foe</span><span class="p">.</span><span class="nx">animate</span>    <span class="nv">left: </span> <span class="mi">48</span><span class="p">,</span> <span class="nx">@animationOpts</span>
+    
+    <span class="nv">maybeCollapse: </span><span class="o">=&gt;</span>
+        <span class="vi">@collapseTimeout = </span><span class="nx">setTimeout</span> <span class="o">=&gt;</span>
+            <span class="nx">@collapse</span><span class="p">()</span> <span class="k">if</span> <span class="nx">@collapseTimeout</span>
+        <span class="p">,</span> <span class="mi">300</span>
+        
+    <span class="nv">collapse: </span><span class="o">=&gt;</span>
+        <span class="nx">@rater</span><span class="p">.</span><span class="nx">animate</span>  <span class="nv">width: </span><span class="mi">22</span><span class="p">,</span> <span class="nx">@animationOpts</span>
+        <span class="nx">@friend</span><span class="p">.</span><span class="nx">animate</span> <span class="nv">left: </span> <span class="mi">0</span><span class="p">,</span>  <span class="nx">@animationOpts</span>
+        <span class="nx">@foe</span><span class="p">.</span><span class="nx">animate</span>    <span class="nv">left: </span> <span class="mi">0</span><span class="p">,</span>  <span class="nx">@animationOpts</span>
+        
+    <span class="nv">save: </span><span class="nf">(e) -&gt;</span>
+        <span class="nv">$target = </span><span class="nx">$</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span>
+        <span class="k">if</span> <span class="nx">$target</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;HS-rater-friend&#39;</span><span class="p">)</span>
+            <span class="vi">@relationship = </span><span class="s1">&#39;friend&#39;</span>
+            <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">@username</span><span class="p">)</span>
+            <span class="nv">HS.graph.foes = </span><span class="nx">_</span><span class="p">.</span><span class="nx">without</span> <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">foes</span><span class="p">,</span> <span class="nx">@username</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="nx">$target</span><span class="p">.</span><span class="nx">hasClass</span><span class="p">(</span><span class="s1">&#39;HS-rater-foe&#39;</span><span class="p">)</span>
+            <span class="vi">@relationship = </span><span class="s1">&#39;foe&#39;</span>
+            <span class="nv">HS.graph.friends = </span><span class="nx">_</span><span class="p">.</span><span class="nx">without</span> <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">friends</span><span class="p">,</span> <span class="nx">@username</span>
+            <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">foes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">@username</span><span class="p">)</span>
+        <span class="k">else</span>
+            <span class="nv">HS.graph.friends = </span><span class="nx">_</span><span class="p">.</span><span class="nx">without</span> <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">friends</span><span class="p">,</span> <span class="nx">@username</span>
+            <span class="nv">HS.graph.foes = </span><span class="nx">_</span><span class="p">.</span><span class="nx">without</span> <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">foes</span><span class="p">,</span> <span class="nx">@username</span>
+            <span class="vi">@relationship = </span><span class="s1">&#39;neutral&#39;</span>
+            
+        <span class="nv">data = </span>
+            <span class="nv">username: </span><span class="nx">@username</span>
+            <span class="nv">me: </span><span class="nx">@me</span>
+            <span class="nv">relationship: </span><span class="nx">@relationship</span>
+        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span> 
+            <span class="nv">url: </span><span class="s1">&#39;http://nb.local.host:3030/save&#39;</span>
+            <span class="nv">data: </span><span class="nx">data</span>
+        
+        <span class="nx">HS</span><span class="p">.</span><span class="nx">graph</span><span class="p">.</span><span class="nx">friends</span><span class="p">.</span><span class="nx">push</span>
+        <span class="nx">@reset</span><span class="p">()</span>
+        <span class="nx">@resetDuplicates</span><span class="p">()</span>
+    
+    <span class="nv">reset: </span><span class="o">-&gt;</span>
+        <span class="nx">@rater</span><span class="p">.</span><span class="nx">removeClass</span> <span class="s1">&#39;HS-foe&#39;</span>
+        <span class="nx">@rater</span><span class="p">.</span><span class="nx">removeClass</span> <span class="s1">&#39;HS-friend&#39;</span>
+        <span class="nx">@rater</span><span class="p">.</span><span class="nx">addClass</span>    <span class="s2">&quot;HS-#{@relationship}&quot;</span>
+        <span class="nx">@collapse</span><span class="p">()</span>
+    
+    <span class="nv">resetDuplicates: </span><span class="o">-&gt;</span>
+        <span class="nv">$dupes = </span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;a[href^=\&quot;user?id=#{@username}\&quot;]&quot;</span><span class="p">).</span><span class="o">not</span><span class="p">(</span><span class="nx">@$user</span><span class="p">)</span>
+        <span class="k">new</span> <span class="nx">HSRater</span> <span class="nx">$</span><span class="p">(</span><span class="nx">$dupe</span><span class="p">),</span> <span class="nx">@me</span> <span class="k">for</span> <span class="nx">$dupe</span> <span class="k">in</span> <span class="nx">$dupes</span>
+        
+<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span> <span class="o">-&gt;</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nv">HS = </span><span class="k">new</span> <span class="nx">HSGraph</span><span class="p">()</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
