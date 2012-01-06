@@ -8,7 +8,7 @@ USER_FOED_BY = "x"
 
 module.exports =
     saveRelationship: (originalUsername, relationship, username) ->
-        console.log " ---> #{originalUsername} thinks #{username} is a #{relationship}."
+        console.log " ---> [#{originalUsername}] Adding #{username} as a #{relationship}."
         friendsWith = "G:#{originalUsername}:#{USER_FRIENDS_WITH}"
         friendedBy  = "G:#{username}:#{USER_FRIENDED_BY}"
         foesWith    = "G:#{originalUsername}:#{USER_FOES_WITH}"
@@ -31,7 +31,7 @@ module.exports =
     
     findRelationships: (originalUsername, usernames, callback) ->
         multi = client.multi()
-        graph = friends: [], foes: []
+        graph = friends: [], foes: [], foaf_friends: ['nhashem', 'ejames'], foaf_foes: ['electromagnetic', 'nas']
         for username in usernames
             ((username) ->
                 multi.sismember "G:#{originalUsername}:#{USER_FRIENDS_WITH}", username, (e, m) ->

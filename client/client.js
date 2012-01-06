@@ -31,23 +31,22 @@
     HSGraph.prototype.loadRelationships = function() {
       var data;
       data = {
-        usernames: this.usernames,
+        u: this.usernames,
         me: this.me
       };
       return $.ajax({
         url: 'http://nb.local.host:3030/load',
         data: data,
-        dataType: 'jsonp',
-        jsonpCallback: "_HS",
+        traditional: true,
         success: this.attachRaters
       });
     };
 
-    HSGraph.prototype.attachRaters = function(graphJSON) {
+    HSGraph.prototype.attachRaters = function(graph) {
       var $user, _i, _len, _ref, _results;
-      this.graph = JSON.parse(graphJSON);
+      this.graph = graph;
       console.log('graph', this.graph);
-      _ref = $('a[href^=user]');
+      _ref = $('.default a[href^=user], .subtext a[href^=user]');
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         $user = _ref[_i];
@@ -84,17 +83,26 @@
     };
 
     HSRater.prototype.build = function() {
-      var graphStatus;
+      var $pills, foafStatus, graphStatus;
       graphStatus = "";
       if (_.contains(HS.graph.friends, this.username)) graphStatus = "HS-friend";
       if (_.contains(HS.graph.foes, this.username)) graphStatus = "HS-foe";
-      this.rater = $("<div class=\"HS-rater " + graphStatus + "\" data-username=\"" + this.username + "\">\n    <div class=\"HS-rater-button HS-rater-neutral\"></div>\n    <div class=\"HS-rater-button HS-rater-friend\"></div>\n    <div class=\"HS-rater-button HS-rater-foe\"></div>\n</div>");
+      if (_.contains(HS.graph.foaf_friends, this.username)) {
+        foafStatus = "HS-foaf-friend";
+      }
+      if (_.contains(HS.graph.foaf_foes, this.username)) {
+        foafStatus = "HS-foaf-foe";
+      }
+      $pills = $("<div class=\"HS-rater " + graphStatus + "\" data-username=\"" + this.username + "\">\n  <div class=\"HS-rater-button HS-rater-neutral\"></div>\n  <div class=\"HS-rater-button HS-rater-friend\"></div>\n  <div class=\"HS-rater-button HS-rater-foe\"></div>\n</div>\n<div class=\"HS-foaf " + foafStatus + "\">\n  <div class=\"HS-foaf-start\"></div>\n  <div class=\"HS-foaf-end\"></div>\n</div>");
+      this.rater = $pills.filter('.HS-rater');
+      this.foaf = $pills.filter('.HS-foaf');
       this.neutral = $('.HS-rater-neutral', this.rater);
       this.foe = $('.HS-rater-foe', this.rater);
       return this.friend = $('.HS-rater-friend', this.rater);
     };
 
     HSRater.prototype.attach = function() {
+      this.$user.after(this.foaf);
       return this.$user.after(this.rater);
     };
 
@@ -105,7 +113,7 @@
         easing: 'easeOutQuint',
         queue: false
       };
-      this.rater.bind('mouseenter', this.expand).bind('mouseleave', this.collapse);
+      this.rater.filter('.HS-rater').bind('mouseenter', this.expand).bind('mouseleave', this.collapse);
       _.each([this.friend, this.foe, this.neutral], function($button) {
         return $button.bind('click', function(e) {
           return _this.save(e);
@@ -168,9 +176,7 @@
       };
       $.ajax({
         url: 'http://nb.local.host:3030/save',
-        data: data,
-        dataType: 'jsonp',
-        jsonpCallback: "_HS_save"
+        data: data
       });
       HS.graph.friends.push;
       this.reset();

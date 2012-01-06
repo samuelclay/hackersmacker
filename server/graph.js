@@ -16,7 +16,7 @@
   module.exports = {
     saveRelationship: function(originalUsername, relationship, username) {
       var foedBy, foesWith, friendedBy, friendsWith;
-      console.log(" ---> " + originalUsername + " thinks " + username + " is a " + relationship + ".");
+      console.log(" ---> [" + originalUsername + "] Adding " + username + " as a " + relationship + ".");
       friendsWith = "G:" + originalUsername + ":" + USER_FRIENDS_WITH;
       friendedBy = "G:" + username + ":" + USER_FRIENDED_BY;
       foesWith = "G:" + originalUsername + ":" + USER_FOES_WITH;
@@ -43,7 +43,9 @@
       multi = client.multi();
       graph = {
         friends: [],
-        foes: []
+        foes: [],
+        foaf_friends: ['nhashem', 'ejames'],
+        foaf_foes: ['electromagnetic', 'nas']
       };
       _fn = function(username) {
         multi.sismember("G:" + originalUsername + ":" + USER_FRIENDS_WITH, username, function(e, m) {

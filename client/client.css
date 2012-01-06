@@ -3,7 +3,8 @@
     width: 22px;
     height: 13px;
     position: relative;
-    margin: 0 2px 0 8px;
+    margin: 0 2px -2px 8px;
+    overflow: hidden;
 /*    display: none;*/
 }    
 
@@ -86,4 +87,98 @@
 .HS-rater.HS-friend .HS-rater-neutral,
 .HS-rater.HS-foe .HS-rater-neutral {
     z-index: 0;
+}
+
+/* ========================== */
+/* = Friend/Foe of a Friend = */
+/* ========================== */
+
+.HS-foaf {
+    width: 22px;
+    height: 13px;
+    position: relative;
+    margin: 0 2px -3px 8px;
+    overflow: hidden;
+    display: none;
+}    
+
+.HS-foaf-friend,
+.HS-foaf-foe {
+    display: inline-block;
+}
+
+.HS-foaf-start {
+    border: 1px solid #8A8B7C;
+    width: 9px;
+    height: 7px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    top: 2px;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.HS-foaf-end {
+    border: 1px solid #8A8B7C;
+    border-left: 1px solid #645B38;
+    width: 9px;
+    height: 7px;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    top: 2px;
+    left: 10px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.HS-foaf-friend .HS-foaf-start,
+.HS-foaf-foe    .HS-foaf-start {
+    background-color: #90F090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #4F934D),
+        color-stop(0.84, #54AB54)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #4F934D 16%,
+        #54AB54 84%
+    );
+}
+.HS-foaf-friend .HS-foaf-end {
+    background-color: #7FD57E;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #386B37),
+        color-stop(0.84, #3D7D3C)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #4F934D 16%,
+        #54AB54 84%
+    );
+}
+.HS-foaf-foe .HS-foaf-end {
+    border: 1px solid #8A8B7C;
+    background-color: #F09090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #913B31),
+        color-stop(0.84, #A73E32)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #AC473B 16%,
+        #C2483B 84%
+    );
 }

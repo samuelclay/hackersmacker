@@ -21,19 +21,18 @@ class window.HSGraph
     
     loadRelationships: ->
         data = 
-            usernames: @usernames
+            u: @usernames
             me: @me
         $.ajax 
             url: 'http://nb.local.host:3030/load'
             data: data
-            dataType: 'jsonp'
-            jsonpCallback: "_HS"
+            traditional: true
             success: @attachRaters
         
-    attachRaters: (graphJSON) =>
-        @graph = JSON.parse(graphJSON)
+    attachRaters: (@graph) =>
+        # @graph = JSON.parse graphJSON
         console.log 'graph', @graph
-        new HSRater $($user), @me for $user in $('a[href^=user]')
+        new HSRater $($user), @me for $user in $('.default a[href^=user], .subtext a[href^=user]')
 
     attachSharers: ->
 
@@ -54,16 +53,25 @@ class window.HSRater
         graphStatus = ""
         graphStatus = "HS-friend" if _.contains(HS.graph.friends, @username)
         graphStatus = "HS-foe" if _.contains(HS.graph.foes, @username)
-        @rater = $ """<div class="HS-rater #{graphStatus}" data-username="#{@username}">
-            <div class="HS-rater-button HS-rater-neutral"></div>
-            <div class="HS-rater-button HS-rater-friend"></div>
-            <div class="HS-rater-button HS-rater-foe"></div>
+        foafStatus = "HS-foaf-friend" if _.contains(HS.graph.foaf_friends, @username)
+        foafStatus = "HS-foaf-foe" if _.contains(HS.graph.foaf_foes, @username)
+        $pills = $ """<div class="HS-rater #{graphStatus}" data-username="#{@username}">
+          <div class="HS-rater-button HS-rater-neutral"></div>
+          <div class="HS-rater-button HS-rater-friend"></div>
+          <div class="HS-rater-button HS-rater-foe"></div>
+        </div>
+        <div class="HS-foaf #{foafStatus}">
+          <div class="HS-foaf-start"></div>
+          <div class="HS-foaf-end"></div>
         </div>"""
+        @rater = $pills.filter '.HS-rater'
+        @foaf = $pills.filter '.HS-foaf'
         @neutral = $ '.HS-rater-neutral', @rater
         @foe     = $ '.HS-rater-foe',     @rater
         @friend  = $ '.HS-rater-friend',  @rater
         
     attach: ->
+        @$user.after @foaf
         @$user.after @rater
     
     handle: ->
@@ -71,7 +79,7 @@ class window.HSRater
             duration : 300,
             easing   : 'easeOutQuint'
             queue    : false
-        @rater.bind('mouseenter', @expand)
+        @rater.filter('.HS-rater').bind('mouseenter', @expand)
               .bind('mouseleave', @collapse)
         _.each [@friend, @foe, @neutral], ($button) =>
             $button.bind 'click', (e) =>
@@ -116,8 +124,6 @@ class window.HSRater
         $.ajax 
             url: 'http://nb.local.host:3030/save'
             data: data
-            dataType: 'jsonp'
-            jsonpCallback: "_HS_save"
         
         HS.graph.friends.push
         @reset()
