@@ -1,11 +1,9 @@
 (function() {
-  var USER_FOED_BY, USER_FOES_WITH, USER_FRIENDED_BY, USER_FRIENDS_WITH, async, client, redis;
+  var USER_FOED_BY, USER_FOES_WITH, USER_FRIENDED_BY, USER_FRIENDS_WITH, client, redis;
 
   redis = require('redis');
 
   client = redis.createClient();
-
-  async = require('async');
 
   USER_FRIENDS_WITH = "F";
 
@@ -41,7 +39,7 @@
       }
     },
     findRelationships: function(originalUsername, usernames, callback) {
-      var graph, multi1, multi2;
+      var foesWith, friendsWith, graph, multi1, multi2, onpageUserSet;
       multi1 = client.multi();
       multi2 = client.multi();
       graph = {
@@ -50,20 +48,23 @@
         foaf_friends: [],
         foaf_foes: []
       };
-      return client.sadd("T:" + originalUsername + ":onpage", usernames, function(e, m) {
-        multi1.sinter("G:" + originalUsername + ":" + USER_FRIENDS_WITH, "T:" + originalUsername + ":onpage", function(e, m) {
+      onpageUserSet = "T:" + originalUsername + ":onpage";
+      friendsWith = "G:" + originalUsername + ":" + USER_FRIENDS_WITH;
+      foesWith = "G:" + originalUsername + ":" + USER_FOES_WITH;
+      return client.sadd(onpageUserSet, usernames, function(e, m) {
+        multi1.sinter(friendsWith, onpageUserSet, function(e, m) {
           if (m) return graph.friends = graph.friends.concat(m);
         });
-        multi1.sinter("G:" + originalUsername + ":" + USER_FOES_WITH, "T:" + originalUsername + ":onpage", function(e, m) {
+        multi1.sinter(foesWith, onpageUserSet, function(e, m) {
           if (m) return graph.foes = graph.foes.concat(m);
         });
-        multi1.smembers("G:" + originalUsername + ":" + USER_FRIENDS_WITH, function(e, m) {
+        multi1.smembers(friendsWith, function(e, m) {
           var friend, _fn, _i, _len;
           _fn = function(friend) {
-            multi2.sinter("G:" + friend + ":" + USER_FRIENDS_WITH, "T:" + originalUsername + ":onpage", function(e, m) {
+            multi2.sinter("G:" + friend + ":" + USER_FRIENDS_WITH, onpageUserSet, function(e, m) {
               if (m) return graph.foaf_friends = graph.foaf_friends.concat(m);
             });
-            return multi2.sinter("G:" + friend + ":" + USER_FOES_WITH, "T:" + originalUsername + ":onpage", function(e, m) {
+            return multi2.sinter("G:" + friend + ":" + USER_FOES_WITH, onpageUserSet, function(e, m) {
               if (m) return graph.foaf_foes = graph.foaf_foes.concat(m);
             });
           };

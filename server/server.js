@@ -15,7 +15,7 @@
     originalUsername = req.query.me;
     usernames = req.query.u;
     return graph.findRelationships(originalUsername, usernames, function(m) {
-      console.log(" ---> [" + originalUsername + "] Load " + req.headers.referer + ": " + usernames.length + " users - " + m.friends.length + " friends, " + m.foes.length + " foes, " + m.foaf_friends.length + "/" + m.foaf_foes.length + " foaf");
+      console.log((" ---> [" + originalUsername + "] Load " + req.headers.referer + ":") + (" " + usernames.length + " users -") + (" " + m.friends.length + " friends, " + m.foes.length + " foes,") + (" " + m.foaf_friends.length + "/" + m.foaf_foes.length + " foaf"));
       res.contentType('json');
       return res.send("" + (JSON.stringify(m)));
     });
