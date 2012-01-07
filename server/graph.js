@@ -73,7 +73,8 @@
             _fn(friend);
           }
           return multi2.exec(function() {
-            return callback(graph);
+            callback(graph);
+            return client.del(onpageUserSet);
           });
         });
         return multi1.exec();
