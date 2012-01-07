@@ -9,7 +9,7 @@
     <span class="nv">originalUsername = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">me</span>
     <span class="nv">usernames = </span><span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">u</span>
     <span class="nx">graph</span><span class="p">.</span><span class="nx">findRelationships</span> <span class="nx">originalUsername</span><span class="p">,</span> <span class="nx">usernames</span><span class="p">,</span> <span class="nf">(m) -&gt;</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot; ---&gt; [#{originalUsername}] Load #{req.headers.referer}: #{usernames.length} users - #{m.friends.length} friends, #{m.foes.length} foes&quot;</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot; ---&gt; [#{originalUsername}] Load #{req.headers.referer}: #{usernames.length} users - #{m.friends.length} friends, #{m.foes.length} foes, #{m.foaf_friends.length}/#{m.foaf_foes.length} foaf&quot;</span>
         <span class="nx">res</span><span class="p">.</span><span class="nx">contentType</span> <span class="s1">&#39;json&#39;</span>
         <span class="nx">res</span><span class="p">.</span><span class="nx">send</span> <span class="s2">&quot;#{JSON.stringify(m)}&quot;</span>
     

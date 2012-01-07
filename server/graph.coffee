@@ -1,5 +1,6 @@
 redis = require 'redis'
 client = redis.createClient()
+async = require 'async'
 
 USER_FRIENDS_WITH = "F"
 USER_FRIENDED_BY = "f"
@@ -30,14 +31,23 @@ module.exports =
             client.srem foedBy, originalUsername
     
     findRelationships: (originalUsername, usernames, callback) ->
-        multi = client.multi()
-        graph = friends: [], foes: [], foaf_friends: ['nhashem', 'ejames'], foaf_foes: ['electromagnetic', 'nas']
-        for username in usernames
-            ((username) ->
-                multi.sismember "G:#{originalUsername}:#{USER_FRIENDS_WITH}", username, (e, m) ->
-                    graph.friends.push username if m
-                multi.sismember "G:#{originalUsername}:#{USER_FOES_WITH}", username, (e, m) ->
-                    graph.foes.push username if m
-            )(username)
-        multi.exec (e, m) ->
-            callback graph
+        multi1 = client.multi()
+        multi2 = client.multi()
+        graph = friends: [], foes: [], foaf_friends: [], foaf_foes: []
+        # Store all users on the page in Redis to be used for set intersections
+        client.sadd "T:#{originalUsername}:onpage", usernames, (e, m) ->
+            # Match friends/foes of current user with users on page
+            multi1.sinter "G:#{originalUsername}:#{USER_FRIENDS_WITH}", "T:#{originalUsername}:onpage", (e, m) ->
+                graph.friends = graph.friends.concat m if m
+            multi1.sinter "G:#{originalUsername}:#{USER_FOES_WITH}", "T:#{originalUsername}:onpage", (e, m) ->
+                graph.foes = graph.foes.concat m if m
+            # For each of the current user's friends, match the friend's friends/foes with users on the page
+            multi1.smembers "G:#{originalUsername}:#{USER_FRIENDS_WITH}", (e, m) ->
+                for friend in m
+                    do (friend) ->
+                        multi2.sinter "G:#{friend}:#{USER_FRIENDS_WITH}", "T:#{originalUsername}:onpage", (e, m) ->
+                            graph.foaf_friends = graph.foaf_friends.concat m if m
+                        multi2.sinter "G:#{friend}:#{USER_FOES_WITH}", "T:#{originalUsername}:onpage", (e, m) ->
+                            graph.foaf_foes = graph.foaf_foes.concat m if m
+                multi2.exec -> callback graph
+            multi1.exec()

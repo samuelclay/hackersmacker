@@ -50,20 +50,25 @@ class window.HSRater
         @$user.siblings('.HS-rater').remove()
         
     build: ->
+        foafFriend  = !!_.contains(HS.graph.foaf_friends, @username)
+        foafFoe     = !!_.contains(HS.graph.foaf_foes, @username)
         graphStatus = ""
         graphStatus = "HS-friend" if _.contains(HS.graph.friends, @username)
         graphStatus = "HS-foe" if _.contains(HS.graph.foes, @username)
-        foafStatus = "HS-foaf-friend" if _.contains(HS.graph.foaf_friends, @username)
-        foafStatus = "HS-foaf-foe" if _.contains(HS.graph.foaf_foes, @username)
+        foafStatus  = "HS-foaf-friend" if foafFriend
+        foafStatus  = "HS-foaf-foe" if foafFoe
+        foafTitle   = if foafFriend then 'Friend' else 'Foe'
+        
         $pills = $ """<div class="HS-rater #{graphStatus}" data-username="#{@username}">
           <div class="HS-rater-button HS-rater-neutral"></div>
           <div class="HS-rater-button HS-rater-friend"></div>
           <div class="HS-rater-button HS-rater-foe"></div>
         </div>
-        <div class="HS-foaf #{foafStatus}">
+        <div class="HS-foaf #{foafStatus}" title="#{foafTitle} of a friend">
           <div class="HS-foaf-start"></div>
           <div class="HS-foaf-end"></div>
         </div>"""
+        
         @rater = $pills.filter '.HS-rater'
         @foaf = $pills.filter '.HS-foaf'
         @neutral = $ '.HS-rater-neutral', @rater

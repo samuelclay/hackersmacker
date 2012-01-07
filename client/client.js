@@ -83,17 +83,16 @@
     };
 
     HSRater.prototype.build = function() {
-      var $pills, foafStatus, graphStatus;
+      var $pills, foafFoe, foafFriend, foafStatus, foafTitle, graphStatus;
+      foafFriend = !!_.contains(HS.graph.foaf_friends, this.username);
+      foafFoe = !!_.contains(HS.graph.foaf_foes, this.username);
       graphStatus = "";
       if (_.contains(HS.graph.friends, this.username)) graphStatus = "HS-friend";
       if (_.contains(HS.graph.foes, this.username)) graphStatus = "HS-foe";
-      if (_.contains(HS.graph.foaf_friends, this.username)) {
-        foafStatus = "HS-foaf-friend";
-      }
-      if (_.contains(HS.graph.foaf_foes, this.username)) {
-        foafStatus = "HS-foaf-foe";
-      }
-      $pills = $("<div class=\"HS-rater " + graphStatus + "\" data-username=\"" + this.username + "\">\n  <div class=\"HS-rater-button HS-rater-neutral\"></div>\n  <div class=\"HS-rater-button HS-rater-friend\"></div>\n  <div class=\"HS-rater-button HS-rater-foe\"></div>\n</div>\n<div class=\"HS-foaf " + foafStatus + "\">\n  <div class=\"HS-foaf-start\"></div>\n  <div class=\"HS-foaf-end\"></div>\n</div>");
+      if (foafFriend) foafStatus = "HS-foaf-friend";
+      if (foafFoe) foafStatus = "HS-foaf-foe";
+      foafTitle = foafFriend ? 'Friend' : 'Foe';
+      $pills = $("<div class=\"HS-rater " + graphStatus + "\" data-username=\"" + this.username + "\">\n  <div class=\"HS-rater-button HS-rater-neutral\"></div>\n  <div class=\"HS-rater-button HS-rater-friend\"></div>\n  <div class=\"HS-rater-button HS-rater-foe\"></div>\n</div>\n<div class=\"HS-foaf " + foafStatus + "\" title=\"" + foafTitle + " of a friend\">\n  <div class=\"HS-foaf-start\"></div>\n  <div class=\"HS-foaf-end\"></div>\n</div>");
       this.rater = $pills.filter('.HS-rater');
       this.foaf = $pills.filter('.HS-foaf');
       this.neutral = $('.HS-rater-neutral', this.rater);
