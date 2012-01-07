@@ -56,6 +56,8 @@ module.exports =
                             graph.foaf_friends = graph.foaf_friends.concat m if m
                         multi2.sinter "G:#{friend}:#{USER_FOES_WITH}", onpageUserSet, (e, m) ->
                             graph.foaf_foes = graph.foaf_foes.concat m if m
-                multi2.exec -> callback graph
+                multi2.exec -> 
+                    callback graph
+                    client.del onpageUserSet
 
             multi1.exec()
