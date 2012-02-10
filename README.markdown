@@ -28,3 +28,7 @@ A blend of friends and foes illustrating the transformative experience of HACKER
 Unfortunately, at the current time, browsers do not allow a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
 
 If you find a way around this, contact Samuel Clay: samuel@ofbrooklyn.com.
+
+## Examples of great Hacker News comments from which to start a collection of friends
+
+ * [http://news.ycombinator.com/item?id=3543440](http://news.ycombinator.com/item?id=3543440)

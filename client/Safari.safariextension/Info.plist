@@ -37,6 +37,10 @@
 		<array>
 			<string>client.css</string>
 		</array>
+		<key>Whitelist</key>
+		<array>
+			<string>http://news.ycombinator.com/*</string>
+		</array>
 	</dict>
 	<key>Description</key>
 	<string>Highlight (friend) and filter (foe) individual authors on Hacker News</string>
