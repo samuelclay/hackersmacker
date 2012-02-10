@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Samuel Clay</string>
 	<key>Builder Version</key>
-	<string>7534.52.7</string>
+	<string>7534.53.10</string>
 	<key>CFBundleDisplayName</key>
 	<string>Hacker Smacker</string>
 	<key>CFBundleIdentifier</key>
@@ -55,6 +55,7 @@
 				<string>news.ycombinator.com</string>
 				<string>nb.local.host</string>
 				<string>nb.local.host:3030</string>
+				<string>hackersmacker.org</string>
 			</array>
 			<key>Level</key>
 			<string>Some</string>

@@ -24,7 +24,7 @@ class window.HSGraph
             u: @usernames
             me: @me
         $.ajax 
-            url: 'http://nb.local.host:3030/load'
+            url: 'http://www.hackersmacker.org/load'
             data: data
             traditional: true
             success: @attachRaters
@@ -127,7 +127,7 @@ class window.HSRater
             me: @me
             relationship: @relationship
         $.ajax 
-            url: 'http://nb.local.host:3030/save'
+            url: 'http://www.hackersmacker.org/save'
             data: data
         
         HS.graph.friends.push
