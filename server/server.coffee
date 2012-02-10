@@ -25,4 +25,6 @@ app.get '/save', (req, res) ->
     response = code: 1, message: "OK"
     res.send "#{JSON.stringify(response)}"
 
+app.use express.static "#{__dirname}/../web"
+
 app.listen 3030
