@@ -31,4 +31,5 @@ If you find a way around this, contact Samuel Clay: samuel@ofbrooklyn.com.
 
 ## Examples of great Hacker News comments from which to start a collection of friends
 
- * [http://news.ycombinator.com/item?id=3543440](http://news.ycombinator.com/item?id=3543440)
+ * [http://news.ycombinator.com/item?id=3543440]()
+ * [http://news.ycombinator.com/item?id=3576217]()
