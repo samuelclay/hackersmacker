@@ -35,6 +35,8 @@
     return res.send("" + (JSON.stringify(response)));
   });
 
+  app.use(express.static("" + __dirname + "/../web"));
+
   app.listen(3030);
 
 }).call(this);

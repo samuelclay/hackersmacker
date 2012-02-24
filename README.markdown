@@ -23,6 +23,11 @@ A blend of friends and foes illustrating the transformative experience of HACKER
 
 ![](http://github.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot3.png)
 
+## Examples of great Hacker News comments from which to start a collection of friends
+
+ * [http://news.ycombinator.com/item?id=3543440]()
+ * [http://news.ycombinator.com/item?id=3576217]()
+
 ## Acknowledgements
 
  * **Mihai Parparita** <mihaip@chromium.org> - Help with fixing the issue around browsers not allowing a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
