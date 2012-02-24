@@ -23,8 +23,14 @@ A blend of friends and foes illustrating the transformative experience of HACKER
 
 ![](http://github.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot3.png)
 
-## The Bad News
- 
-Unfortunately, at the current time, browsers do not allow a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
+## Acknowledgements
 
-If you find a way around this, contact Samuel Clay: samuel@ofbrooklyn.com.
+ * **Mihai Parparita** <mihaip@chromium.org> - Help with fixing the issue around browsers not allowing a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.
+ 
+## Author
+
+ * **Samuel Clay**: [@samuelclay](http://twitter.com/samuelclay), [samuel@ofbrooklyn.com](mailto:samuel@ofbrooklyn.com), [www.samuelclay.com](http://www.samuelclay.com)
+ 
+## License
+
+ * MIT License
