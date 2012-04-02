@@ -5,6 +5,8 @@
     return console.log(["HS", e]);
   };
 
+  window.HS_SERVER = 'nb.local.host:3030';
+
   window.HSGraph = (function() {
 
     function HSGraph() {
@@ -35,7 +37,7 @@
         me: this.me
       };
       return $.ajax({
-        url: 'http://www.hackersmacker.org/load',
+        url: "http://" + HS_SERVER + "/load",
         data: data,
         traditional: true,
         success: this.attachRaters
@@ -43,13 +45,13 @@
     };
 
     HSGraph.prototype.attachRaters = function(graph) {
-      var $user, _i, _len, _ref, _results;
+      var $user, $users, _i, _len, _results;
       this.graph = graph;
-      console.log('graph', this.graph);
-      _ref = $('.default a[href^=user], .subtext a[href^=user]');
+      $users = $('.default a[href^=user], .subtext a[href^=user]');
+      console.log('Hackersmacker graph', this.graph, "" + $users.length + " users");
       _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        $user = _ref[_i];
+      for (_i = 0, _len = $users.length; _i < _len; _i++) {
+        $user = $users[_i];
         _results.push(new HSRater($($user), this.me));
       }
       return _results;
@@ -174,9 +176,11 @@
         relationship: this.relationship
       };
       $.ajax({
-        url: 'http://www.hackersmacker.org/save',
-        data: data
+        url: "http://" + HS_SERVER + "/save",
+        data: data,
+        traditional: true
       });
+      console.log('Saving Hackersmacker', data, this.HS_SERVER, this);
       HS.graph.friends.push;
       this.reset();
       return this.resetDuplicates();

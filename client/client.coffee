@@ -1,7 +1,11 @@
 window._HS = (e) ->
     console.log(["HS", e]);
-    
+
+window.HS_SERVER = 'nb.local.host:3030'
+# window.HS_SERVER = 'www.hackersmacker.org'
+
 class window.HSGraph
+    
     constructor: ->
         @decorateComments()
         
@@ -24,15 +28,16 @@ class window.HSGraph
             u: @usernames
             me: @me
         $.ajax 
-            url: 'http://www.hackersmacker.org/load'
+            url: "http://#{HS_SERVER}/load"
             data: data
             traditional: true
             success: @attachRaters
         
     attachRaters: (@graph) =>
         # @graph = JSON.parse graphJSON
-        console.log 'graph', @graph
-        new HSRater $($user), @me for $user in $('.default a[href^=user], .subtext a[href^=user]')
+        $users = $('.default a[href^=user], .subtext a[href^=user]')
+        console.log 'Hackersmacker graph', @graph, "#{$users.length} users"
+        new HSRater $($user), @me for $user in $users
 
     attachSharers: ->
 
@@ -127,9 +132,11 @@ class window.HSRater
             me: @me
             relationship: @relationship
         $.ajax 
-            url: 'http://www.hackersmacker.org/save'
+            url: "http://#{HS_SERVER}/save"
             data: data
-        
+            traditional: true
+
+        console.log 'Saving Hackersmacker', data, @HS_SERVER, @
         HS.graph.friends.push
         @reset()
         @resetDuplicates()

@@ -5,11 +5,11 @@
 	<key>Author</key>
 	<string>Samuel Clay</string>
 	<key>Builder Version</key>
-	<string>7534.53.10</string>
+	<string>7534.54.16</string>
 	<key>CFBundleDisplayName</key>
 	<string>Hacker Smacker</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.newsblur.HackerSmacker</string>
+	<string>com.samuelclay.HackerSmacker</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -40,6 +40,8 @@
 		<key>Whitelist</key>
 		<array>
 			<string>http://news.ycombinator.com/*</string>
+			<string>http://news.ycombinator.net/*</string>
+			<string>http://hackerne.ws/*</string>
 		</array>
 	</dict>
 	<key>Description</key>
@@ -56,6 +58,8 @@
 				<string>nb.local.host</string>
 				<string>nb.local.host:3030</string>
 				<string>hackersmacker.org</string>
+				<string>hackerne.ws</string>
+				<string>news.ycombinator.net</string>
 			</array>
 			<key>Level</key>
 			<string>Some</string>

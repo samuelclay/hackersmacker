@@ -3,7 +3,7 @@
 
   redis = require('redis');
 
-  client = redis.createClient();
+  client = redis.createClient(null, process.env.NODE_ENV === 'production' ? 'db01' : null);
 
   USER_FRIENDS_WITH = "F";
 

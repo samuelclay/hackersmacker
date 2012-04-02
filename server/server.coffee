@@ -1,4 +1,5 @@
 express = require 'express'
+fs = require 'fs'
 app = express.createServer()
 graph = require './graph'
 
@@ -25,6 +26,21 @@ app.get '/save', (req, res) ->
     response = code: 1, message: "OK"
     res.send "#{JSON.stringify(response)}"
 
+app.get '/safari', (req, res) ->
+    res.redirect '/safari.safariextz'
+    
+app.get '/safari.safariextz', (req, res) ->
+    fs.readFile '../client/Safari.safariextz', (err, data) ->
+        throw err if err
+        res.contentType 'application/octet-stream'
+        res.send data
+
+app.get '/safari.manifest.plist', (req, res) ->
+    fs.readFile 'config/safari.manifest.plist', (err, data) ->
+        throw err if err
+        res.contentType 'application/octet-stream'
+        res.send data
+    
 app.use express.static "#{__dirname}/../web"
 
 app.listen 3030

@@ -1,7 +1,9 @@
 (function() {
-  var app, express, graph;
+  var app, express, fs, graph;
 
   express = require('express');
+
+  fs = require('fs');
 
   app = express.createServer();
 
@@ -33,6 +35,26 @@
       message: "OK"
     };
     return res.send("" + (JSON.stringify(response)));
+  });
+
+  app.get('/safari', function(req, res) {
+    return res.redirect('/safari.safariextz');
+  });
+
+  app.get('/safari.safariextz', function(req, res) {
+    return fs.readFile('../client/Safari.safariextz', function(err, data) {
+      if (err) throw err;
+      res.contentType('application/octet-stream');
+      return res.send(data);
+    });
+  });
+
+  app.get('/safari.manifest.plist', function(req, res) {
+    return fs.readFile('config/safari.manifest.plist', function(err, data) {
+      if (err) throw err;
+      res.contentType('application/octet-stream');
+      return res.send(data);
+    });
   });
 
   app.use(express.static("" + __dirname + "/../web"));
