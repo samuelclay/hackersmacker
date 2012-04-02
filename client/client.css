@@ -1,16 +1,17 @@
 .HS-rater {
     display: inline-block;
     width: 22px;
-    height: 13px;
+    height: 12px;
     position: relative;
-    margin: 0 2px -2px 8px;
+    margin: 0 2px -4px 8px;
+    top: -2px;
     overflow: hidden;
 /*    display: none;*/
 }    
 
 .HS-rater-button {
     width: 18px;
-    height: 9px;
+    height: 8px;
     border-radius: 9px;
     top: 2px;
     left: 0;
