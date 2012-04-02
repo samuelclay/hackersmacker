@@ -41,7 +41,6 @@
 		<array>
 			<string>http://news.ycombinator.com/*</string>
 			<string>http://news.ycombinator.net/*</string>
-			<string>http://hackerne.ws/*</string>
 		</array>
 	</dict>
 	<key>Description</key>

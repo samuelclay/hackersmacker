@@ -3,11 +3,16 @@
 
 ## Synopsis
 
-If you've read Slashdot you know all about the friend/foe system. Next to each author is an orb that shows your relationship to the author -- if you've friended or foe'd them. This helps you identify quality authors and filter out obnoxious commenters.
+If you've read Slashdot you know all about the friend/foe system. Next to each 
+author is an orb that shows your relationship to the author -- if you've friended 
+or foe'd them. This helps you identify quality authors and filter out obnoxious commenters.
 
 This system provides two parts:
- * **Client**: the extension that gets injected into Hacker News and reports back with usernames to compare) and the server.
- * **Server**: the Node.js/Express.js/Redis system that keeps track of all friends/foes and friend of a friend and foe of a friend relationships.
+
+ * **Client**: the extension that gets injected into Hacker News and reports back 
+               with usernames to compare) and the server.
+ * **Server**: the Node.js/Express.js/Redis system that keeps track of all friends/foes 
+               and friend of a friend and foe of a friend relationships.
  
 ## Screenshots
 
@@ -36,7 +41,9 @@ A blend of friends and foes illustrating the transformative experience of HACKER
  
 ## Author
 
- * **Samuel Clay**: [@samuelclay](http://twitter.com/samuelclay), [samuel@ofbrooklyn.com](mailto:samuel@ofbrooklyn.com), [www.samuelclay.com](http://www.samuelclay.com)
+ * **Samuel Clay**: [samuel@ofbrooklyn.com](mailto:samuel@ofbrooklyn.com)
+ * **On the web**: [www.samuelclay.com](http://www.samuelclay.com)
+ * **Twitter**: [@samuelclay](http://twitter.com/samuelclay)
  
 ## License
 

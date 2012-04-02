@@ -1,8 +1,8 @@
 window._HS = (e) ->
     console.log(["HS", e]);
 
-window.HS_SERVER = 'nb.local.host:3030'
-# window.HS_SERVER = 'www.hackersmacker.org'
+# window.HS_SERVER = 'nb.local.host:3030'
+window.HS_SERVER = 'www.hackersmacker.org'
 
 class window.HSGraph
     
