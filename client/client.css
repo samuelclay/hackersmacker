@@ -4,11 +4,14 @@
     height: 12px;
     position: relative;
     margin: 0 2px -4px 8px;
-    top: -2px;
+    top: -3px;
     overflow: hidden;
 /*    display: none;*/
 }    
 
+.subtext .HS-rater {
+    top: -2px;
+}
 .HS-rater-button {
     width: 18px;
     height: 8px;
