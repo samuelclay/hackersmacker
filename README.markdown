@@ -48,7 +48,7 @@ A blend of friends and foes illustrating the transformative experience of HACKER
 
 HACKERSMACKER was built to learn how FoaF (Friend of a Friend) works. The idea is that not only do you want to surface content from your friends, but if you chose your friends well, they can help you surface more great content by highlighting comments from their friends.
 
-The impetus for building a small system where the primary goal is simply to quickly show relationships was that I wanted to build the same system for (NewsBlur)[http://www.newsblur.com], a visual RSS feed reader with intelligence. The backend is built using (Redis)[http://redis.io] sets and CoffeeScript/Node.js. NewsBlur's social layer, which was built immediately after this project, uses a very similar backend. 
+The impetus for building a small system where the primary goal is simply to quickly show relationships was that I wanted to build the same system for [NewsBlur](http://www.newsblur.com), a visual RSS feed reader with intelligence. The backend is built using [Redis](http://redis.io) sets and CoffeeScript/Node.js. NewsBlur's social layer, which was built immediately after this project, uses a very similar backend. 
 
 Learning how to build this project was the main reason, as I am now able to bring this technique to other projects.
 
