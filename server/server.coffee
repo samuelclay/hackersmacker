@@ -11,7 +11,7 @@ app = express.createServer key: privateKey, cert: certificate
 app.use(express.bodyParser());
 
 app.get '/load', (req, res) ->
-    res.header 'Access-Control-Allow-Origin', 'http://news.ycombinator.com'
+    res.header 'Access-Control-Allow-Origin', 'https://news.ycombinator.com'
     originalUsername = req.query.me
     usernames = req.query.u
     graph.findRelationships originalUsername, usernames, (m) ->
@@ -23,7 +23,7 @@ app.get '/load', (req, res) ->
         res.send "#{JSON.stringify(m)}"
     
 app.get '/save', (req, res) ->
-    res.header 'Access-Control-Allow-Origin', 'http://news.ycombinator.com'
+    res.header 'Access-Control-Allow-Origin', 'https://news.ycombinator.com'
     username = req.query.username
     relationship = req.query.relationship
     originalUsername = req.query.me
