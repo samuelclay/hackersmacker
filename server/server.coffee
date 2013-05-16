@@ -1,13 +1,14 @@
 express = require 'express'
 fs = require 'fs'
 graph = require './graph'
-crypto = require 'crypto'
-                 
-privateKey = fs.readFileSync('certificates/hackersmacker.key').toString()
-certificate = fs.readFileSync('certificates/hackersmacker.crt').toString()
+# crypto = require 'crypto'
+#                  
+# privateKey = fs.readFileSync('certificates/hackersmacker.key').toString()
+# certificate = fs.readFileSync('certificates/hackersmacker.crt').toString()
 
-app = express.createServer key: privateKey, cert: certificate
-app.use(express.bodyParser());
+# app = express.createServer key: privateKey, cert: certificate
+app = express.createServer()
+app.use express.bodyParser()
 
 app.get '/load', (req, res) ->
     res.header 'Access-Control-Allow-Origin', 'https://news.ycombinator.com'
