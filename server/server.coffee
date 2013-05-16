@@ -1,8 +1,13 @@
 express = require 'express'
 fs = require 'fs'
-app = express.createServer()
 graph = require './graph'
+crypto = require 'crypto'
+http = require 'http'
+                 
+privateKey = fs.readFileSync('certificates/hackersmacker.key').toString()
+certificate = fs.readFileSync('certificates/hackersmacker.pem').toString()
 
+app = express.createServer key: privateKey, cert: certificate
 app.use(express.bodyParser());
 
 app.get '/load', (req, res) ->

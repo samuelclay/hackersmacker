@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Samuel Clay</string>
 	<key>Builder Version</key>
-	<string>8536.26.14</string>
+	<string>8536.28.10</string>
 	<key>CFBundleDisplayName</key>
 	<string>Hacker Smacker</string>
 	<key>CFBundleIdentifier</key>
@@ -41,6 +41,8 @@
 		<array>
 			<string>http://news.ycombinator.com/*</string>
 			<string>http://news.ycombinator.net/*</string>
+			<string>https://news.ycombinator.com/*</string>
+			<string>https://news.ycombinator.net/*</string>
 		</array>
 	</dict>
 	<key>Description</key>
@@ -60,6 +62,8 @@
 				<string>hackerne.ws</string>
 				<string>news.ycombinator.net</string>
 			</array>
+			<key>Include Secure Pages</key>
+			<true/>
 			<key>Level</key>
 			<string>Some</string>
 		</dict>
