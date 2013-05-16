@@ -1,5 +1,5 @@
 redis = require 'redis'
-client = redis.createClient null, if process.env.NODE_ENV == 'production' then 'db10' else null
+client = redis.createClient null, process.env.REDIS_HOST || null
 
 USER_FRIENDS_WITH = "F"
 USER_FRIENDED_BY = "f"
