@@ -43,6 +43,8 @@
 			<string>http://news.ycombinator.net/*</string>
 			<string>https://news.ycombinator.com/*</string>
 			<string>https://news.ycombinator.net/*</string>
+			<string>http://www.hackersmacker.org/*</string>
+			<string>https://www.hackersmacker.org/*</string>
 		</array>
 	</dict>
 	<key>Description</key>
@@ -69,6 +71,6 @@
 		</dict>
 	</dict>
 	<key>Website</key>
-	<string>http://www.hackersmacker.org</string>
+	<string>https://www.hackersmacker.org</string>
 </dict>
 </plist>

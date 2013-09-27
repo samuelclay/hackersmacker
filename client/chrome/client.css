@@ -1,1 +1,189 @@
-../client.css
+.HS-rater {
+    display: inline-block;
+    width: 22px;
+    height: 12px;
+    position: relative;
+    margin: 0 2px -4px 8px;
+    top: -3px;
+    overflow: hidden;
+/*    display: none;*/
+}    
+
+.subtext .HS-rater {
+    top: -2px;
+}
+.HS-rater-button {
+    width: 18px;
+    height: 8px;
+    border-radius: 9px;
+    top: 2px;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.HS-rater-button.HS-rater-neutral {
+    border: 1px solid #8A8B7C;
+    z-index: 1;
+    background-color: #F5EFDB;
+        background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #EAE5D3),
+        color-stop(0.84, #F5EFDB)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #EAE5D3 16%,
+        #F5EFDB 84%
+    );
+}
+
+.HS-rater-button.HS-rater-friend {
+    border: 1px solid #8A8B7C;
+    background-color: #90F090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #4F934D),
+        color-stop(0.84, #54AB54)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #4F934D 16%,
+        #54AB54 84%
+    );
+}
+
+.HS-rater-button.HS-rater-foe {
+    border: 1px solid #8A8B7C;
+    background-color: #F09090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #AC473B),
+        color-stop(0.84, #C2483B)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #AC473B 16%,
+        #C2483B 84%
+    );
+}
+
+.HS-rater.HS-friend .HS-rater-neutral {
+    z-index: 0;
+}
+.HS-rater.HS-friend .HS-rater-friend {
+    z-index: 1;
+}
+.HS-rater.HS-foe .HS-rater-neutral {
+    z-index: 0;
+}
+.HS-rater.HS-foe .HS-rater-foe {
+    z-index: 1;
+}
+.HS-rater.HS-friend .HS-rater-neutral,
+.HS-rater.HS-foe .HS-rater-neutral {
+    z-index: 0;
+}
+
+/* ========================== */
+/* = Friend/Foe of a Friend = */
+/* ========================== */
+
+.HS-foaf {
+    width: 22px;
+    height: 13px;
+    position: relative;
+    margin: 0 2px -3px 8px;
+    overflow: hidden;
+    display: none;
+    cursor: default;
+}    
+
+.HS-foaf-friend,
+.HS-foaf-foe {
+    display: inline-block;
+}
+
+.HS-foaf-start {
+    border: 1px solid #8A8B7C;
+    width: 9px;
+    height: 8px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    top: 2px;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+}
+
+.HS-foaf-end {
+    border: 1px solid #8A8B7C;
+    border-left: 1px solid #645B38;
+    width: 9px;
+    height: 8px;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    top: 2px;
+    left: 10px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.HS-foaf-friend .HS-foaf-start,
+.HS-foaf-foe    .HS-foaf-start {
+    background-color: #90F090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #4F934D),
+        color-stop(0.84, #54AB54)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #4F934D 16%,
+        #54AB54 84%
+    );
+}
+.HS-foaf-friend .HS-foaf-end {
+    background-color: #7FD57E;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #386B37),
+        color-stop(0.84, #3D7D3C)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #4F934D 16%,
+        #54AB54 84%
+    );
+}
+.HS-foaf-foe .HS-foaf-end {
+    border: 1px solid #8A8B7C;
+    background-color: #F09090;
+    z-index: 0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #913B31),
+        color-stop(0.84, #A73E32)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #AC473B 16%,
+        #C2483B 84%
+    );
+}

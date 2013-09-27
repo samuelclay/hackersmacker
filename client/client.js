@@ -39,7 +39,7 @@
         me: this.me
       };
       return $.ajax({
-        url: "http://" + HS_SERVER + "/load",
+        url: "" + window.location.protocol + "//" + HS_SERVER + "/load",
         data: data,
         traditional: true,
         success: this.attachRaters
@@ -191,11 +191,11 @@
         relationship: this.relationship
       };
       $.ajax({
-        url: "http://" + HS_SERVER + "/save",
+        url: "" + window.location.protocol + "//" + HS_SERVER + "/save",
         data: data,
         traditional: true
       });
-      console.log('Saving Hackersmacker', data, this.HS_SERVER, this);
+      console.log('Saving Hackersmacker', data, HS_SERVER, this);
       HS.graph.friends.push;
       this.reset();
       return this.resetDuplicates();

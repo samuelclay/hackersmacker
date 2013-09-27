@@ -28,7 +28,7 @@ class window.HSGraph
             u: @usernames
             me: @me
         $.ajax 
-            url: "http://#{HS_SERVER}/load"
+            url: "#{window.location.protocol}//#{HS_SERVER}/load"
             data: data
             traditional: true
             success: @attachRaters
@@ -132,11 +132,11 @@ class window.HSRater
             me: @me
             relationship: @relationship
         $.ajax 
-            url: "http://#{HS_SERVER}/save"
+            url: "#{window.location.protocol}//#{HS_SERVER}/save"
             data: data
             traditional: true
 
-        console.log 'Saving Hackersmacker', data, @HS_SERVER, @
+        console.log 'Saving Hackersmacker', data, HS_SERVER, @
         HS.graph.friends.push
         @reset()
         @resetDuplicates()
