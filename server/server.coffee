@@ -32,10 +32,10 @@ app.get '/save', (req, res) ->
     res.send "#{JSON.stringify(response)}"
 
 app.get '/safari', (req, res) ->
-    res.redirect '/safari.safariextz'
+    res.redirect '/safari/safari.safariextz'
     
 app.get '/safari.safariextz', (req, res) ->
-    fs.readFile '../client/Safari.safariextz', (err, data) ->
+    fs.readFile '../client/safari/Safari.safariextz', (err, data) ->
         throw err if err
         res.contentType 'application/octet-stream'
         res.send data

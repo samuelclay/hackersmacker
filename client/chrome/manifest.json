@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+
+  "name": "Hacker Smacker",
+  "description": "Highlight (friend) and filter (foe) individual authors on Hacker News",
+  "version": "1.0",
+  "icons": { "128": "icon.png" },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://news.ycombinator.com/*",
+        "https://news.ycombinator.net/*",
+        "http://news.ycombinator.com/*",
+        "http://news.ycombinator.net/*"
+      ],
+      "css": [
+        "client.css"
+      ],
+      "js": [
+        "jquery-171.min.js", 
+        "jquery.easing.js", 
+        "underscore-1.2.3.min.js", 
+        "client.js"
+      ]
+    }
+  ],
+  "permissions": [
+    "https://news.ycombinator.com/",
+    "https://news.ycombinator.net/",
+    "http://news.ycombinator.com/",
+    "http://news.ycombinator.net/",
+    "http://www.hackersmacker.org/",
+    "https://www.hackersmacker.org/"
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  }
+}
