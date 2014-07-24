@@ -18,15 +18,15 @@ This system provides two parts:
 
 A friend or foe has not yet been made. The standard orb:
 
-![](http://github.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot1.png)
+![](https://raw.githubusercontent.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot1.png)
 
 Choosing a friend or foe. Animation provides a nice slide out:
 
-![](http://github.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot2.png)
+![](https://raw.githubusercontent.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot2.png)
 
 A blend of friends and foes illustrating the transformative experience of HACKERSMACKER:
 
-![](http://github.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot3.png)
+![](https://raw.githubusercontent.com/samuelclay/HACKERSMACKER/raw/master/docs/screenshot3.png)
 
 ## Examples of great Hacker News comments from which to start a collection of friends
 
