@@ -1,6 +1,7 @@
 logs/*.log
 *.pycmedia/release/
 *.pyc
+client/certificates
 server/certificates
 media/*/*-compressed-*.*
 media/css/*/*-compressed-*.*
