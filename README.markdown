@@ -18,11 +18,11 @@ Hacker Smacker is divided into two parts:
 
 ### Safari client
 
-[Download the Safari extension](https://github.com/samuelclay/hackersmacker/blob/master/client/safari/Safari.safariextz?raw=true)
+[Download the Safari extension](https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true)
 
 ### Chrome client
 
-[Download the Chrome extension](https://github.com/samuelclay/hackersmacker/blob/master/client/chrome/chrome.crx?raw=true)
+[Download the Chrome extension](https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true)
 
 To install the Chrome extension, you cannot double-click it (unfortunately, Chrome no longer allows this). Instead, drag it into Chrome's Extensions page in <a href="chrome://extensions">chrome://extensions</a>.
 

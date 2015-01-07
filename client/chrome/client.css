@@ -107,6 +107,9 @@
     cursor: default;
 }    
 
+.subtext .HS-foaf {
+    height: 13px;
+}
 .HS-foaf-friend,
 .HS-foaf-foe {
     display: inline-block;

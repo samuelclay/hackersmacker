@@ -24,3 +24,4 @@ xcuserdata
 .xcodeproj/ push.xcodeproj/project.pbxproj
 *.mode1v3
 *.pbxuser
+*.pem
