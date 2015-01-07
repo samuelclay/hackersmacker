@@ -32,7 +32,7 @@
     "http://www.hackersmacker.org/",
     "https://www.hackersmacker.org/"
   ],
-  "browser_action": {
+  "page_action": {
     "default_icon": "icon.png"
   }
 }
