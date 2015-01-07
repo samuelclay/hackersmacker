@@ -1,4 +1,4 @@
-# HACKERSMACKER
+# Hacker Smacker
 ### Friend/foe individual writers on Hacker News.
 
 ## Synopsis
@@ -7,26 +7,40 @@ If you've read Slashdot you know all about the friend/foe system. Next to each
 author is an orb that shows your relationship to the author -- if you've friended 
 or foe'd them. This helps you identify quality authors and filter out obnoxious commenters.
 
-This system provides two parts:
+## Installation
+
+Hacker Smacker is divided into two parts:
 
  * **Client**: the extension that gets injected into Hacker News and reports back 
-               with usernames to compare) and the server.
+               with friends and foes.
  * **Server**: the Node.js/Express.js/Redis system that keeps track of all friends/foes 
                and friend of a friend and foe of a friend relationships.
+
+### Safari client
+
+[Download the Safari extension](https://github.com/samuelclay/HACKERSMACKER/blob/master/client/safari/Safari.safariextz?raw=true)
+
+### Chrome client
+
+### Firefox client
+
+### Server
+
+You don't need to install the server unless you want to run your own private version of Hacker Smacker. If you do decide to install your own server, you're on your own.
  
 ## Screenshots
 
 A friend or foe has not yet been made. The standard orb:
 
-![](https://raw.githubusercontent.com/samuelclay/HACKERSMACKER/master/docs/screenshot1.png)
+![](https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot1.png)
 
 Choosing a friend or foe. Animation provides a nice slide out:
 
-![](https://raw.githubusercontent.com/samuelclay/HACKERSMACKER/master/docs/screenshot2.png)
+![](https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot2.png)
 
-A blend of friends and foes illustrating the transformative experience of HACKERSMACKER:
+A blend of friends and foes illustrating the transformative experience of Hacker Smacker:
 
-![](https://raw.githubusercontent.com/samuelclay/HACKERSMACKER/master/docs/screenshot3.png)
+![](https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot3.png)
 
 ## Examples of great Hacker News comments from which to start a collection of friends
 
@@ -48,7 +62,7 @@ A blend of friends and foes illustrating the transformative experience of HACKER
 
 ## Background
 
-HACKERSMACKER was built to learn how FoaF (Friend of a Friend) works. The idea is that not only do you want to surface content from your friends, but if you chose your friends well, they can help you surface more great content by highlighting comments from their friends.
+Hacker Smacker was built to learn how FoaF (Friend of a Friend) works. The idea is that not only do you want to surface content from your friends, but if you chose your friends well, they can help you surface more great content by highlighting comments from their friends.
 
 The impetus for building a small system where the primary goal is simply to quickly show relationships was that I wanted to build the same system for [NewsBlur](http://www.newsblur.com), a visual RSS feed reader with intelligence. The backend is built using [Redis](http://redis.io) sets and CoffeeScript/Node.js. NewsBlur's social layer, which was built immediately after this project, uses a very similar backend. 
 
