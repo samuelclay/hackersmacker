@@ -9,9 +9,7 @@
     {
       "matches": [
         "https://news.ycombinator.com/*",
-        "https://news.ycombinator.net/*",
         "http://news.ycombinator.com/*",
-        "http://news.ycombinator.net/*"
       ],
       "css": [
         "client.css"
@@ -26,13 +24,13 @@
   ],
   "permissions": [
     "https://news.ycombinator.com/",
-    "https://news.ycombinator.net/",
     "http://news.ycombinator.com/",
-    "http://news.ycombinator.net/",
     "http://www.hackersmacker.org/",
     "https://www.hackersmacker.org/"
   ],
   "page_action": {
-    "default_icon": "icon.png"
+    "default_icon": "icon.png",
+    "default_title": "Hacker Smacker",
+    
   }
 }
