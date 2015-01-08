@@ -1,0 +1,14 @@
+{
+  "name": "hacker-smacker",
+  "title": "Hacker Smacker",
+  "id": "jid1-eo0mcXLTqCkaWA",
+  "description": "Highlight (friend) and filter (foe) individual authors on Hacker News",
+  "author": "Samuel Clay",
+  "license": "MIT",
+  "version": "1.0",
+  "icon": "data/icon-32.png",
+  "icon64": "data/icon-64.png",
+  "permissions": {
+      "cross-domain-content": ["https://www.hackersmacker.org/", "https://news.ycombinator.com/"]
+  }
+}
