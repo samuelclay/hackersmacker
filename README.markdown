@@ -3,9 +3,11 @@
 
 ## Synopsis
 
-If you've read Slashdot you know all about the friend/foe system. Next to each 
-author is an orb that shows your relationship to the author -- if you've friended 
-or foe'd them. This helps you identify quality authors and filter out obnoxious commenters.
+Hacker Smacker helps you identify quality authors and filter out obnoxious commenters on Hacker News. Three little orbs appear next to every author's name and you can choose to either friend or foe them.
+
+What's neat is that if you friend people, and they also use Hacker Smacker, you'll see all of your friend's friends and foes. This helps you identify commenters that you want to read as you quickly scan a comment thread. I've found that this reduces the time I spent on Hacker News, as I can glance at long comment threads and just find the good stuff.
+
+Hacker Smacker is directly inspired by Slashdot's friend/foe system.
 
 ## Installation
 
