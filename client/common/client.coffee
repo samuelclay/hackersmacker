@@ -10,13 +10,19 @@ class window.HSGraph
         @decorateComments()
         
     decorateComments: ->
-        @findCurrentUser()
+        found = @findCurrentUser()
+        return if not found
         @findUsernames()
         @loadRelationships()
         @attachSharers()
         
     findCurrentUser: ->
-        @me = $('.pagetop a[href^=user]').eq(0).attr('href').replace('user?id=', '')
+        $pageTop = $('.pagetop a[href^=user]').eq(0)
+        console.log $pageTop.length
+        if $pageTop.length == 0
+            console.log "Please login to use Hacker Smacker"
+            return false
+        @me = $pageTop.attr('href').replace('user?id=', '')
         
     findUsernames: ->
         @usernames = _.uniq($('a[href^=user]').map ->
