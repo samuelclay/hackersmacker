@@ -16,7 +16,7 @@ do
 done
 
 # Create or renew certificate for the domain(s) supplied for this tool
-$LE_TOOL certonly --webroot -w=$WEBROOT $DOMAINS
+$LE_TOOL --agree-tos --renew-by-default certonly --webroot -w=$WEBROOT $DOMAINS
 # $LE_TOOL --agree-tos --renew-by-default --standalone --standalone-supported-challenges http-01 --http-01-port 9999 certonly $DOMAINS
 
 # Cat the certificate chain and the private key together for haproxy
