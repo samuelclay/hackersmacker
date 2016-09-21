@@ -23,4 +23,4 @@ $LE_TOOL --agree-tos --renew-by-default certonly --webroot -w=$WEBROOT $DOMAINS
 cat $LE_OUTPUT/$1/{fullchain.pem,privkey.pem} > /etc/haproxy/certs/${1}.pem
 
 # Reload the haproxy daemon to activate the cert
-systemctl reload haproxy
+sudo /etc/init.d/haproxy reload
