@@ -20,7 +20,7 @@ $LE_TOOL --agree-tos --renew-by-default certonly --webroot -w=$WEBROOT $DOMAINS
 # $LE_TOOL --agree-tos --renew-by-default --standalone --standalone-supported-challenges http-01 --http-01-port 9999 certonly $DOMAINS
 
 # Cat the certificate chain and the private key together for haproxy
-cat $LE_OUTPUT/$1/{fullchain.pem,privkey.pem} > /etc/haproxy/ssl/${1}.pem
+cat $LE_OUTPUT/$1/{fullchain.pem,privkey.pem} > /etc/haproxy/certs/${1}.pem
 
 # Reload the haproxy daemon to activate the cert
 systemctl reload haproxy
