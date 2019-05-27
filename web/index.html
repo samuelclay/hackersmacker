@@ -5,8 +5,8 @@
     
     <title>Hacker Smacker - Friend and foe writers on Hacker News</title>
     
-    <link rel="stylesheet" href="reset.css" type="text/css" media="screen" charset="utf-8">
     <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="skeleton.css" type="text/css" media="screen" charset="utf-8">
     
     <script src="script.js" type="text/javascript" charset="utf-8"></script>
 </head>
@@ -18,26 +18,95 @@
 </div>
 
 <div class="HS-main">
-    Download the Safari/Chrome/Firefox extensions on Github. <a href="https://github.com/samuelclay/hackersmacker">https://github.com/samuelclay/hackersmacker</a>
+
+    <h3 style="text-align:center;font-size: 1em;font-weight: 800;">Friend/foe individual writers on Hacker News</h3>
+    
+    <h2>Synopsis</h2>
+    <p>Hacker Smacker helps you identify quality authors and filter out obnoxious commenters on Hacker News. Three little orbs appear next to every author's name and you can choose to either friend or foe them.</p>
+    <p>What's neat is that if you friend people, and they also use Hacker Smacker, you'll see all of your friend's friends and foes. This helps you identify commenters that you want to read as you quickly scan a comment thread. I've found that this reduces the time I spent on Hacker News, as I can glance at long comment threads and just find the good stuff.</p>
+    <p>Hacker Smacker is directly inspired by Slashdot's friend/foe system. Hacker Smacker is also open-source and is <a href="https://github.com/samuelclay/hackersmacker">available on GitHub</a>.</p>
+
+    <h3><a href="https://camo.githubusercontent.com/b601f3379180f86d1a94594a504b47f569def75e/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f7361666172692e706e67" target="_blank"><img src="https://camo.githubusercontent.com/b601f3379180f86d1a94594a504b47f569def75e/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f7361666172692e706e67" width="32" data-canonical-src="https://www.hackersmacker.org/images/safari.png" style="max-width:100%;"></a> Safari client</h3>
+    <p><a href="https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true">Download the Safari extension</a></p>
+    <p>To install just double-click the downloaded extension.</p>
+
+    <h3><a href="https://camo.githubusercontent.com/6c6ef6e90f848e6364642056de03ddcecf2ac858/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f6368726f6d652e706e67" target="_blank"><img src="https://camo.githubusercontent.com/6c6ef6e90f848e6364642056de03ddcecf2ac858/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f6368726f6d652e706e67" width="32" data-canonical-src="https://www.hackersmacker.org/images/chrome.png" style="max-width:100%;"></a> Chrome client</h3>
+    <p><a href="https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true">Download the Chrome extension</a></p>
+    <p>To install the Chrome extension, you cannot double-click it (unfortunately, Chrome no longer allows this). Instead, drag it into Chrome's Extensions page at chrome://extensions.</p>
+
+    <h3><a href="https://camo.githubusercontent.com/0ac4aa33f9884fb33895ac9b82ae968257b1e434/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f66697265666f782e706e67" target="_blank"><img src="https://camo.githubusercontent.com/0ac4aa33f9884fb33895ac9b82ae968257b1e434/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f66697265666f782e706e67" width="32" data-canonical-src="https://www.hackersmacker.org/images/firefox.png" style="max-width:100%;"></a> Firefox client</h3>
+    <p><a href="https://github.com/samuelclay/hackersmacker/blob/master/client/firefox.xpi?raw=true">Download the Firefox extension</a></p>
+    <p>To install the Firefox extension, just drag the .xpi file into an open Firefox window.</p>
+
+    <h2>Screenshots</h2>
+    <p>A friend or foe has not yet been made. The standard orb:</p>
+    <p><a href="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot1.png" target="_blank"><img src="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot1.png" alt="" style="max-width:100%;"></a></p>
+    <p>Choosing a friend or foe. Animation provides a nice slide out:</p>
+    <p><a href="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot2.png" target="_blank"><img src="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot2.png" alt="" style="max-width:100%;"></a></p>
+    <p>A blend of friends and foes illustrating the transformative experience of Hacker Smacker:</p>
+    <p><a href="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot3.png" target="_blank"><img src="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot3.png" alt="" style="max-width:100%;"></a></p>
+
+    <h2>Examples of great Hacker News comments from which to start a collection of friends</h2>
+    <ul>
+        <li><a href="http://news.ycombinator.com/item?id=3871674" rel="nofollow">http://news.ycombinator.com/item?id=3871674</a></li>
+        <li><a href="http://news.ycombinator.com/item?id=3543440" rel="nofollow">http://news.ycombinator.com/item?id=3543440</a></li>
+        <li><a href="http://news.ycombinator.com/item?id=3576217" rel="nofollow">http://news.ycombinator.com/item?id=3576217</a></li>
+        <li><a href="http://news.ycombinator.com/item?id=3679698" rel="nofollow">http://news.ycombinator.com/item?id=3679698</a></li>
+        <li><a href="http://news.ycombinator.com/item?id=3702513" rel="nofollow">http://news.ycombinator.com/item?id=3702513</a></li>
+        <li><a href="https://news.ycombinator.com/item?id=7755927" rel="nofollow">https://news.ycombinator.com/item?id=7755927</a></li>
+        <li><a href="https://news.ycombinator.com/item?id=8082029" rel="nofollow">https://news.ycombinator.com/item?id=8082029</a></li>
+    </ul>
+
+    <h2>Acknowledgements</h2>
+    <ul>
+        <li><strong>Mihai Parparita</strong> <a href="mailto:mihaip@chromium.org">mihaip@chromium.org</a> - Help with fixing the issue around browsers not allowing a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.</li>
+    </ul>
+
+    <h2>Installation</h2>
+    <p>Hacker Smacker is divided into two parts:</p>
+    <ul>
+        <li><strong>Client</strong>: the extension that gets injected into Hacker News and reports back with friends and foes.</li>
+        <li><strong>Server</strong>: the Node.js/Express.js/Redis system that keeps track of all friends/foes and friend of a friend and foe of a friend relationships.</li>
+    </ul>
+    <h3>Server</h3>
+    <p>You can find the repo on GitHub: <a href="https://github.com/samuelclay/hackersmacker">https://github.com/samuelclay/hackersmacker</a></p>
+    <p>You don't need to install the server unless you want to run your own private version of Hacker Smacker. If you do decide to install your own server, you're on your own.</p>
+
+    <h2>License</h2>
+    <ul>
+        <li>MIT License</li>
+    </ul>
+
+    <h2>Background</h2>
+    <p>Hacker Smacker was built to learn how FoaF (Friend of a Friend) works. The idea is that not only do you want to surface content from your friends, but if you chose your friends well, they can help you surface more great content by highlighting comments from their friends.</p>
+    <p>The impetus for building a small system where the primary goal is simply to quickly show relationships was that I wanted to build the same system for <a href="http://www.newsblur.com" rel="nofollow">NewsBlur</a>, a visual RSS feed reader with intelligence. The backend is built using <a href="http://redis.io" rel="nofollow">Redis</a> sets and CoffeeScript/Node.js. NewsBlur's social layer, which was built immediately after this project, uses a very similar backend.</p>
+    <p>Learning how to build this project was the main reason, as I am now able to bring this technique to other projects.</p>
+    <h2>Author</h2>
+    <ul>
+        <li><strong>Samuel Clay</strong>: <a href="mailto:samuel@ofbrooklyn.com">samuel@ofbrooklyn.com</a></li>
+        <li><strong>On the web</strong>: <a href="http://www.samuelclay.com" rel="nofollow">www.samuelclay.com</a></li>
+        <li><strong>Twitter</strong>: <a href="http://twitter.com/samuelclay" rel="nofollow">@samuelclay</a></li>
+    </ul>
+
 </div>
 
 <div class="HS-footer">
-    
+
 </div>
 
 <script type="text/javascript">
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28121455-1']);
-  _gaq.push(['_trackPageview']);
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-28121455-1']);
+    _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
 
-</script>
-
+    </script>
+    <!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script> -->
 </body>
 </html>
