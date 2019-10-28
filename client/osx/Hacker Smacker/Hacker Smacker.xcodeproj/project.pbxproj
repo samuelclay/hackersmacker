@@ -11,26 +11,15 @@
 		FF64A45A2334110500BEBB2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4592334110500BEBB2E /* Assets.xcassets */; };
 		FF64A45D2334110500BEBB2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF64A45B2334110500BEBB2E /* MainMenu.xib */; };
 		FF64A46C2334112D00BEBB2E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF64A46B2334112D00BEBB2E /* Cocoa.framework */; };
-		FF64A46F2334112D00BEBB2E /* SafariExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64A46E2334112D00BEBB2E /* SafariExtensionHandler.swift */; };
-		FF64A4712334112D00BEBB2E /* SafariExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64A4702334112D00BEBB2E /* SafariExtensionViewController.swift */; };
 		FF64A4742334112D00BEBB2E /* SafariExtensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4722334112D00BEBB2E /* SafariExtensionViewController.xib */; };
-		FF64A4772334112D00BEBB2E /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4762334112D00BEBB2E /* script.js */; };
-		FF64A4792334112D00BEBB2E /* ToolbarItemIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4782334112D00BEBB2E /* ToolbarItemIcon.pdf */; };
 		FF64A47D2334112D00BEBB2E /* Hacker Smacker.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FF64A4692334112C00BEBB2E /* Hacker Smacker.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FF64A48F2334119600BEBB2E /* client.css in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4822334119600BEBB2E /* client.css */; };
-		FF64A4902334119600BEBB2E /* client.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4832334119600BEBB2E /* client.js */; };
-		FF64A4912334119600BEBB2E /* jquery-171.min.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4842334119600BEBB2E /* jquery-171.min.js */; };
-		FF64A4922334119600BEBB2E /* Chair@512x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4862334119600BEBB2E /* Chair@512x.png */; };
-		FF64A4932334119600BEBB2E /* Chair@1024x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4872334119600BEBB2E /* Chair@1024x.png */; };
-		FF64A4942334119600BEBB2E /* Chair@256x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4882334119600BEBB2E /* Chair@256x.png */; };
-		FF64A4952334119600BEBB2E /* Chair@128x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4892334119600BEBB2E /* Chair@128x.png */; };
-		FF64A4962334119600BEBB2E /* Chair@16.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48A2334119600BEBB2E /* Chair@16.png */; };
-		FF64A4972334119600BEBB2E /* Chair.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48B2334119600BEBB2E /* Chair.png */; };
-		FF64A4982334119600BEBB2E /* Chair@64x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48C2334119600BEBB2E /* Chair@64x.png */; };
-		FF64A4992334119600BEBB2E /* underscore-1.2.3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48D2334119600BEBB2E /* underscore-1.2.3.min.js */; };
-		FF64A49A2334119600BEBB2E /* jquery.easing.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48E2334119600BEBB2E /* jquery.easing.js */; };
-		FF64A49B2334122E00BEBB2E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4752334112D00BEBB2E /* Info.plist */; };
-		FF64A49C2334139F00BEBB2E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FF64A45E2334110500BEBB2E /* Info.plist */; };
+		FF64A4902334119600BEBB2E /* client.css in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4832334119600BEBB2E /* client.css */; };
+		FFA12C91233A59B2005F8169 /* underscore-1.2.3.min.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48D2334119600BEBB2E /* underscore-1.2.3.min.js */; };
+		FFA12C92233A59B2005F8169 /* jquery-171.min.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A4842334119600BEBB2E /* jquery-171.min.js */; };
+		FFA12C93233A59B2005F8169 /* jquery.easing.js in Resources */ = {isa = PBXBuildFile; fileRef = FF64A48E2334119600BEBB2E /* jquery.easing.js */; };
+		FFA12C94233A59B2005F8169 /* SafariExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64A46E2334112D00BEBB2E /* SafariExtensionHandler.swift */; };
+		FFA12C95233A59B2005F8169 /* SafariExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF64A4702334112D00BEBB2E /* SafariExtensionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,20 +58,10 @@
 		FF64A46E2334112D00BEBB2E /* SafariExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariExtensionHandler.swift; sourceTree = "<group>"; };
 		FF64A4702334112D00BEBB2E /* SafariExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariExtensionViewController.swift; sourceTree = "<group>"; };
 		FF64A4732334112D00BEBB2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SafariExtensionViewController.xib; sourceTree = "<group>"; };
-		FF64A4752334112D00BEBB2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF64A4762334112D00BEBB2E /* script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
-		FF64A4782334112D00BEBB2E /* ToolbarItemIcon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ToolbarItemIcon.pdf; sourceTree = "<group>"; };
 		FF64A47A2334112D00BEBB2E /* Hacker_Smacker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Hacker_Smacker.entitlements; sourceTree = "<group>"; };
 		FF64A4822334119600BEBB2E /* client.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = client.css; sourceTree = "<group>"; };
-		FF64A4832334119600BEBB2E /* client.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = client.js; sourceTree = "<group>"; };
+		FF64A4832334119600BEBB2E /* client.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = client.css; sourceTree = "<group>"; };
 		FF64A4842334119600BEBB2E /* jquery-171.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-171.min.js"; sourceTree = "<group>"; };
-		FF64A4862334119600BEBB2E /* Chair@512x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chair@512x.png"; sourceTree = "<group>"; };
-		FF64A4872334119600BEBB2E /* Chair@1024x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chair@1024x.png"; sourceTree = "<group>"; };
-		FF64A4882334119600BEBB2E /* Chair@256x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chair@256x.png"; sourceTree = "<group>"; };
-		FF64A4892334119600BEBB2E /* Chair@128x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chair@128x.png"; sourceTree = "<group>"; };
-		FF64A48A2334119600BEBB2E /* Chair@16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chair@16.png"; sourceTree = "<group>"; };
-		FF64A48B2334119600BEBB2E /* Chair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chair.png; sourceTree = "<group>"; };
-		FF64A48C2334119600BEBB2E /* Chair@64x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chair@64x.png"; sourceTree = "<group>"; };
 		FF64A48D2334119600BEBB2E /* underscore-1.2.3.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "underscore-1.2.3.min.js"; sourceTree = "<group>"; };
 		FF64A48E2334119600BEBB2E /* jquery.easing.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jquery.easing.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,8 +88,7 @@
 		FF64A44B2334110400BEBB2E = {
 			isa = PBXGroup;
 			children = (
-				FF64A4562334110400BEBB2E /* Hacker Smacker */,
-				FF64A46D2334112D00BEBB2E /* Hacker Smacker */,
+				FF64A4562334110400BEBB2E /* HackerSmacker */,
 				FF64A46A2334112D00BEBB2E /* Frameworks */,
 				FF64A4552334110400BEBB2E /* Products */,
 			);
@@ -125,16 +103,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FF64A4562334110400BEBB2E /* Hacker Smacker */ = {
+		FF64A4562334110400BEBB2E /* HackerSmacker */ = {
 			isa = PBXGroup;
 			children = (
 				FF64A4572334110400BEBB2E /* AppDelegate.swift */,
 				FF64A4592334110500BEBB2E /* Assets.xcassets */,
 				FF64A45B2334110500BEBB2E /* MainMenu.xib */,
 				FF64A45E2334110500BEBB2E /* Info.plist */,
+				FF64A46E2334112D00BEBB2E /* SafariExtensionHandler.swift */,
+				FF64A4702334112D00BEBB2E /* SafariExtensionViewController.swift */,
+				FF64A4722334112D00BEBB2E /* SafariExtensionViewController.xib */,
+				FF64A47A2334112D00BEBB2E /* Hacker_Smacker.entitlements */,
+				FF64A4832334119600BEBB2E /* client.css */,
+				FF64A4822334119600BEBB2E /* client.css */,
+				FF64A4842334119600BEBB2E /* jquery-171.min.js */,
+				FF64A48E2334119600BEBB2E /* jquery.easing.js */,
+				FF64A48D2334119600BEBB2E /* underscore-1.2.3.min.js */,
 				FF64A45F2334110500BEBB2E /* Hacker_Smacker.entitlements */,
 			);
-			path = "Hacker Smacker";
+			path = HackerSmacker;
 			sourceTree = "<group>";
 		};
 		FF64A46A2334112D00BEBB2E /* Frameworks */ = {
@@ -143,40 +130,6 @@
 				FF64A46B2334112D00BEBB2E /* Cocoa.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FF64A46D2334112D00BEBB2E /* Hacker Smacker */ = {
-			isa = PBXGroup;
-			children = (
-				FF64A46E2334112D00BEBB2E /* SafariExtensionHandler.swift */,
-				FF64A4702334112D00BEBB2E /* SafariExtensionViewController.swift */,
-				FF64A4722334112D00BEBB2E /* SafariExtensionViewController.xib */,
-				FF64A4752334112D00BEBB2E /* Info.plist */,
-				FF64A4762334112D00BEBB2E /* script.js */,
-				FF64A4782334112D00BEBB2E /* ToolbarItemIcon.pdf */,
-				FF64A47A2334112D00BEBB2E /* Hacker_Smacker.entitlements */,
-				FF64A4822334119600BEBB2E /* client.css */,
-				FF64A4832334119600BEBB2E /* client.js */,
-				FF64A4852334119600BEBB2E /* icons */,
-				FF64A4842334119600BEBB2E /* jquery-171.min.js */,
-				FF64A48E2334119600BEBB2E /* jquery.easing.js */,
-				FF64A48D2334119600BEBB2E /* underscore-1.2.3.min.js */,
-			);
-			path = "Hacker Smacker";
-			sourceTree = "<group>";
-		};
-		FF64A4852334119600BEBB2E /* icons */ = {
-			isa = PBXGroup;
-			children = (
-				FF64A4862334119600BEBB2E /* Chair@512x.png */,
-				FF64A4872334119600BEBB2E /* Chair@1024x.png */,
-				FF64A4882334119600BEBB2E /* Chair@256x.png */,
-				FF64A4892334119600BEBB2E /* Chair@128x.png */,
-				FF64A48A2334119600BEBB2E /* Chair@16.png */,
-				FF64A48B2334119600BEBB2E /* Chair.png */,
-				FF64A48C2334119600BEBB2E /* Chair@64x.png */,
-			);
-			path = icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,7 +177,7 @@
 		FF64A44C2334110400BEBB2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = hs;
+				CLASSPREFIX = "";
 				LastSwiftUpdateCheck = 1030;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = hackersmacker;
@@ -261,9 +214,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA12C93233A59B2005F8169 /* jquery.easing.js in Resources */,
+				FFA12C92233A59B2005F8169 /* jquery-171.min.js in Resources */,
 				FF64A45A2334110500BEBB2E /* Assets.xcassets in Resources */,
 				FF64A45D2334110500BEBB2E /* MainMenu.xib in Resources */,
-				FF64A49C2334139F00BEBB2E /* Info.plist in Resources */,
+				FFA12C91233A59B2005F8169 /* underscore-1.2.3.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,22 +226,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF64A49B2334122E00BEBB2E /* Info.plist in Resources */,
-				FF64A4932334119600BEBB2E /* Chair@1024x.png in Resources */,
-				FF64A4992334119600BEBB2E /* underscore-1.2.3.min.js in Resources */,
-				FF64A4982334119600BEBB2E /* Chair@64x.png in Resources */,
-				FF64A4912334119600BEBB2E /* jquery-171.min.js in Resources */,
-				FF64A4902334119600BEBB2E /* client.js in Resources */,
-				FF64A49A2334119600BEBB2E /* jquery.easing.js in Resources */,
+				FF64A4902334119600BEBB2E /* client.css in Resources */,
 				FF64A48F2334119600BEBB2E /* client.css in Resources */,
-				FF64A4792334112D00BEBB2E /* ToolbarItemIcon.pdf in Resources */,
 				FF64A4742334112D00BEBB2E /* SafariExtensionViewController.xib in Resources */,
-				FF64A4772334112D00BEBB2E /* script.js in Resources */,
-				FF64A4972334119600BEBB2E /* Chair.png in Resources */,
-				FF64A4942334119600BEBB2E /* Chair@256x.png in Resources */,
-				FF64A4922334119600BEBB2E /* Chair@512x.png in Resources */,
-				FF64A4962334119600BEBB2E /* Chair@16.png in Resources */,
-				FF64A4952334119600BEBB2E /* Chair@128x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +239,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA12C94233A59B2005F8169 /* SafariExtensionHandler.swift in Sources */,
 				FF64A4582334110400BEBB2E /* AppDelegate.swift in Sources */,
+				FFA12C95233A59B2005F8169 /* SafariExtensionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +249,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF64A4712334112D00BEBB2E /* SafariExtensionViewController.swift in Sources */,
-				FF64A46F2334112D00BEBB2E /* SafariExtensionHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +277,7 @@
 				FF64A4732334112D00BEBB2E /* Base */,
 			);
 			name = SafariExtensionViewController.xib;
+			path = ../HackerSmacker;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -458,13 +401,12 @@
 		FF64A4632334110500BEBB2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker/Hacker_Smacker.entitlements";
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/Hacker_Smacker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = HR7P97SD72;
-				INFOPLIST_FILE = "Hacker Smacker/Info.plist";
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -478,13 +420,12 @@
 		FF64A4642334110500BEBB2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker/Hacker_Smacker.entitlements";
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/Hacker_Smacker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = HR7P97SD72;
-				INFOPLIST_FILE = "Hacker Smacker/Info.plist";
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -498,10 +439,10 @@
 		FF64A47F2334112D00BEBB2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker/Hacker_Smacker.entitlements";
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/Hacker_Smacker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR7P97SD72;
-				INFOPLIST_FILE = "Hacker Smacker/Info.plist";
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -517,10 +458,10 @@
 		FF64A4802334112D00BEBB2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker/Hacker_Smacker.entitlements";
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/Hacker_Smacker.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HR7P97SD72;
-				INFOPLIST_FILE = "Hacker Smacker/Info.plist";
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
