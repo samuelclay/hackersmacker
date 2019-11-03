@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FFA12C8E233A58B8005F8169 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FFAF4B94233415A6005AD3DB /* script.js */; };
+		FFA12C8F233A58B8005F8169 /* SafariExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF4B8E233415A5005AD3DB /* SafariExtensionViewController.swift */; };
+		FFA12C90233A58B8005F8169 /* SafariExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF4B8C233415A5005AD3DB /* SafariExtensionHandler.swift */; };
+		FFAF4B7623341590005AD3DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAF4B7523341590005AD3DB /* AppDelegate.swift */; };
+		FFAF4B7823341591005AD3DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFAF4B7723341591005AD3DB /* Assets.xcassets */; };
+		FFAF4B7B23341591005AD3DB /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFAF4B7923341591005AD3DB /* MainMenu.xib */; };
+		FFAF4B8A233415A5005AD3DB /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFAF4B89233415A5005AD3DB /* Cocoa.framework */; };
+		FFAF4B92233415A6005AD3DB /* SafariExtensionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FFAF4B90233415A6005AD3DB /* SafariExtensionViewController.xib */; };
+		FFAF4B97233415A6005AD3DB /* ToolbarItemIcon.pdf in Resources */ = {isa = PBXBuildFile; fileRef = FFAF4B96233415A6005AD3DB /* ToolbarItemIcon.pdf */; };
+		FFAF4B9B233415A6005AD3DB /* HackerSmacker.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FFAF4B87233415A5005AD3DB /* HackerSmacker.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FFAF4B99233415A6005AD3DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FFAF4B6A23341590005AD3DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFAF4B86233415A5005AD3DB;
+			remoteInfo = HackerSmacker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FFAF4B9F233415A6005AD3DB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				FFAF4B9B233415A6005AD3DB /* HackerSmacker.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		FFAF4B7223341590005AD3DB /* HackerSmackerOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HackerSmackerOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFAF4B7523341590005AD3DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FFAF4B7723341591005AD3DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FFAF4B7A23341591005AD3DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		FFAF4B7C23341591005AD3DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFAF4B87233415A5005AD3DB /* HackerSmacker.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HackerSmacker.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFAF4B89233415A5005AD3DB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		FFAF4B8C233415A5005AD3DB /* SafariExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariExtensionHandler.swift; sourceTree = "<group>"; };
+		FFAF4B8E233415A5005AD3DB /* SafariExtensionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariExtensionViewController.swift; sourceTree = "<group>"; };
+		FFAF4B91233415A6005AD3DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SafariExtensionViewController.xib; sourceTree = "<group>"; };
+		FFAF4B93233415A6005AD3DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FFAF4B94233415A6005AD3DB /* script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = script.js; sourceTree = "<group>"; };
+		FFAF4B96233415A6005AD3DB /* ToolbarItemIcon.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = ToolbarItemIcon.pdf; sourceTree = "<group>"; };
+		FFAF4B98233415A6005AD3DB /* HackerSmacker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HackerSmacker.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FFAF4B6F23341590005AD3DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFAF4B84233415A5005AD3DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFAF4B8A233415A5005AD3DB /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FFAF4B6923341590005AD3DB = {
+			isa = PBXGroup;
+			children = (
+				FFAF4B7423341590005AD3DB /* HackerSmacker */,
+				FFAF4B88233415A5005AD3DB /* Frameworks */,
+				FFAF4B7323341590005AD3DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FFAF4B7323341590005AD3DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FFAF4B7223341590005AD3DB /* HackerSmackerOSX.app */,
+				FFAF4B87233415A5005AD3DB /* HackerSmacker.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FFAF4B7423341590005AD3DB /* HackerSmacker */ = {
+			isa = PBXGroup;
+			children = (
+				FFAF4B7523341590005AD3DB /* AppDelegate.swift */,
+				FFAF4B7723341591005AD3DB /* Assets.xcassets */,
+				FFAF4B7923341591005AD3DB /* MainMenu.xib */,
+				FFAF4B8C233415A5005AD3DB /* SafariExtensionHandler.swift */,
+				FFAF4B8E233415A5005AD3DB /* SafariExtensionViewController.swift */,
+				FFAF4B90233415A6005AD3DB /* SafariExtensionViewController.xib */,
+				FFAF4B93233415A6005AD3DB /* Info.plist */,
+				FFAF4B94233415A6005AD3DB /* script.js */,
+				FFAF4B96233415A6005AD3DB /* ToolbarItemIcon.pdf */,
+				FFAF4B98233415A6005AD3DB /* HackerSmacker.entitlements */,
+				FFAF4B7C23341591005AD3DB /* Info.plist */,
+			);
+			path = HackerSmacker;
+			sourceTree = "<group>";
+		};
+		FFAF4B88233415A5005AD3DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFAF4B89233415A5005AD3DB /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FFAF4B7123341590005AD3DB /* HackerSmackerOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFAF4B8023341591005AD3DB /* Build configuration list for PBXNativeTarget "HackerSmackerOSX" */;
+			buildPhases = (
+				FFAF4B6E23341590005AD3DB /* Sources */,
+				FFAF4B6F23341590005AD3DB /* Frameworks */,
+				FFAF4B7023341590005AD3DB /* Resources */,
+				FFAF4B9F233415A6005AD3DB /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FFAF4B9A233415A6005AD3DB /* PBXTargetDependency */,
+			);
+			name = HackerSmackerOSX;
+			productName = HackerSmacker;
+			productReference = FFAF4B7223341590005AD3DB /* HackerSmackerOSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FFAF4B86233415A5005AD3DB /* HackerSmacker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFAF4B9C233415A6005AD3DB /* Build configuration list for PBXNativeTarget "HackerSmacker" */;
+			buildPhases = (
+				FFAF4B83233415A5005AD3DB /* Sources */,
+				FFAF4B84233415A5005AD3DB /* Frameworks */,
+				FFAF4B85233415A5005AD3DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HackerSmacker;
+			productName = HackerSmacker;
+			productReference = FFAF4B87233415A5005AD3DB /* HackerSmacker.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FFAF4B6A23341590005AD3DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1030;
+				LastUpgradeCheck = 1030;
+				ORGANIZATIONNAME = hackersmacker;
+				TargetAttributes = {
+					FFAF4B7123341590005AD3DB = {
+						CreatedOnToolsVersion = 10.3;
+					};
+					FFAF4B86233415A5005AD3DB = {
+						CreatedOnToolsVersion = 10.3;
+					};
+				};
+			};
+			buildConfigurationList = FFAF4B6D23341590005AD3DB /* Build configuration list for PBXProject "HackerSmacker" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FFAF4B6923341590005AD3DB;
+			productRefGroup = FFAF4B7323341590005AD3DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FFAF4B7123341590005AD3DB /* HackerSmackerOSX */,
+				FFAF4B86233415A5005AD3DB /* HackerSmacker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FFAF4B7023341590005AD3DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFAF4B7823341591005AD3DB /* Assets.xcassets in Resources */,
+				FFA12C8E233A58B8005F8169 /* script.js in Resources */,
+				FFAF4B7B23341591005AD3DB /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFAF4B85233415A5005AD3DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFAF4B97233415A6005AD3DB /* ToolbarItemIcon.pdf in Resources */,
+				FFAF4B92233415A6005AD3DB /* SafariExtensionViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FFAF4B6E23341590005AD3DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFA12C8F233A58B8005F8169 /* SafariExtensionViewController.swift in Sources */,
+				FFAF4B7623341590005AD3DB /* AppDelegate.swift in Sources */,
+				FFA12C90233A58B8005F8169 /* SafariExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFAF4B83233415A5005AD3DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FFAF4B9A233415A6005AD3DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FFAF4B86233415A5005AD3DB /* HackerSmacker */;
+			targetProxy = FFAF4B99233415A6005AD3DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FFAF4B7923341591005AD3DB /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FFAF4B7A23341591005AD3DB /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		FFAF4B90233415A6005AD3DB /* SafariExtensionViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FFAF4B91233415A6005AD3DB /* Base */,
+			);
+			name = SafariExtensionViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FFAF4B7E23341591005AD3DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FFAF4B7F23341591005AD3DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		FFAF4B8123341591005AD3DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/HackerSmacker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HR7P97SD72;
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hackersmacker.HackerSmacker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FFAF4B8223341591005AD3DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/HackerSmacker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = HR7P97SD72;
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hackersmacker.HackerSmacker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FFAF4B9D233415A6005AD3DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/HackerSmacker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR7P97SD72;
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hackersmacker.HackerSmacker.HackerSmacker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FFAF4B9E233415A6005AD3DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = HackerSmacker/HackerSmacker.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HR7P97SD72;
+				INFOPLIST_FILE = HackerSmacker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hackersmacker.HackerSmacker.HackerSmacker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FFAF4B6D23341590005AD3DB /* Build configuration list for PBXProject "HackerSmacker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFAF4B7E23341591005AD3DB /* Debug */,
+				FFAF4B7F23341591005AD3DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFAF4B8023341591005AD3DB /* Build configuration list for PBXNativeTarget "HackerSmackerOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFAF4B8123341591005AD3DB /* Debug */,
+				FFAF4B8223341591005AD3DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFAF4B9C233415A6005AD3DB /* Build configuration list for PBXNativeTarget "HackerSmacker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFAF4B9D233415A6005AD3DB /* Debug */,
+				FFAF4B9E233415A6005AD3DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FFAF4B6A23341590005AD3DB /* Project object */;
+}
