@@ -63,6 +63,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
  * [http://news.ycombinator.com/item?id=3702513](http://news.ycombinator.com/item?id=3702513)
  * [https://news.ycombinator.com/item?id=7755927](https://news.ycombinator.com/item?id=7755927)
  * [https://news.ycombinator.com/item?id=8082029](https://news.ycombinator.com/item?id=8082029)
+ * [https://news.ycombinator.com/item?id=33894033](https://news.ycombinator.com/item?id=33894033)
 
 ## Acknowledgements
 
