@@ -415,7 +415,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker Extension/Hacker_Smacker_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Hacker Smacker Extension/Info.plist";
@@ -436,7 +436,7 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker Extension/Hacker_Smacker_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Hacker Smacker Extension/Info.plist";
@@ -460,7 +460,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker/Hacker_Smacker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Hacker Smacker/Info.plist";
@@ -482,7 +482,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Hacker Smacker/Hacker_Smacker.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = "Hacker Smacker/Info.plist";
