@@ -10,8 +10,17 @@ graph = require './graph'
 app = express.createServer()
 app.use express.bodyParser()
 
+# CORS middleware for all requests
+app.use (req, res, next) ->
+    res.header 'Access-Control-Allow-Origin', '*'
+    res.header 'Access-Control-Allow-Methods', 'GET, OPTIONS'
+    res.header 'Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept'
+    if req.method == 'OPTIONS'
+        res.send 200
+    else
+        next()
+
 app.get '/load', (req, res) ->
-    res.header 'Access-Control-Allow-Origin', 'https://news.ycombinator.com'
     originalUsername = req.query.me
     usernames = req.query.u
     graph.findRelationships originalUsername, usernames, (m) ->
@@ -23,7 +32,6 @@ app.get '/load', (req, res) ->
         res.send "#{JSON.stringify(m)}"
     
 app.get '/save', (req, res) ->
-    res.header 'Access-Control-Allow-Origin', 'https://news.ycombinator.com'
     username = req.query.username
     relationship = req.query.relationship
     originalUsername = req.query.me
