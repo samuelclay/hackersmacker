@@ -42,17 +42,32 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 
 ## Get the Extension
 
-### <img src="web/images/safari.png" width="32"> Safari
-
-[Download the Safari extension](https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true) — Double-click to install.
-
 ### <img src="web/images/chrome.png" width="32"> Chrome
 
-[Download the Chrome extension](https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true) — Drag into <a href="chrome://extensions">chrome://extensions</a>.
+**From the Web Store:** [Install from Chrome Web Store](https://chrome.google.com/webstore/detail/hacker-smacker/) <!-- Update with actual Web Store URL -->
+
+**Load unpacked (development):**
+1. Go to `chrome://extensions`
+2. Enable "Developer mode" (top right)
+3. Click "Load unpacked" and select the `client/chrome/` directory
 
 ### <img src="web/images/firefox.png" width="32"> Firefox
 
-[Download the Firefox extension](https://github.com/samuelclay/hackersmacker/blob/master/client/firefox.xpi?raw=true) — Drag the .xpi file into an open Firefox window.
+**From Add-ons:** [Install from Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/hacker-smacker/)
+
+**Load temporarily (development):**
+1. Go to `about:debugging#/runtime/this-firefox`
+2. Click "Load Temporary Add-on"
+3. Select `client/firefox/manifest.json`
+
+### <img src="web/images/safari.png" width="32"> Safari
+
+**From the App Store:** [Install from Mac App Store](https://apps.apple.com/app/hacker-smacker/) <!-- Update with actual App Store URL -->
+
+**Build from source (development):**
+1. Open `client/safari/Hacker Smacker/Hacker Smacker.xcodeproj` in Xcode
+2. Build and run (Cmd+R)
+3. Enable the extension in Safari > Settings > Extensions
 
 ## Great comments to start your collection
 
