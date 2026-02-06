@@ -5,7 +5,7 @@
   };
 
   // window.HS_SERVER = 'nb.local.host:3030'
-  window.HS_SERVER = 'localhost:3040';
+  window.HS_SERVER = 'www.hackersmacker.org';
 
   window.HS_PROTOCOL = HS_SERVER.indexOf('localhost') !== -1 ? 'http:' : 'https:';
 

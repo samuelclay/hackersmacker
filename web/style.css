@@ -482,6 +482,18 @@ a:hover {
     flex-shrink: 0;
 }
 
+/* ---- Privacy policy list ---- */
+
+.HS-privacy-list {
+    padding-left: 20px;
+    list-style: disc;
+}
+
+.HS-privacy-list li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
 .HS-comment-list a {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.78rem;
