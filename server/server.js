@@ -503,7 +503,7 @@ document.getElementById('HS-visibility-toggle').addEventListener('change', funct
 
   // Privacy policy
   app.get('/privacy', function(req, res) {
-    return res.sendfile(`${__dirname}/../web/privacy.html`);
+    return res.sendFile(__dirname + '/../web/privacy.html');
   });
 
   // Static files
