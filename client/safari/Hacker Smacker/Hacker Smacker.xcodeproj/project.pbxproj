@@ -655,8 +655,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Hacker Smacker Extension";
@@ -667,12 +667,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker.Extension";
 				PRODUCT_NAME = "Hacker Smacker Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -689,8 +689,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Hacker Smacker Extension";
@@ -701,12 +701,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker.Extension";
 				PRODUCT_NAME = "Hacker Smacker Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -726,8 +726,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Hacker Smacker";
@@ -741,14 +741,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker";
 				PRODUCT_NAME = "Hacker Smacker";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -767,8 +767,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Hacker Smacker";
@@ -782,14 +782,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker";
 				PRODUCT_NAME = "Hacker Smacker";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -807,8 +807,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -822,12 +822,12 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker.Extension";
 				PRODUCT_NAME = "Hacker Smacker Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -843,8 +843,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
@@ -858,12 +858,12 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker.Extension";
 				PRODUCT_NAME = "Hacker Smacker Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -881,8 +881,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -897,14 +897,14 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker";
 				PRODUCT_NAME = "Hacker Smacker";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
@@ -923,8 +923,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = QF2HCQL683;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = HR7P97SD72;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
@@ -939,14 +939,14 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.samuelclay.HackerSmacker;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hackersmacker.Hacker-Smacker";
 				PRODUCT_NAME = "Hacker Smacker";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = macosx;
