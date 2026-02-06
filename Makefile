@@ -35,6 +35,10 @@ compile-dev:
 	@mv client/common/client.dev.js client/common/client.js
 	@rm client/common/client.dev.coffee
 	@coffee -c client/common/background.coffee
+	@# Add localhost permission to Chrome manifest for local dev
+	@sed 's|"http://www.hackersmacker.org/"|"http://www.hackersmacker.org/",\n      "http://localhost:3040/"|' \
+		client/chrome/manifest.json > client/chrome/manifest.dev.json
+	@mv client/chrome/manifest.dev.json client/chrome/manifest.json
 	@cp client/common/client.js client/chrome/client.js
 	@cp client/common/background.js client/chrome/background.js
 	@cp client/common/client.js client/firefox/data/client.js
@@ -45,6 +49,9 @@ compile-dev:
 compile-prod:
 	@coffee -c client/common/client.coffee
 	@coffee -c client/common/background.coffee
+	@# Restore Chrome manifest (remove any localhost permissions)
+	@sed '/localhost:3040/d' client/chrome/manifest.json > client/chrome/manifest.prod.json
+	@mv client/chrome/manifest.prod.json client/chrome/manifest.json
 	@cp client/common/client.js client/chrome/client.js
 	@cp client/common/background.js client/chrome/background.js
 	@cp client/common/client.js client/firefox/data/client.js

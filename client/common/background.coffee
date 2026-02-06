@@ -25,6 +25,26 @@ handleMessage = (request, sender, sendResponse) ->
                 sendResponse { success: true }
             return true
 
+        when 'setPendingVerification'
+            storage.set
+                hs_pending_token: request.token
+                hs_pending_username: request.username
+            , ->
+                sendResponse { success: true }
+            return true
+
+        when 'getPendingVerification'
+            storage.get ['hs_pending_token', 'hs_pending_username'], (data) ->
+                sendResponse
+                    token: data?.hs_pending_token or null
+                    username: data?.hs_pending_username or null
+            return true
+
+        when 'clearPendingVerification'
+            storage.remove ['hs_pending_token', 'hs_pending_username'], ->
+                sendResponse { success: true }
+            return true
+
 if chrome?.runtime?.onMessage
     chrome.runtime.onMessage.addListener handleMessage
 else if typeof browser isnt 'undefined' and browser?.runtime?.onMessage

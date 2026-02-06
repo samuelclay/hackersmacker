@@ -3,19 +3,17 @@ https  = require 'https'
 redis  = require 'redis'
 client = redis.createClient null, process.env.REDIS_HOST || null
 
-VERIFICATION_TTL = 3600
-MAX_BACKOFF      = 120
-BASE_DELAY       = 5
-BASE62_CHARS     = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-USERNAME_RE      = /^[a-zA-Z0-9_-]+$/
+MIN_CHECK_INTERVAL = 3   # seconds between HN scrapes
+BASE62_CHARS       = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+USERNAME_RE        = /^[a-zA-Z0-9_-]+$/
 
 module.exports =
 
-    generateVerificationToken: ->
+    generateVerificationToken: (username) ->
         bytes = crypto.randomBytes(18)
-        token = ''
-        token += BASE62_CHARS[b % 62] for b in bytes
-        "HS:#{token}"
+        code = ''
+        code += BASE62_CHARS[b % 62] for b in bytes
+        "https://www.hackersmacker.org/user/#{username}?hs=#{code}"
 
     generateAuthToken: (callback) ->
         crypto.randomBytes 32, (err, buf) ->
@@ -30,40 +28,35 @@ module.exports =
         pendingKey = "V:#{username}:pending"
         authKey    = "V:#{username}:auth_token"
 
-        # Check if already verified
+        # Check if already verified — return auth token so extension can recover
         client.get authKey, (err, existingToken) =>
             if existingToken
                 return callback
                     code: 2
                     status: 'already_verified'
-                    message: 'Already verified. Start again to re-verify.'
+                    auth_token: existingToken
 
-            # Check for existing pending verification (idempotent)
+            # Return existing token or generate one — token is stable per user
             client.hgetall pendingKey, (err, pending) =>
                 if pending and pending.token
                     return callback
                         code: 1
                         username: username
                         verification_token: pending.token
-                        instructions: "Add this token to your Hacker News profile's 'about' section."
-                        expires_in: VERIFICATION_TTL
 
-                # Generate new verification
-                token = @generateVerificationToken()
+                # Generate new verification (first time only)
+                token = @generateVerificationToken(username)
                 now = new Date().toISOString()
                 client.hmset pendingKey,
                     'token', token
                     'created_at', now
-                    'attempts', '0'
                     'last_attempt', ''
-                client.expire pendingKey, VERIFICATION_TTL
+                # No TTL — token lives until verified
 
                 callback
                     code: 1
                     username: username
                     verification_token: token
-                    instructions: "Add this token to your Hacker News profile's 'about' section."
-                    expires_in: VERIFICATION_TTL
 
     checkVerification: (username, callback) ->
         return callback(error: 'Invalid username', code: -1) unless @validateUsername(username)
@@ -74,27 +67,20 @@ module.exports =
             if not pending or not pending.token
                 return callback
                     code: -2
-                    status: 'expired'
-                    message: 'Verification request has expired. Please start again.'
+                    status: 'no_pending'
+                    message: 'No verification in progress. Please start verification first.'
 
-            attempts = parseInt(pending.attempts, 10) or 0
-            lastAttempt = pending.last_attempt
+            # Light rate limit — just prevent hammering HN
             now = Date.now()
-            delay = @calculateBackoff(attempts)
-
-            # Enforce backoff
-            if lastAttempt
-                elapsed = (now - new Date(lastAttempt).getTime()) / 1000
-                if elapsed < delay
-                    remaining = Math.ceil(delay - elapsed)
+            if pending.last_attempt
+                elapsed = (now - new Date(pending.last_attempt).getTime()) / 1000
+                if elapsed < MIN_CHECK_INTERVAL
+                    remaining = Math.ceil(MIN_CHECK_INTERVAL - elapsed)
                     return callback
                         code: -1
                         status: 'rate_limited'
-                        message: 'Please wait before checking again.'
                         retry_after: remaining
 
-            # Update attempt count
-            client.hincrby pendingKey, 'attempts', 1
             client.hset pendingKey, 'last_attempt', new Date().toISOString()
 
             # Scrape HN profile
@@ -104,7 +90,6 @@ module.exports =
                         code: 0
                         status: 'error'
                         message: 'Could not reach Hacker News. Try again shortly.'
-                        retry_after: delay
 
                 if foundToken and foundToken is pending.token
                     # Verification succeeded
@@ -117,12 +102,10 @@ module.exports =
                             status: 'verified'
                             auth_token: authToken
                 else
-                    nextDelay = @calculateBackoff(attempts + 1)
                     callback
                         code: 0
                         status: 'pending'
-                        message: "Token not found in profile. Next check in #{nextDelay}s."
-                        retry_after: nextDelay
+                        message: 'Token not found in your HN profile yet.'
 
     checkStatus: (username, authToken, callback) ->
         return callback(code: 0, status: 'unverified') unless @validateUsername(username)
@@ -142,7 +125,6 @@ module.exports =
         key = "V:#{username}:auth_token"
         client.get key, (err, storedToken) ->
             return callback(false) if err or not storedToken or not providedToken
-            # Ensure same length for timingSafeEqual
             if providedToken.length isnt storedToken.length
                 return callback(false)
             try
@@ -155,7 +137,6 @@ module.exports =
                 callback(false)
 
     scrapeHNProfile: (username, callback) ->
-        url = "https://news.ycombinator.com/user?id=#{encodeURIComponent(username)}"
         options =
             hostname: 'news.ycombinator.com'
             path: "/user?id=#{encodeURIComponent(username)}"
@@ -167,12 +148,17 @@ module.exports =
             body = ''
             res.on 'data', (chunk) -> body += chunk
             res.on 'end', ->
-                # HN profile: about field is in a <td> after the "about:" label
-                aboutMatch = body.match(/about:<\/td><td>([\s\S]*?)<\/td>/i)
+                aboutMatch = body.match(/about:<\/td><td[^>]*>([\s\S]*?)<\/td>/i)
                 if aboutMatch
                     aboutContent = aboutMatch[1]
-                    tokenMatch = aboutContent.match(/HS:[a-zA-Z0-9]{24}/)
-                    callback null, tokenMatch?[0] or null
+                    # HN encodes / as &#x2F;
+                    normalized = aboutContent.replace(/&#x2F;/g, '/').replace(/&amp;/g, '&')
+                    tokenMatch = normalized.match(/hackersmacker\.org\/user\/([a-zA-Z0-9_-]+)\?hs=([a-zA-Z0-9]{18})/)
+                    if tokenMatch
+                        fullToken = "https://www.hackersmacker.org/user/#{tokenMatch[1]}?hs=#{tokenMatch[2]}"
+                        callback null, fullToken
+                    else
+                        callback null, null
                 else
                     callback null, null
 
@@ -180,6 +166,3 @@ module.exports =
         req.on 'timeout', ->
             req.destroy()
             callback(new Error('Request timed out'), null)
-
-    calculateBackoff: (attempts) ->
-        Math.min(BASE_DELAY * Math.pow(2, attempts), MAX_BACKOFF)

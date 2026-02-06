@@ -19,7 +19,7 @@ app.use (req, res, next) ->
 # Auth middleware (logs warnings for now, enforces on /save)
 requireAuth = (req, res, next) ->
     username = req.query.me or req.body?.me
-    authToken = req.query.auth_token or req.headers['x-hs-auth']
+    authToken = req.query.auth_token or req.body?.auth_token or req.headers['x-hs-auth']
     if not username or not authToken
         res.contentType 'json'
         res.send JSON.stringify({ code: -1, message: 'Authentication required. Please verify your identity.' }), 401
@@ -116,7 +116,7 @@ app.get '/verify/check', (req, res) ->
 
 app.get '/verify/status', (req, res) ->
     username = req.query.me
-    authToken = req.query.auth_token or req.headers['x-hs-auth']
+    authToken = req.query.auth_token or req.body?.auth_token or req.headers['x-hs-auth']
     auth.checkStatus username, authToken, (result) ->
         res.contentType 'json'
         res.send JSON.stringify(result)
@@ -294,14 +294,14 @@ profilePageHTML = (username, profile, isPublic, isOwner, authToken) ->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>#{eUser} - Hacker Smacker</title>
-    <link rel="stylesheet" href="/skeleton.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
-    <div class="HS-top">
-        <a href="/"><img src="/images/hackersmacker_logo.png" alt="Hacker Smacker"></a>
-    </div>
+    <header class="HS-top">
+        <a href="/"><img src="/images/hackersmacker_logo.png" alt="Hacker Smacker" class="HS-logo"></a>
+        <p class="HS-tagline">Friend/foe individual writers on Hacker News</p>
+    </header>
 
     <div class="HS-profile">
         <div class="HS-profile-header">

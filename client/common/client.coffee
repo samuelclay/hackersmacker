@@ -3,6 +3,7 @@ window._HS = (e) ->
 
 # window.HS_SERVER = 'nb.local.host:3030'
 window.HS_SERVER = 'www.hackersmacker.org'
+window.HS_PROTOCOL = if HS_SERVER.indexOf('localhost') isnt -1 then 'http:' else 'https:'
 
 class window.HSGraph
 
@@ -29,15 +30,17 @@ class window.HSGraph
         else
             callback()
 
-    storeAuthToken: (token, username) ->
+    storeAuthToken: (token, username, callback) ->
         @auth_token = token
         @stored_username = username
         @verified = true
         msg = { action: 'setAuthToken', auth_token: token, username: username }
         if chrome?.runtime?.sendMessage
-            chrome.runtime.sendMessage msg
+            chrome.runtime.sendMessage msg, -> callback?()
         else if typeof browser isnt 'undefined' and browser?.runtime?.sendMessage
-            browser.runtime.sendMessage msg
+            browser.runtime.sendMessage msg, -> callback?()
+        else
+            callback?()
 
     clearAuthToken: ->
         @auth_token = null
@@ -79,13 +82,32 @@ class window.HSGraph
 
     checkVerificationStatus: ->
         return unless @me
+        # Check if there's a pending verification stored from a previous page load
+        sendMsg = chrome?.runtime?.sendMessage or (typeof browser isnt 'undefined' and browser?.runtime?.sendMessage)
+        if sendMsg
+            chrome.runtime.sendMessage { action: 'getPendingVerification' }, (response) =>
+                if response?.token and response?.username is @me
+                    # Resume pending verification
+                    @showTokenInstructions(response.token)
+                    return
+                # No pending — check server
+                @_checkServerStatus()
+        else
+            @_checkServerStatus()
+
+    _checkServerStatus: ->
         $.ajax
-            url: "#{window.location.protocol}//#{HS_SERVER}/verify/status"
+            url: "#{HS_PROTOCOL}//#{HS_SERVER}/verify/start"
             data: { me: @me }
             dataType: 'json'
             success: (response) =>
-                if response.status is 'unverified'
+                if response.code is 2 and response.auth_token
+                    # Already verified — restore token silently
+                    @storeAuthToken response.auth_token, @me
+                else
                     @showWelcome()
+            error: =>
+                @showWelcome()
 
     # ============================================================
     # First-time user experience
@@ -154,16 +176,57 @@ class window.HSGraph
 
     startVerification: ->
         $.ajax
-            url: "#{window.location.protocol}//#{HS_SERVER}/verify/start"
+            url: "#{HS_PROTOCOL}//#{HS_SERVER}/verify/start"
             data: { me: @me }
             dataType: 'json'
             success: (response) =>
-                if response.code is 1
-                    @showTokenInstructions(response.verification_token)
-                else if response.code is 2
-                    @showTokenInstructions(response.verification_token) if response.verification_token
+                if response.code is 2 and response.auth_token
+                    # Already verified — restore auth token
+                    @storeAuthToken response.auth_token, @me, =>
+                        @showVerified()
+                else if response.code is 1
+                    # Save token to storage, then redirect to profile page
+                    @_storePendingVerification response.verification_token, =>
+                        window.location.href = "https://news.ycombinator.com/user?id=#{@me}"
+
+    _storePendingVerification: (token, callback) ->
+        msg = { action: 'setPendingVerification', token: token, username: @me }
+        if chrome?.runtime?.sendMessage
+            chrome.runtime.sendMessage msg, -> callback?()
+        else if typeof browser isnt 'undefined' and browser?.runtime?.sendMessage
+            browser.runtime.sendMessage msg, -> callback?()
+        else
+            callback?()
+
+    _clearPendingVerification: ->
+        msg = { action: 'clearPendingVerification' }
+        if chrome?.runtime?.sendMessage
+            chrome.runtime.sendMessage msg
+        else if typeof browser isnt 'undefined' and browser?.runtime?.sendMessage
+            browser.runtime.sendMessage msg
+
+    _ensureBanner: ->
+        if $('.HS-verify-banner').length is 0
+            $banner = $ """
+                <tr><td colspan="2">
+                <div class="HS-verify-banner" style="
+                    background: linear-gradient(to bottom, #FFFEF7, #FFF9E6);
+                    border: 1px solid #E0D8B8;
+                    padding: 14px 18px;
+                    margin: 6px 8px;
+                    font-size: 12px;
+                    font-family: Verdana, Geneva, sans-serif;
+                    color: #333;
+                    border-radius: 4px;
+                    line-height: 1.7;
+                    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+                "></div>
+                </td></tr>
+            """
+            $('table#hnmain > tbody').children().eq(0).after($banner)
 
     showTokenInstructions: (token) ->
+        @_ensureBanner()
         $('.HS-verify-banner').html """
             <div style="line-height: 1.8;">
                 <div style="margin-bottom: 10px;">
@@ -191,22 +254,30 @@ class window.HSGraph
                             color: #96592A;
                             font-weight: bold;
                         ">Open your HN profile</a>
-                        and add this anywhere in your <em>about</em> section:
+                        and add this link anywhere in your <em>about</em> section:
                     </div>
-                    <div style="text-align: center; margin: 8px 0;">
-                        <code style="
+                    <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
+                        <code class="HS-verify-token" style="
                             background: #fff;
                             padding: 6px 14px;
                             border-radius: 3px;
-                            font-size: 13px;
+                            font-size: 12px;
                             user-select: all;
                             border: 1px solid #DDD8C8;
-                            letter-spacing: 0.5px;
                             cursor: text;
-                        ">#{token}</code>
-                    </div>
-                    <div style="font-size: 11px; color: #8A8272; text-align: center;">
-                        Click the code to select it, then copy &amp; paste into your profile.
+                            word-break: break-all;
+                            flex: 1;
+                        ">HackerSmacker profile: #{token}</code>
+                        <a href="#" class="HS-copy-token" style="
+                            background: #96592A;
+                            color: #fff;
+                            padding: 5px 10px;
+                            border-radius: 3px;
+                            text-decoration: none;
+                            font-size: 11px;
+                            font-weight: bold;
+                            white-space: nowrap;
+                        ">Copy</a>
                     </div>
                 </div>
                 <div>
@@ -232,12 +303,33 @@ class window.HSGraph
                     ">Check now</a>
                     <span class="HS-verify-status" style="color: #8A8272; margin-left: 8px; font-size: 11px;"></span>
                 </div>
-                <div style="margin-top: 8px; font-size: 11px; color: #8A8272;">
-                    You can remove the token from your profile after verification.
+                <div style="
+                    margin-top: 10px;
+                    padding-top: 10px;
+                    border-top: 1px solid #EDE8D6;
+                    font-size: 11px;
+                    color: #5C5444;
+                    line-height: 1.6;
+                ">
+                    <strong>Tip:</strong> Leave the link in your profile and others can discover your
+                    <a href="https://www.hackersmacker.org/user/#{@me}" target="_blank" style="color: #96592A;">HackerSmacker profile</a>
+                    &mdash; or remove it after verifying. Either way works!
                 </div>
             </div>
         """
         @_verifyAttempt = 0
+        $('.HS-copy-token').on 'click', (e) ->
+            e.preventDefault()
+            $code = $('.HS-verify-token')
+            range = document.createRange()
+            range.selectNodeContents($code[0])
+            sel = window.getSelection()
+            sel.removeAllRanges()
+            sel.addRange(range)
+            navigator.clipboard.writeText($code.text()).then ->
+                $(e.target).text('Copied!').css('background', '#4F934D')
+                setTimeout (-> $(e.target).text('Copy').css('background', '#96592A')), 2000
+
         $('.HS-verify-check').on 'click', (e) =>
             e.preventDefault()
             @pollVerification()
@@ -246,57 +338,63 @@ class window.HSGraph
         setTimeout (=> @pollVerification()), 8000
 
     pollVerification: ->
-        @_verifyAttempt = (@_verifyAttempt or 0)
-        $('.HS-verify-status').text 'Checking...'
+        $('.HS-verify-status').html '<span style="color: #96592A;">Checking your HN profile...</span>'
         $.ajax
-            url: "#{window.location.protocol}//#{HS_SERVER}/verify/check"
+            url: "#{HS_PROTOCOL}//#{HS_SERVER}/verify/check"
             data: { me: @me }
             dataType: 'json'
             success: (response) =>
                 if response.status is 'verified'
-                    @storeAuthToken response.auth_token, @me
-                    @showVerified()
+                    @storeAuthToken response.auth_token, @me, =>
+                        @_clearPendingVerification()
+                        @showVerified()
                 else if response.status is 'pending'
-                    @_verifyAttempt++
-                    retryAfter = response.retry_after or 10
-                    $('.HS-verify-status').text "Not found yet. Will check again in #{retryAfter}s..."
-                    setTimeout (=> @pollVerification()), retryAfter * 1000
-                else if response.status is 'rate_limited'
-                    retryAfter = response.retry_after or 20
-                    $('.HS-verify-status').text "Checking again in #{retryAfter}s..."
-                    setTimeout (=> @pollVerification()), retryAfter * 1000
-                else if response.status is 'expired'
-                    $('.HS-verify-banner').html """
-                        <div style="color: #AC473B;">
-                            Verification expired (took too long).
-                            <a href="#" class="HS-verify-start" style="color: #96592A; font-weight: bold; margin-left: 6px;">Start over &rarr;</a>
-                        </div>
-                    """
-                    $('.HS-verify-start').on 'click', (e) =>
+                    $('.HS-verify-status').html '<span style="color: #8A8272;">Not found yet. Save your HN profile, then </span>'
+                    $('.HS-verify-status').append '<a href="#" class="HS-verify-retry" style="color: #96592A; font-weight: bold;">check again</a>'
+                    $('.HS-verify-retry').on 'click', (e) =>
                         e.preventDefault()
-                        @startVerification()
+                        @pollVerification()
+                else if response.status is 'rate_limited'
+                    retryAfter = response.retry_after or 3
+                    $('.HS-verify-status').html "<span style=\"color: #8A8272;\">Hold on... checking again in #{retryAfter}s</span>"
+                    setTimeout (=> @pollVerification()), retryAfter * 1000
+                else if response.status is 'no_pending'
+                    @startVerification()
             error: =>
-                $('.HS-verify-status').text 'Could not reach server. Try again.'
+                $('.HS-verify-status').html '<span style="color: #AC473B;">Could not reach server.</span> <a href="#" class="HS-verify-retry" style="color: #96592A; font-weight: bold;">Try again</a>'
+                $('.HS-verify-retry').on 'click', (e) =>
+                    e.preventDefault()
+                    @pollVerification()
 
     showVerified: ->
-        $('.HS-verify-banner').html """
-            <div>
-                <span style="color: #4F934D; font-weight: bold; font-size: 13px;">&#10003; You're verified!</span>
-                <span style="color: #5C5444; margin-left: 8px;">
-                    You can now rate commenters. Click the orbs next to any username.
-                </span>
-                <a href="https://#{HS_SERVER}/user/#{@me}" target="_blank" style="
-                    color: #96592A;
-                    margin-left: 10px;
-                    font-size: 11px;
-                ">View your profile &rarr;</a>
+        @_ensureBanner()
+        $('.HS-verify-banner').css(
+            'background': 'linear-gradient(to bottom, #F0F7EF, #E8F3E6)'
+            'border-color': '#B8D4B6'
+        ).html """
+            <div style="text-align: center; padding: 6px 0;">
+                <div style="margin-bottom: 6px;">
+                    <span style="
+                        color: #4F934D;
+                        font-weight: bold;
+                        font-size: 15px;
+                    ">&#10003; You're verified!</span>
+                </div>
+                <div style="color: #5C5444; font-size: 12px;">
+                    You can now rate commenters using the orbs next to each username.
+                    <a href="#{HS_PROTOCOL}//#{HS_SERVER}/user/#{@me}" target="_blank" style="
+                        color: #96592A;
+                        font-weight: bold;
+                        margin-left: 6px;
+                    ">View your profile &rarr;</a>
+                </div>
             </div>
         """
         # Fade out after a while
         setTimeout (->
             $('.HS-verify-banner').animate { opacity: 0 }, 1000, ->
                 $(@).parent().parent().remove()
-        ), 10000
+        ), 15000
 
     # ============================================================
     # Core functionality
@@ -313,7 +411,7 @@ class window.HSGraph
             me: @me
         data.auth_token = @auth_token if @auth_token
         $.ajax
-            url: "#{window.location.protocol}//#{HS_SERVER}/load"
+            url: "#{HS_PROTOCOL}//#{HS_SERVER}/load"
             data: data
             traditional: true
             success: @attachRaters
@@ -429,14 +527,12 @@ class window.HSRater
             thread_url: context.thread_url
             parent_author: context.parent_author
         $.ajax
-            url: "#{window.location.protocol}//#{HS_SERVER}/save"
+            url: "#{HS_PROTOCOL}//#{HS_SERVER}/save"
             type: 'POST'
             data: data
             traditional: true
             error: (xhr) =>
-                if xhr.status is 401
-                    HS.clearAuthToken()
-                    HS.showWelcome()
+                console.log 'Hackersmacker save error:', xhr.status, xhr.responseText
 
         console.log 'Saving Hackersmacker', @relationship, @username, HS_SERVER
         @reset()

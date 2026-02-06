@@ -7,6 +7,8 @@
   // window.HS_SERVER = 'nb.local.host:3030'
   window.HS_SERVER = 'localhost:3040';
 
+  window.HS_PROTOCOL = HS_SERVER.indexOf('localhost') !== -1 ? 'http:' : 'https:';
+
   window.HSGraph = class HSGraph {
     constructor() {
       this.attachRaters = this.attachRaters.bind(this);
@@ -43,7 +45,7 @@
       }
     }
 
-    storeAuthToken(token, username) {
+    storeAuthToken(token, username, callback) {
       var msg, ref, ref1;
       this.auth_token = token;
       this.stored_username = username;
@@ -54,9 +56,15 @@
         username: username
       };
       if (typeof chrome !== "undefined" && chrome !== null ? (ref = chrome.runtime) != null ? ref.sendMessage : void 0 : void 0) {
-        return chrome.runtime.sendMessage(msg);
+        return chrome.runtime.sendMessage(msg, function() {
+          return typeof callback === "function" ? callback() : void 0;
+        });
       } else if (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0)) {
-        return browser.runtime.sendMessage(msg);
+        return browser.runtime.sendMessage(msg, function() {
+          return typeof callback === "function" ? callback() : void 0;
+        });
+      } else {
+        return typeof callback === "function" ? callback() : void 0;
       }
     }
 
@@ -111,19 +119,46 @@
     }
 
     checkVerificationStatus() {
+      var ref, ref1, sendMsg;
       if (!this.me) {
         return;
       }
+      // Check if there's a pending verification stored from a previous page load
+      sendMsg = (typeof chrome !== "undefined" && chrome !== null ? (ref = chrome.runtime) != null ? ref.sendMessage : void 0 : void 0) || (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0));
+      if (sendMsg) {
+        return chrome.runtime.sendMessage({
+          action: 'getPendingVerification'
+        }, (response) => {
+          if ((response != null ? response.token : void 0) && (response != null ? response.username : void 0) === this.me) {
+            // Resume pending verification
+            this.showTokenInstructions(response.token);
+            return;
+          }
+          // No pending — check server
+          return this._checkServerStatus();
+        });
+      } else {
+        return this._checkServerStatus();
+      }
+    }
+
+    _checkServerStatus() {
       return $.ajax({
-        url: `${window.location.protocol}//${HS_SERVER}/verify/status`,
+        url: `${HS_PROTOCOL}//${HS_SERVER}/verify/start`,
         data: {
           me: this.me
         },
         dataType: 'json',
         success: (response) => {
-          if (response.status === 'unverified') {
+          if (response.code === 2 && response.auth_token) {
+            // Already verified — restore token silently
+            return this.storeAuthToken(response.auth_token, this.me);
+          } else {
             return this.showWelcome();
           }
+        },
+        error: () => {
+          return this.showWelcome();
         }
       });
     }
@@ -203,24 +238,82 @@
 
     startVerification() {
       return $.ajax({
-        url: `${window.location.protocol}//${HS_SERVER}/verify/start`,
+        url: `${HS_PROTOCOL}//${HS_SERVER}/verify/start`,
         data: {
           me: this.me
         },
         dataType: 'json',
         success: (response) => {
-          if (response.code === 1) {
-            return this.showTokenInstructions(response.verification_token);
-          } else if (response.code === 2) {
-            if (response.verification_token) {
-              return this.showTokenInstructions(response.verification_token);
-            }
+          if (response.code === 2 && response.auth_token) {
+            // Already verified — restore auth token
+            return this.storeAuthToken(response.auth_token, this.me, () => {
+              return this.showVerified();
+            });
+          } else if (response.code === 1) {
+            // Save token to storage, then redirect to profile page
+            return this._storePendingVerification(response.verification_token, () => {
+              return window.location.href = `https://news.ycombinator.com/user?id=${this.me}`;
+            });
           }
         }
       });
     }
 
+    _storePendingVerification(token, callback) {
+      var msg, ref, ref1;
+      msg = {
+        action: 'setPendingVerification',
+        token: token,
+        username: this.me
+      };
+      if (typeof chrome !== "undefined" && chrome !== null ? (ref = chrome.runtime) != null ? ref.sendMessage : void 0 : void 0) {
+        return chrome.runtime.sendMessage(msg, function() {
+          return typeof callback === "function" ? callback() : void 0;
+        });
+      } else if (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0)) {
+        return browser.runtime.sendMessage(msg, function() {
+          return typeof callback === "function" ? callback() : void 0;
+        });
+      } else {
+        return typeof callback === "function" ? callback() : void 0;
+      }
+    }
+
+    _clearPendingVerification() {
+      var msg, ref, ref1;
+      msg = {
+        action: 'clearPendingVerification'
+      };
+      if (typeof chrome !== "undefined" && chrome !== null ? (ref = chrome.runtime) != null ? ref.sendMessage : void 0 : void 0) {
+        return chrome.runtime.sendMessage(msg);
+      } else if (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0)) {
+        return browser.runtime.sendMessage(msg);
+      }
+    }
+
+    _ensureBanner() {
+      var $banner;
+      if ($('.HS-verify-banner').length === 0) {
+        $banner = $(`<tr><td colspan="2">
+<div class="HS-verify-banner" style="
+    background: linear-gradient(to bottom, #FFFEF7, #FFF9E6);
+    border: 1px solid #E0D8B8;
+    padding: 14px 18px;
+    margin: 6px 8px;
+    font-size: 12px;
+    font-family: Verdana, Geneva, sans-serif;
+    color: #333;
+    border-radius: 4px;
+    line-height: 1.7;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+"></div>
+</td></tr>`);
+        return $('table#hnmain > tbody').children().eq(0).after($banner);
+      }
+    }
+
     showTokenInstructions(token) {
+      this._ensureBanner();
       $('.HS-verify-banner').html(`<div style="line-height: 1.8;">
     <div style="margin-bottom: 10px;">
         <strong style="font-size: 13px; color: #2C2416;">Verify your account</strong>
@@ -247,22 +340,30 @@
                 color: #96592A;
                 font-weight: bold;
             ">Open your HN profile</a>
-            and add this anywhere in your <em>about</em> section:
+            and add this link anywhere in your <em>about</em> section:
         </div>
-        <div style="text-align: center; margin: 8px 0;">
-            <code style="
+        <div style="display: flex; align-items: center; gap: 8px; margin: 8px 0;">
+            <code class="HS-verify-token" style="
                 background: #fff;
                 padding: 6px 14px;
                 border-radius: 3px;
-                font-size: 13px;
+                font-size: 12px;
                 user-select: all;
                 border: 1px solid #DDD8C8;
-                letter-spacing: 0.5px;
                 cursor: text;
-            ">${token}</code>
-        </div>
-        <div style="font-size: 11px; color: #8A8272; text-align: center;">
-            Click the code to select it, then copy &amp; paste into your profile.
+                word-break: break-all;
+                flex: 1;
+            ">HackerSmacker profile: ${token}</code>
+            <a href="#" class="HS-copy-token" style="
+                background: #96592A;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 3px;
+                text-decoration: none;
+                font-size: 11px;
+                font-weight: bold;
+                white-space: nowrap;
+            ">Copy</a>
         </div>
     </div>
     <div>
@@ -288,11 +389,36 @@
         ">Check now</a>
         <span class="HS-verify-status" style="color: #8A8272; margin-left: 8px; font-size: 11px;"></span>
     </div>
-    <div style="margin-top: 8px; font-size: 11px; color: #8A8272;">
-        You can remove the token from your profile after verification.
+    <div style="
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid #EDE8D6;
+        font-size: 11px;
+        color: #5C5444;
+        line-height: 1.6;
+    ">
+        <strong>Tip:</strong> Leave the link in your profile and others can discover your
+        <a href="https://www.hackersmacker.org/user/${this.me}" target="_blank" style="color: #96592A;">HackerSmacker profile</a>
+        &mdash; or remove it after verifying. Either way works!
     </div>
 </div>`);
       this._verifyAttempt = 0;
+      $('.HS-copy-token').on('click', function(e) {
+        var $code, range, sel;
+        e.preventDefault();
+        $code = $('.HS-verify-token');
+        range = document.createRange();
+        range.selectNodeContents($code[0]);
+        sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        return navigator.clipboard.writeText($code.text()).then(function() {
+          $(e.target).text('Copied!').css('background', '#4F934D');
+          return setTimeout((function() {
+            return $(e.target).text('Copy').css('background', '#96592A');
+          }), 2000);
+        });
+      });
       $('.HS-verify-check').on('click', (e) => {
         e.preventDefault();
         return this.pollVerification();
@@ -304,10 +430,9 @@
     }
 
     pollVerification() {
-      this._verifyAttempt = this._verifyAttempt || 0;
-      $('.HS-verify-status').text('Checking...');
+      $('.HS-verify-status').html('<span style="color: #96592A;">Checking your HN profile...</span>');
       return $.ajax({
-        url: `${window.location.protocol}//${HS_SERVER}/verify/check`,
+        url: `${HS_PROTOCOL}//${HS_SERVER}/verify/check`,
         data: {
           me: this.me
         },
@@ -315,49 +440,58 @@
         success: (response) => {
           var retryAfter;
           if (response.status === 'verified') {
-            this.storeAuthToken(response.auth_token, this.me);
-            return this.showVerified();
-          } else if (response.status === 'pending') {
-            this._verifyAttempt++;
-            retryAfter = response.retry_after || 10;
-            $('.HS-verify-status').text(`Not found yet. Will check again in ${retryAfter}s...`);
-            return setTimeout((() => {
-              return this.pollVerification();
-            }), retryAfter * 1000);
-          } else if (response.status === 'rate_limited') {
-            retryAfter = response.retry_after || 20;
-            $('.HS-verify-status').text(`Checking again in ${retryAfter}s...`);
-            return setTimeout((() => {
-              return this.pollVerification();
-            }), retryAfter * 1000);
-          } else if (response.status === 'expired') {
-            $('.HS-verify-banner').html(`<div style="color: #AC473B;">
-    Verification expired (took too long).
-    <a href="#" class="HS-verify-start" style="color: #96592A; font-weight: bold; margin-left: 6px;">Start over &rarr;</a>
-</div>`);
-            return $('.HS-verify-start').on('click', (e) => {
-              e.preventDefault();
-              return this.startVerification();
+            return this.storeAuthToken(response.auth_token, this.me, () => {
+              this._clearPendingVerification();
+              return this.showVerified();
             });
+          } else if (response.status === 'pending') {
+            $('.HS-verify-status').html('<span style="color: #8A8272;">Not found yet. Save your HN profile, then </span>');
+            $('.HS-verify-status').append('<a href="#" class="HS-verify-retry" style="color: #96592A; font-weight: bold;">check again</a>');
+            return $('.HS-verify-retry').on('click', (e) => {
+              e.preventDefault();
+              return this.pollVerification();
+            });
+          } else if (response.status === 'rate_limited') {
+            retryAfter = response.retry_after || 3;
+            $('.HS-verify-status').html(`<span style=\"color: #8A8272;\">Hold on... checking again in ${retryAfter}s</span>`);
+            return setTimeout((() => {
+              return this.pollVerification();
+            }), retryAfter * 1000);
+          } else if (response.status === 'no_pending') {
+            return this.startVerification();
           }
         },
         error: () => {
-          return $('.HS-verify-status').text('Could not reach server. Try again.');
+          $('.HS-verify-status').html('<span style="color: #AC473B;">Could not reach server.</span> <a href="#" class="HS-verify-retry" style="color: #96592A; font-weight: bold;">Try again</a>');
+          return $('.HS-verify-retry').on('click', (e) => {
+            e.preventDefault();
+            return this.pollVerification();
+          });
         }
       });
     }
 
     showVerified() {
-      $('.HS-verify-banner').html(`<div>
-    <span style="color: #4F934D; font-weight: bold; font-size: 13px;">&#10003; You're verified!</span>
-    <span style="color: #5C5444; margin-left: 8px;">
-        You can now rate commenters. Click the orbs next to any username.
-    </span>
-    <a href="https://${HS_SERVER}/user/${this.me}" target="_blank" style="
-        color: #96592A;
-        margin-left: 10px;
-        font-size: 11px;
-    ">View your profile &rarr;</a>
+      this._ensureBanner();
+      $('.HS-verify-banner').css({
+        'background': 'linear-gradient(to bottom, #F0F7EF, #E8F3E6)',
+        'border-color': '#B8D4B6'
+      }).html(`<div style="text-align: center; padding: 6px 0;">
+    <div style="margin-bottom: 6px;">
+        <span style="
+            color: #4F934D;
+            font-weight: bold;
+            font-size: 15px;
+        ">&#10003; You're verified!</span>
+    </div>
+    <div style="color: #5C5444; font-size: 12px;">
+        You can now rate commenters using the orbs next to each username.
+        <a href="${HS_PROTOCOL}//${HS_SERVER}/user/${this.me}" target="_blank" style="
+            color: #96592A;
+            font-weight: bold;
+            margin-left: 6px;
+        ">View your profile &rarr;</a>
+    </div>
 </div>`);
       // Fade out after a while
       return setTimeout((function() {
@@ -366,7 +500,7 @@
         }, 1000, function() {
           return $(this).parent().parent().remove();
         });
-      }), 10000);
+      }), 15000);
     }
 
     // ============================================================
@@ -388,7 +522,7 @@
         data.auth_token = this.auth_token;
       }
       return $.ajax({
-        url: `${window.location.protocol}//${HS_SERVER}/load`,
+        url: `${HS_PROTOCOL}//${HS_SERVER}/load`,
         data: data,
         traditional: true,
         success: this.attachRaters
@@ -552,15 +686,12 @@
         parent_author: context.parent_author
       };
       $.ajax({
-        url: `${window.location.protocol}//${HS_SERVER}/save`,
+        url: `${HS_PROTOCOL}//${HS_SERVER}/save`,
         type: 'POST',
         data: data,
         traditional: true,
         error: (xhr) => {
-          if (xhr.status === 401) {
-            HS.clearAuthToken();
-            return HS.showWelcome();
-          }
+          return console.log('Hackersmacker save error:', xhr.status, xhr.responseText);
         }
       });
       console.log('Saving Hackersmacker', this.relationship, this.username, HS_SERVER);

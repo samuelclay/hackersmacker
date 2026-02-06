@@ -33,6 +33,31 @@
           });
         });
         return true;
+      case 'setPendingVerification':
+        storage.set({
+          hs_pending_token: request.token,
+          hs_pending_username: request.username
+        }, function() {
+          return sendResponse({
+            success: true
+          });
+        });
+        return true;
+      case 'getPendingVerification':
+        storage.get(['hs_pending_token', 'hs_pending_username'], function(data) {
+          return sendResponse({
+            token: (data != null ? data.hs_pending_token : void 0) || null,
+            username: (data != null ? data.hs_pending_username : void 0) || null
+          });
+        });
+        return true;
+      case 'clearPendingVerification':
+        storage.remove(['hs_pending_token', 'hs_pending_username'], function() {
+          return sendResponse({
+            success: true
+          });
+        });
+        return true;
     }
   };
 
