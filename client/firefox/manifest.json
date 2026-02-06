@@ -40,7 +40,11 @@
   "browser_specific_settings": {
     "gecko": {
       "id": "jid1-eo0mcXLTqCkaWA@jetpack",
-      "strict_min_version": "57.0"
+      "strict_min_version": "58.0",
+      "data_collection_permissions": {
+        "required": ["personallyIdentifyingInfo", "authenticationInfo", "websiteContent"],
+        "optional": ["technicalAndInteraction"]
+      }
     }
   },
   "page_action": {
