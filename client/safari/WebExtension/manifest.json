@@ -4,7 +4,11 @@
   "name": "Hacker Smacker",
   "description": "Highlight (friend) and filter (foe) individual authors on Hacker News",
   "version": "2.0",
-  "icons": { "128": "icon.png" },
+  "icons": {
+    "48": "images/icon-48.png",
+    "64": "images/icon-64.png",
+    "128": "images/icon-128.png"
+  },
   "background": {
     "scripts": ["background.js"],
     "persistent": false
@@ -34,7 +38,10 @@
     "storage"
   ],
   "page_action": {
-    "default_icon": "icon.png",
+    "default_icon": {
+      "48": "images/icon-48.png",
+      "64": "images/icon-64.png"
+    },
     "default_title": "Hacker Smacker"
   }
 }

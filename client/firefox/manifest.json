@@ -4,9 +4,13 @@
   "name": "Hacker Smacker",
   "description": "Highlight (friend) and filter (foe) individual authors on Hacker News",
   "version": "2.0",
-  "icons": { "128": "icon.png" },
+  "icons": {
+    "16": "data/icon-16.png",
+    "32": "data/icon-32.png",
+    "64": "data/icon-64.png"
+  },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["data/background.js"],
     "persistent": false
   },
   "content_scripts": [
@@ -16,13 +20,13 @@
         "http://news.ycombinator.com/*"
       ],
       "css": [
-        "client.css"
+        "data/client.css"
       ],
       "js": [
-        "jquery-171.min.js",
-        "jquery.easing.js",
-        "underscore-1.2.3.min.js",
-        "client.js"
+        "data/jquery-171.min.js",
+        "data/jquery.easing.js",
+        "data/underscore-1.2.3.min.js",
+        "data/client.js"
       ]
     }
   ],
@@ -33,8 +37,17 @@
     "https://www.hackersmacker.org/",
     "storage"
   ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "jid1-eo0mcXLTqCkaWA@jetpack",
+      "strict_min_version": "57.0"
+    }
+  },
   "page_action": {
-    "default_icon": "icon.png",
+    "default_icon": {
+      "16": "data/icon-16.png",
+      "32": "data/icon-32.png"
+    },
     "default_title": "Hacker Smacker"
   }
 }

@@ -1,0 +1,463 @@
+/* ==========================================================
+   Hacker Smacker — Profile Pages
+   A warm, bookish ledger of friends and foes.
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --hs-parchment:     #E5DFCC;
+    --hs-parchment-dk:  #D8D0B8;
+    --hs-cream:         #F7F5EF;
+    --hs-linen:         #FAFAF6;
+    --hs-ink:           #2C2416;
+    --hs-ink-light:     #5C5444;
+    --hs-ink-muted:     #8A8272;
+    --hs-rule:          #DDD8C8;
+    --hs-rule-light:    #EEEADE;
+
+    --hs-friend:        #4F934D;
+    --hs-friend-light:  #54AB54;
+    --hs-friend-bg:     #F0F7EF;
+    --hs-friend-border: #7FBB7D;
+    --hs-friend-glow:   rgba(79, 147, 77, 0.08);
+
+    --hs-foe:           #AC473B;
+    --hs-foe-light:     #C2483B;
+    --hs-foe-bg:        #FBF3F2;
+    --hs-foe-border:    #D4918A;
+    --hs-foe-glow:      rgba(172, 71, 59, 0.06);
+
+    --hs-link:          #96592A;
+    --hs-link-hover:    #7A4520;
+
+    --radius-sm:        3px;
+    --radius-md:        5px;
+}
+
+/* ---- Page background ---- */
+
+body {
+    background-color: var(--hs-cream);
+    background-image:
+        radial-gradient(ellipse at 20% 0%, rgba(229, 223, 204, 0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 100%, rgba(229, 223, 204, 0.25) 0%, transparent 50%);
+    min-height: 100vh;
+}
+
+/* ---- Profile container ---- */
+
+.HS-profile {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 32px 24px 48px;
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    color: var(--hs-ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Profile header ---- */
+
+.HS-profile-header {
+    padding-bottom: 24px;
+    margin-bottom: 32px;
+    border-bottom: 2px solid var(--hs-parchment);
+    position: relative;
+}
+
+.HS-profile-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--hs-rule-light);
+}
+
+.HS-profile-header h2 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 2.4em;
+    font-weight: 700;
+    color: var(--hs-ink);
+    letter-spacing: -0.02em;
+    margin: 0 0 6px;
+    line-height: 1.15;
+}
+
+.HS-profile-meta {
+    font-size: 0.95em;
+    color: var(--hs-ink-muted);
+    margin: 0;
+}
+
+.HS-profile-meta a {
+    color: var(--hs-link);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(150, 89, 42, 0.25);
+    transition: border-color 0.2s;
+}
+
+.HS-profile-meta a:hover {
+    color: var(--hs-link-hover);
+    border-bottom-color: var(--hs-link-hover);
+}
+
+/* ---- Owner controls ---- */
+
+.HS-profile-controls {
+    margin-top: 16px;
+}
+
+.HS-toggle-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.88em;
+    color: var(--hs-ink-light);
+    padding: 6px 12px;
+    background: var(--hs-linen);
+    border: 1px solid var(--hs-rule);
+    border-radius: var(--radius-md);
+    transition: background 0.15s, border-color 0.15s;
+    user-select: none;
+}
+
+.HS-toggle-label:hover {
+    background: var(--hs-cream);
+    border-color: var(--hs-parchment-dk);
+}
+
+.HS-toggle-label input[type="checkbox"] {
+    accent-color: var(--hs-friend);
+    width: 15px;
+    height: 15px;
+    margin: 0;
+}
+
+/* ---- Section titles ---- */
+
+.HS-profile-section {
+    margin-bottom: 40px;
+}
+
+.HS-section-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--hs-rule);
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.HS-friends-title {
+    color: var(--hs-friend);
+}
+
+.HS-foes-title {
+    color: var(--hs-foe);
+}
+
+.HS-count {
+    font-weight: 300;
+    font-size: 0.82em;
+    color: var(--hs-ink-muted);
+}
+
+/* ---- Rating cards ---- */
+
+.HS-rating-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.HS-rating-card {
+    padding: 14px 18px;
+    border-left: 3px solid var(--hs-rule);
+    background: var(--hs-linen);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    transition: background 0.15s, box-shadow 0.2s;
+}
+
+.HS-rating-card:hover {
+    box-shadow: 0 1px 6px rgba(44, 36, 22, 0.06);
+}
+
+.HS-rating-card.HS-rating-friend {
+    border-left-color: var(--hs-friend-border);
+    background: var(--hs-friend-bg);
+}
+
+.HS-rating-card.HS-rating-friend:hover {
+    background: var(--hs-friend-bg);
+    box-shadow:
+        0 1px 6px var(--hs-friend-glow),
+        inset 0 0 0 1px rgba(79, 147, 77, 0.06);
+}
+
+.HS-rating-card.HS-rating-foe {
+    border-left-color: var(--hs-foe-border);
+    background: var(--hs-foe-bg);
+}
+
+.HS-rating-card.HS-rating-foe:hover {
+    background: var(--hs-foe-bg);
+    box-shadow:
+        0 1px 6px var(--hs-foe-glow),
+        inset 0 0 0 1px rgba(172, 71, 59, 0.04);
+}
+
+.HS-rating-card.HS-no-context {
+    opacity: 0.6;
+}
+
+.HS-rating-card.HS-no-context:hover {
+    opacity: 0.8;
+}
+
+/* ---- Card header ---- */
+
+.HS-rating-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.HS-rating-orb {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid #8A8B7C;
+    flex-shrink: 0;
+}
+
+.HS-orb-friend {
+    background: linear-gradient(to top, #4F934D 16%, #54AB54 84%);
+    box-shadow: 0 0 0 1px rgba(79, 147, 77, 0.15);
+}
+
+.HS-orb-foe {
+    background: linear-gradient(to top, #AC473B 16%, #C2483B 84%);
+    box-shadow: 0 0 0 1px rgba(172, 71, 59, 0.12);
+}
+
+.HS-rated-user {
+    font-family: 'JetBrains Mono', 'Menlo', monospace;
+    font-size: 0.92em;
+    font-weight: 500;
+    color: var(--hs-ink);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+}
+
+.HS-rated-user:hover {
+    color: var(--hs-link-hover);
+}
+
+.HS-profile-link {
+    font-size: 0.78em;
+    color: var(--hs-ink-muted);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.HS-rating-card:hover .HS-profile-link {
+    opacity: 1;
+}
+
+.HS-profile-link:hover {
+    color: var(--hs-link);
+}
+
+.HS-rating-time {
+    font-size: 0.8em;
+    color: var(--hs-ink-muted);
+    margin-left: auto;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---- Rating context ---- */
+
+.HS-rating-context {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--hs-rule-light);
+}
+
+.HS-rating-thread {
+    font-size: 0.85em;
+    color: var(--hs-ink-muted);
+    margin-bottom: 8px;
+}
+
+.HS-rating-thread a {
+    color: var(--hs-ink-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--hs-rule);
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.HS-rating-thread a:hover {
+    color: var(--hs-link);
+    border-bottom-color: var(--hs-link);
+}
+
+.HS-rating-comment {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 0.92em;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--hs-ink-light);
+    margin: 8px 0;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.6);
+    border-left: 2px solid var(--hs-parchment-dk);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    max-height: 120px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Fade-out for truncated comments */
+.HS-rating-comment::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 32px;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(250, 250, 246, 0.85) 100%
+    );
+    pointer-events: none;
+}
+
+.HS-rating-friend .HS-rating-comment::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(240, 247, 239, 0) 0%,
+        rgba(240, 247, 239, 0.9) 100%
+    );
+}
+
+.HS-rating-foe .HS-rating-comment::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(251, 243, 242, 0) 0%,
+        rgba(251, 243, 242, 0.9) 100%
+    );
+}
+
+.HS-rating-permalink {
+    font-size: 0.82em;
+    color: var(--hs-ink-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.HS-rating-permalink:hover {
+    color: var(--hs-link);
+}
+
+/* ---- Private message ---- */
+
+.HS-private-message {
+    text-align: center;
+    padding: 64px 24px;
+    color: var(--hs-ink-muted);
+}
+
+.HS-private-message h3 {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--hs-ink);
+    margin: 0 0 12px;
+}
+
+.HS-private-message p {
+    font-size: 0.95em;
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ---- Empty state ---- */
+
+.HS-empty {
+    font-style: italic;
+    color: var(--hs-ink-muted);
+    padding: 20px 0;
+    font-size: 0.92em;
+}
+
+/* ---- Footer ---- */
+
+.HS-footer {
+    text-align: center;
+    padding: 28px 24px;
+    margin-top: 48px;
+    border-top: 1px solid var(--hs-rule);
+    font-size: 0.85em;
+    color: var(--hs-ink-muted);
+}
+
+.HS-footer p {
+    margin: 0;
+}
+
+.HS-footer a {
+    color: var(--hs-link);
+    text-decoration: none;
+}
+
+.HS-footer a:hover {
+    color: var(--hs-link-hover);
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 640px) {
+    .HS-profile {
+        padding: 20px 16px 36px;
+    }
+
+    .HS-profile-header h2 {
+        font-size: 1.8em;
+    }
+
+    .HS-rating-card {
+        padding: 12px 14px;
+    }
+
+    .HS-rating-card-header {
+        gap: 6px;
+    }
+
+    .HS-profile-link {
+        opacity: 1;
+    }
+
+    .HS-rating-time {
+        margin-left: 0;
+        width: 100%;
+        order: 99;
+        margin-top: 2px;
+    }
+
+    .HS-rating-comment {
+        font-size: 0.88em;
+    }
+}
