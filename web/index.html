@@ -256,7 +256,7 @@
 <script>
 (function() {
     var field = document.getElementById('doodle-field');
-    if (!field || window.innerWidth < 640) return;
+    if (!field) return;
 
     var icons = [
         'icon-chair.png', 'icon-duck.png', 'icon-bottles.png',
@@ -271,7 +271,7 @@
     }
 
     var sprites = [];
-    var count = 12;
+    var count = window.innerWidth < 640 ? 6 : 12;
 
     for (var i = 0; i < count; i++) {
         var img = document.createElement('img');

@@ -62,10 +62,64 @@
       }
     },
     getProfile: function(username, callback) {
-      var foesWith, friendsWith, settingsKey;
+      var enrichAndReturn, foesWith, friendsWith, settingsKey;
       friendsWith = `G:${username}:${USER_FRIENDS_WITH}`;
       foesWith = `G:${username}:${USER_FOES_WITH}`;
       settingsKey = `U:${username}`;
+      // Enrichment: check if each friend/foe has their own HS profile
+      enrichAndReturn = function(profile, cb) {
+        var allNames, f, j, len, multi, name;
+        allNames = ((function() {
+          var j, len, ref, results1;
+          ref = profile.friends;
+          results1 = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            f = ref[j];
+            results1.push(f.name);
+          }
+          return results1;
+        })()).concat((function() {
+          var j, len, ref, results1;
+          ref = profile.foes;
+          results1 = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            f = ref[j];
+            results1.push(f.name);
+          }
+          return results1;
+        })());
+        if (allNames.length === 0) {
+          return cb(profile);
+        }
+        multi = client.multi();
+        for (j = 0, len = allNames.length; j < len; j++) {
+          name = allNames[j];
+          multi.scard(`G:${name}:${USER_FRIENDS_WITH}`);
+          multi.scard(`G:${name}:${USER_FOES_WITH}`);
+        }
+        return multi.exec(function(e, results) {
+          var has, idx, k, l, len1, len2, len3, n, ref, ref1;
+          for (idx = k = 0, len1 = allNames.length; k < len1; idx = ++k) {
+            name = allNames[idx];
+            has = (results[idx * 2] || 0) > 0 || (results[idx * 2 + 1] || 0) > 0;
+            ref = profile.friends;
+            for (l = 0, len2 = ref.length; l < len2; l++) {
+              f = ref[l];
+              if (f.name === name) {
+                f.hasProfile = has;
+              }
+            }
+            ref1 = profile.foes;
+            for (n = 0, len3 = ref1.length; n < len3; n++) {
+              f = ref1[n];
+              if (f.name === name) {
+                f.hasProfile = has;
+              }
+            }
+          }
+          return cb(profile);
+        });
+      };
       return client.hgetall(settingsKey, function(e, settings) {
         var profile;
         profile = {
@@ -79,7 +133,7 @@
         return client.smembers(friendsWith, function(e, allFriends) {
           allFriends = allFriends || [];
           return client.zrevrangebyscore(`H:${username}:F`, '+inf', '-inf', 'WITHSCORES', function(e, friendsWithScores) {
-            var fetchFoes, friendNames, i, j, len, name, remaining, results, timestampMap;
+            var fetchFoes, friendNames, i, j, len, name, remaining, results1, timestampMap;
             // Build friends list with timestamps from sorted set
             timestampMap = {};
             if (friendsWithScores) {
@@ -110,7 +164,7 @@
               return client.smembers(foesWith, function(e, allFoes) {
                 allFoes = allFoes || [];
                 return client.zrevrangebyscore(`H:${username}:X`, '+inf', '-inf', 'WITHSCORES', function(e, foesWithScores) {
-                  var foeNames, foeRemaining, foeTimestampMap, j, len, results;
+                  var foeNames, foeRemaining, foeTimestampMap, j, len, results1;
                   foeTimestampMap = {};
                   if (foesWithScores) {
                     i = 0;
@@ -127,12 +181,12 @@
                   }
                   foeRemaining = foeNames.length;
                   if (foeRemaining === 0) {
-                    return callback(profile);
+                    return enrichAndReturn(profile, callback);
                   }
-                  results = [];
+                  results1 = [];
                   for (j = 0, len = foeNames.length; j < len; j++) {
                     name = foeNames[j];
-                    results.push((function(name) {
+                    results1.push((function(name) {
                       return client.hgetall(`R:${username}:${name}`, function(e, ctx) {
                         profile.foes.push({
                           name: name,
@@ -147,12 +201,12 @@
                             tb = b.timestamp ? parseInt(b.timestamp) : 0;
                             return tb - ta;
                           });
-                          return callback(profile);
+                          return enrichAndReturn(profile, callback);
                         }
                       });
                     })(name));
                   }
-                  return results;
+                  return results1;
                 });
               });
             };
@@ -161,10 +215,10 @@
             if (remaining === 0) {
               return fetchFoes();
             }
-            results = [];
+            results1 = [];
             for (j = 0, len = friendNames.length; j < len; j++) {
               name = friendNames[j];
-              results.push((function(name) {
+              results1.push((function(name) {
                 return client.hgetall(`R:${username}:${name}`, function(e, ctx) {
                   profile.friends.push({
                     name: name,
@@ -178,7 +232,7 @@
                 });
               })(name));
             }
-            return results;
+            return results1;
           });
         });
       });

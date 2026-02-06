@@ -28,9 +28,9 @@
 
   // Auth middleware (logs warnings for now, enforces on /save)
   requireAuth = function(req, res, next) {
-    var authToken, ref, username;
+    var authToken, ref, ref1, username;
     username = req.query.me || ((ref = req.body) != null ? ref.me : void 0);
-    authToken = req.query.auth_token || req.headers['x-hs-auth'];
+    authToken = req.query.auth_token || ((ref1 = req.body) != null ? ref1.auth_token : void 0) || req.headers['x-hs-auth'];
     if (!username || !authToken) {
       res.contentType('json');
       res.send(JSON.stringify({
@@ -163,9 +163,9 @@
   });
 
   app.get('/verify/status', function(req, res) {
-    var authToken, username;
+    var authToken, ref, username;
     username = req.query.me;
-    authToken = req.query.auth_token || req.headers['x-hs-auth'];
+    authToken = req.query.auth_token || ((ref = req.body) != null ? ref.auth_token : void 0) || req.headers['x-hs-auth'];
     return auth.checkStatus(username, authToken, function(result) {
       res.contentType('json');
       return res.send(JSON.stringify(result));
@@ -304,7 +304,7 @@
     <div class="HS-rating-card-header">
         <span class="HS-rating-orb HS-orb-${type}"></span>
         <a href="https://news.ycombinator.com/user?id=${eName}" class="HS-rated-user">${eName}</a>
-        <a href="/user/${eName}" class="HS-profile-link">[profile]</a>
+        ${item.hasProfile ? '<a href="/user/' + eName + '" class="HS-profile-link">[profile]</a>' : ''}
         <span class="HS-rating-time">${time}</span>
     </div>${contextHtml}
 </div>`;
@@ -379,14 +379,14 @@ document.getElementById('HS-visibility-toggle').addEventListener('change', funct
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${eUser} - Hacker Smacker</title>
-    <link rel="stylesheet" href="/skeleton.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="stylesheet" href="/profile.css">
 </head>
 <body>
-    <div class="HS-top">
-        <a href="/"><img src="/images/hackersmacker_logo.png" alt="Hacker Smacker"></a>
-    </div>
+    <header class="HS-top">
+        <a href="/"><img src="/images/hackersmacker_logo.png" alt="Hacker Smacker" class="HS-logo"></a>
+        <p class="HS-tagline">Friend/foe individual writers on Hacker News</p>
+    </header>
 
     <div class="HS-profile">
         <div class="HS-profile-header">
@@ -402,7 +402,74 @@ document.getElementById('HS-visibility-toggle').addEventListener('change', funct
     <div class="HS-footer">
         <p><a href="/">Hacker Smacker</a> &mdash; Friend and foe writers on Hacker News</p>
     </div>
+
+    <div id="doodle-field" class="HS-doodle-field"></div>
     ${settingsScript}
+    <script>
+    (function() {
+        var field = document.getElementById('doodle-field');
+        if (!field) return;
+        var icons = [
+            'icon-chair.png', 'icon-duck.png', 'icon-bottles.png',
+            'icon-harmonica.png', 'icon-globe.png', 'icon-shoes.png',
+            'icon-oranges.png', 'icon-peppers.png'
+        ];
+        for (var s = icons.length - 1; s > 0; s--) {
+            var j = Math.floor(Math.random() * (s + 1));
+            var tmp = icons[s]; icons[s] = icons[j]; icons[j] = tmp;
+        }
+        var sprites = [];
+        var count = window.innerWidth < 640 ? 6 : 12;
+        for (var i = 0; i < count; i++) {
+            var img = document.createElement('img');
+            img.src = '/images/' + icons[i % icons.length];
+            img.className = 'HS-doodle-sprite';
+            img.alt = '';
+            field.appendChild(img);
+            var sprite = {
+                el: img,
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                vx: (Math.random() - 0.5) * 0.25,
+                vy: (Math.random() - 0.5) * 0.15,
+                rot: Math.random() * 360,
+                vrot: (Math.random() - 0.5) * 0.3,
+                wobblePhase: Math.random() * Math.PI * 2,
+                wobbleSpeed: 0.004 + Math.random() * 0.007,
+                wobbleAmp: 10 + Math.random() * 20,
+                opacity: 0.12 + Math.random() * 0.18,
+                scale: 0.7 + Math.random() * 0.7
+            };
+            sprites.push(sprite);
+            var px = 32 * sprite.scale;
+            img.style.opacity = sprite.opacity;
+            img.style.width = px + 'px';
+            img.style.height = px + 'px';
+        }
+        var w, h;
+        function updateSize() { w = window.innerWidth; h = window.innerHeight; }
+        updateSize();
+        window.addEventListener('resize', updateSize);
+        function tick() {
+            for (var i = 0; i < sprites.length; i++) {
+                var sp = sprites[i];
+                sp.wobblePhase += sp.wobbleSpeed;
+                var wobbleX = Math.sin(sp.wobblePhase) * sp.wobbleAmp;
+                var wobbleY = Math.cos(sp.wobblePhase * 0.7) * sp.wobbleAmp * 0.6;
+                sp.x += sp.vx; sp.y += sp.vy; sp.rot += sp.vrot;
+                if (sp.x < -80) sp.x = w + 40;
+                if (sp.x > w + 80) sp.x = -40;
+                if (sp.y < -80) sp.y = h + 40;
+                if (sp.y > h + 80) sp.y = -40;
+                var drawX = sp.x + wobbleX;
+                var drawY = sp.y + wobbleY;
+                sp.el.style.transform = 'translate(' + drawX + 'px, ' + drawY + 'px) rotate(' + sp.rot + 'deg)';
+            }
+            requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+    })();
+    </script>
 </body>
 </html>`;
   };

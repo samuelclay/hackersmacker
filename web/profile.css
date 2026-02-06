@@ -295,12 +295,6 @@ a:hover {
     font-size: 0.75em;
     color: var(--hs-ink-muted);
     border-bottom: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-}
-
-.HS-rating-card:hover .HS-profile-link {
-    opacity: 1;
 }
 
 .HS-profile-link:hover {
@@ -437,6 +431,38 @@ a:hover {
     margin: 0;
 }
 
+/* ---- Floating pixel doodles ---- */
+
+.HS-doodle-field {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.HS-doodle-sprite {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* Content sits above doodles */
+.HS-top,
+.HS-profile,
+.HS-footer {
+    position: relative;
+    z-index: 1;
+}
+
 /* ---- Responsive ---- */
 
 @media (max-width: 640px) {
@@ -462,10 +488,6 @@ a:hover {
 
     .HS-rating-card-header {
         gap: 6px;
-    }
-
-    .HS-profile-link {
-        opacity: 1;
     }
 
     .HS-rating-time {

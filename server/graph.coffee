@@ -64,6 +64,24 @@ module.exports =
         foesWith    = "G:#{username}:#{USER_FOES_WITH}"
         settingsKey = "U:#{username}"
 
+        # Enrichment: check if each friend/foe has their own HS profile
+        enrichAndReturn = (profile, cb) ->
+            allNames = (f.name for f in profile.friends).concat(f.name for f in profile.foes)
+            if allNames.length is 0
+                return cb(profile)
+            multi = client.multi()
+            for name in allNames
+                multi.scard "G:#{name}:#{USER_FRIENDS_WITH}"
+                multi.scard "G:#{name}:#{USER_FOES_WITH}"
+            multi.exec (e, results) ->
+                for name, idx in allNames
+                    has = (results[idx * 2] or 0) > 0 or (results[idx * 2 + 1] or 0) > 0
+                    for f in profile.friends
+                        f.hasProfile = has if f.name is name
+                    for f in profile.foes
+                        f.hasProfile = has if f.name is name
+                cb(profile)
+
         client.hgetall settingsKey, (e, settings) ->
             profile =
                 settings: settings or { profile_public: '1' }
@@ -113,7 +131,7 @@ module.exports =
 
                                 foeRemaining = foeNames.length
                                 if foeRemaining is 0
-                                    return callback(profile)
+                                    return enrichAndReturn(profile, callback)
 
                                 for name in foeNames
                                     do (name) ->
@@ -128,7 +146,7 @@ module.exports =
                                                     ta = if a.timestamp then parseInt(a.timestamp) else 0
                                                     tb = if b.timestamp then parseInt(b.timestamp) else 0
                                                     tb - ta
-                                                callback(profile)
+                                                enrichAndReturn(profile, callback)
 
                     # Fetch context for each friend
                     remaining = friendNames.length
