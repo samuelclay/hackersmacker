@@ -353,7 +353,7 @@
                 cursor: text;
                 word-break: break-all;
                 flex: 1;
-            ">${token}</code>
+            ">HackerSmacker profile: ${token}</code>
             <a href="#" class="HS-copy-token" style="
                 background: #96592A;
                 color: #fff;
