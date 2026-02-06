@@ -1,9 +1,619 @@
-.HS-top {
-    padding: 24px 0;
-    text-align: center;
-    background-color: #E5DFCC;
+/* ==========================================================
+   Hacker Smacker — Landing Page
+   A field guide to the friends and foes of Hacker News.
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ---- Tokens ---- */
+
+:root {
+    --hs-parchment:     #E5DFCC;
+    --hs-parchment-dk:  #D8D0B8;
+    --hs-cream:         #F7F5EF;
+    --hs-linen:         #FAFAF6;
+    --hs-ink:           #2C2416;
+    --hs-ink-light:     #5C5444;
+    --hs-ink-muted:     #8A8272;
+    --hs-rule:          #DDD8C8;
+    --hs-rule-light:    #EEEADE;
+
+    --hs-friend:        #4F934D;
+    --hs-friend-light:  #54AB54;
+    --hs-friend-bg:     #F0F7EF;
+    --hs-friend-border: #7FBB7D;
+
+    --hs-foe:           #AC473B;
+    --hs-foe-light:     #C2483B;
+    --hs-foe-bg:        #FBF3F2;
+    --hs-foe-border:    #D4918A;
+
+    --hs-link:          #96592A;
+    --hs-link-hover:    #7A4520;
+    --hs-orange:        #CC6D00;
+
+    --radius-sm:        3px;
+    --radius-md:        5px;
 }
+
+/* ---- Reset ---- */
+
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, p, ul, ol, figure, blockquote, details, summary { margin: 0; padding: 0; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ---- Base ---- */
+
+html {
+    font-size: 17px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    color: var(--hs-ink);
+    line-height: 1.62;
+    background-color: var(--hs-cream);
+    background-image:
+        radial-gradient(ellipse at 15% 0%, rgba(229, 223, 204, 0.45) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 100%, rgba(229, 223, 204, 0.3) 0%, transparent 45%);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--hs-link);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(150, 89, 42, 0.3);
+    transition: color 0.15s, border-color 0.15s;
+}
+a:hover {
+    color: var(--hs-link-hover);
+    border-bottom-color: var(--hs-link-hover);
+}
+
+/* ---- Header ---- */
+
+.HS-top {
+    background-color: var(--hs-parchment);
+    background-image:
+        linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 40%),
+        linear-gradient(0deg, rgba(0,0,0,0.03) 0%, transparent 20%);
+    padding: 44px 24px 36px;
+    text-align: center;
+    position: relative;
+}
+
+.HS-top::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--hs-parchment-dk);
+}
+
+.HS-logo {
+    max-width: 420px;
+    margin: 0 auto;
+    image-rendering: auto;
+}
+
+.HS-tagline {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--hs-ink-light);
+    margin-top: 14px;
+    letter-spacing: 0.01em;
+}
+
+/* ---- Orb legend ---- */
+
+.HS-orb-legend {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 22px;
+}
+
+.HS-orb-legend-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 10px;
+}
+
+.HS-orb-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--hs-ink-light);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* ---- Pill orbs (matching the extension) ---- */
+
+.HS-pill {
+    display: inline-block;
+    width: 18px;
+    height: 8px;
+    border-radius: 9px;
+    border: 1px solid #8A8B7C;
+    flex-shrink: 0;
+}
+
+.HS-pill--friend {
+    background: linear-gradient(to top, #4F934D 16%, #54AB54 84%);
+}
+
+.HS-pill--neutral {
+    background: linear-gradient(to top, #EAE5D3 16%, #F5EFDB 84%);
+}
+
+.HS-pill--foe {
+    background: linear-gradient(to top, #AC473B 16%, #C2483B 84%);
+}
+
+/* FoaF split-pill */
+.HS-pill-split {
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 8px;
+    width: 18px;
+}
+
+.HS-pill-split-start {
+    width: 9px;
+    height: 8px;
+    border: 1px solid #8A8B7C;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    border-right: none;
+    background: linear-gradient(to top, #4F934D 16%, #54AB54 84%);
+}
+
+.HS-pill-split-end {
+    width: 9px;
+    height: 8px;
+    border: 1px solid #8A8B7C;
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
+    border-left: 1px solid #645B38;
+}
+
+.HS-pill-split--foaf-friend .HS-pill-split-end {
+    background: linear-gradient(to top, #386B37 16%, #3D7D3C 84%);
+}
+
+.HS-pill-split--foaf-foe .HS-pill-split-end {
+    background: linear-gradient(to top, #913B31 16%, #A73E32 84%);
+}
+
+/* Small pill variant for inline use (list bullets, captions) */
+.HS-pill--sm {
+    width: 14px;
+    height: 6px;
+    border-radius: 6px;
+}
+
+/* ---- Main container ---- */
+
 .HS-main {
-    margin: 24px auto;
-    max-width: 900px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+    position: relative;
+}
+
+/* ---- Sections ---- */
+
+.HS-section {
+    padding: 40px 0 0;
+    position: relative;
+}
+
+.HS-section-title {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--hs-ink);
+    letter-spacing: -0.015em;
+    margin-bottom: 18px;
+    line-height: 1.2;
+}
+
+.HS-section p {
+    margin-bottom: 14px;
+}
+
+.HS-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---- Orb divider ---- */
+
+.HS-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 36px 0 0;
+}
+
+.HS-divider .HS-pill {
+    opacity: 0.55;
+    width: 14px;
+    height: 6px;
+    border-radius: 6px;
+}
+
+/* ---- Pull-quote ---- */
+
+.HS-pullquote {
+    border-left: 3px solid var(--hs-parchment-dk);
+    margin: 20px 0 20px 2px;
+    padding: 12px 0 12px 22px;
+    font-style: italic;
+    font-size: 1.08rem;
+    line-height: 1.65;
+    color: var(--hs-ink-light);
+}
+
+/* ---- Screenshots / Observations ---- */
+
+.HS-observations {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.HS-observation {
+    background: var(--hs-linen);
+    border: 1px solid var(--hs-rule);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.HS-observation img {
+    width: 100%;
+    display: block;
+}
+
+.HS-observation figcaption {
+    padding: 14px 18px;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--hs-ink-light);
+    line-height: 1.55;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-top: 1px solid var(--hs-rule-light);
+}
+
+.HS-observation figcaption .HS-pill {
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+/* ---- Browser downloads ---- */
+
+.HS-browsers {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.HS-browser {
+    flex: 1;
+    text-align: center;
+    padding: 24px 16px;
+    background: var(--hs-linen);
+    border: 1px solid var(--hs-rule-light);
+    border-radius: var(--radius-md);
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.HS-browser:hover {
+    background: #fff;
+    border-color: var(--hs-rule);
+}
+
+.HS-browser-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 12px;
+    image-rendering: auto;
+}
+
+.HS-browser-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--hs-ink);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+}
+
+.HS-browser a {
+    font-size: 0.88rem;
+}
+
+.HS-browser-note {
+    font-size: 0.78rem;
+    color: var(--hs-ink-muted);
+    margin-top: 8px;
+    line-height: 1.45;
+}
+
+/* ---- Great comments list ---- */
+
+.HS-comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.HS-comment-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+}
+
+.HS-comment-list li .HS-pill {
+    flex-shrink: 0;
+}
+
+.HS-comment-list a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    word-break: break-all;
+}
+
+/* ---- Background / story ---- */
+
+.HS-story {
+    padding-top: 40px;
+}
+
+.HS-story .HS-section-title {
+    font-size: 1.25rem;
+}
+
+.HS-story p {
+    margin-bottom: 14px;
+}
+
+/* ---- Appendix ---- */
+
+.HS-appendix {
+    margin-top: 44px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hs-rule);
+    position: relative;
+}
+
+.HS-appendix-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--hs-ink-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.HS-appendix details {
+    border-bottom: 1px solid var(--hs-rule-light);
+}
+
+.HS-appendix details:last-of-type {
+    border-bottom: none;
+}
+
+.HS-appendix summary {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--hs-ink-light);
+    cursor: pointer;
+    padding: 12px 0;
+    transition: color 0.15s;
+    list-style: none;
+}
+
+.HS-appendix summary::-webkit-details-marker { display: none; }
+.HS-appendix summary::marker { display: none; content: ''; }
+
+.HS-appendix summary::before {
+    content: '\25B8';
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 0.8em;
+    color: var(--hs-ink-muted);
+    transition: transform 0.2s;
+}
+
+.HS-appendix details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.HS-appendix summary:hover {
+    color: var(--hs-ink);
+}
+
+.HS-appendix .HS-appendix-body {
+    padding: 0 0 16px 18px;
+    font-size: 0.92rem;
+    color: var(--hs-ink-light);
+    line-height: 1.6;
+}
+
+.HS-appendix .HS-appendix-body p {
+    margin-bottom: 10px;
+}
+
+.HS-appendix .HS-appendix-body ul {
+    padding-left: 0;
+}
+
+.HS-appendix .HS-appendix-body li {
+    margin-bottom: 6px;
+}
+
+.HS-appendix .HS-appendix-body li strong {
+    color: var(--hs-ink);
+}
+
+/* ---- Footer / Author ---- */
+
+.HS-footer {
+    margin-top: 40px;
+    padding: 28px 0 0;
+    border-top: 1px solid var(--hs-rule);
+    text-align: center;
+}
+
+.HS-footer-author {
+    font-size: 0.92rem;
+    color: var(--hs-ink-light);
+    line-height: 1.7;
+}
+
+.HS-footer-author strong {
+    color: var(--hs-ink);
+    font-weight: 600;
+}
+
+.HS-footer-sep {
+    display: inline-block;
+    margin: 0 8px;
+    color: var(--hs-ink-muted);
+    opacity: 0.5;
+}
+
+.HS-footer-source {
+    margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--hs-ink-muted);
+    letter-spacing: 0.02em;
+}
+
+/* ---- Floating pixel doodles ---- */
+
+.HS-doodle-field {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.HS-doodle-sprite {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* Content sits above doodles */
+.HS-top,
+.HS-main {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---- Responsive ---- */
+
+@media (max-width: 640px) {
+    html { font-size: 16px; }
+
+    .HS-top {
+        padding: 32px 20px 28px;
+    }
+
+    .HS-logo {
+        max-width: 280px;
+    }
+
+    .HS-orb-legend {
+        gap: 16px;
+        margin-top: 18px;
+    }
+
+    .HS-orb-legend-row {
+        gap: 16px;
+    }
+
+    .HS-orb-legend-item {
+        font-size: 0.68rem;
+        gap: 6px;
+    }
+
+    .HS-main {
+        padding: 0 18px 48px;
+    }
+
+    .HS-section {
+        padding-top: 32px;
+    }
+
+    .HS-section-title {
+        font-size: 1.3rem;
+    }
+
+    .HS-browsers {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .HS-browser {
+        padding: 18px 16px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-align: left;
+    }
+
+    .HS-browser-icon {
+        margin: 0;
+        width: 40px;
+        height: 40px;
+    }
+
+    .HS-browser-info {
+        flex: 1;
+    }
+
+    .HS-observation figcaption {
+        padding: 12px 14px;
+        font-size: 0.85rem;
+    }
+
+    .HS-comment-list a {
+        font-size: 0.72rem;
+    }
+
+    .HS-doodle-field {
+        display: none;
+    }
 }

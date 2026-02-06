@@ -2,115 +2,354 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hacker Smacker - Friend and foe writers on Hacker News</title>
-    
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
-    <link rel="stylesheet" href="skeleton.css" type="text/css" media="screen" charset="utf-8">
-    
-    <script src="script.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 
-<div class="HS-top">
-    <img src="images/hackersmacker_logo.png" >
-</div>
+<!-- Floating pixel-art doodle field -->
+<div class="HS-doodle-field" id="doodle-field"></div>
 
-<div class="HS-main">
 
-    <h3 style="text-align:center;font-size: 1em;font-weight: 800;">Friend/foe individual writers on Hacker News</h3>
-    
-    <h2>Synopsis</h2>
-    <p>Hacker Smacker helps you identify quality authors and filter out obnoxious commenters on Hacker News. Three little orbs appear next to every author's name and you can choose to either friend or foe them.</p>
-    <p>What's neat is that if you friend people, and they also use Hacker Smacker, you'll see all of your friend's friends and foes. This helps you identify commenters that you want to read as you quickly scan a comment thread. I've found that this reduces the time I spent on Hacker News, as I can glance at long comment threads and just find the good stuff.</p>
-    <p>Hacker Smacker is directly inspired by Slashdot's friend/foe system. Hacker Smacker is also open-source and is <a href="https://github.com/samuelclay/hackersmacker">available on GitHub</a>.</p>
+<!-- ============ HEADER ============ -->
 
-    <h3><a href="https://camo.githubusercontent.com/b601f3379180f86d1a94594a504b47f569def75e/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f7361666172692e706e67" target="_blank"><img src="https://camo.githubusercontent.com/b601f3379180f86d1a94594a504b47f569def75e/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f7361666172692e706e67" width="32" data-canonical-src="https://www.hackersmacker.org/images/safari.png" style="max-width:100%;"></a> Safari client</h3>
-    <p><a href="https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true">Download the Safari extension</a></p>
-    <p>To install just double-click the downloaded extension.</p>
+<header class="HS-top">
+    <img src="images/hackersmacker_logo.png" alt="Hacker Smacker" class="HS-logo">
+    <p class="HS-tagline">Friend/foe individual writers on Hacker News</p>
 
-    <h3><a href="https://camo.githubusercontent.com/6c6ef6e90f848e6364642056de03ddcecf2ac858/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f6368726f6d652e706e67" target="_blank"><img src="https://camo.githubusercontent.com/6c6ef6e90f848e6364642056de03ddcecf2ac858/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f6368726f6d652e706e67" width="32" data-canonical-src="https://www.hackersmacker.org/images/chrome.png" style="max-width:100%;"></a> Chrome client</h3>
-    <p><a href="https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true">Download the Chrome extension</a></p>
-    <p>To install the Chrome extension, you cannot double-click it (unfortunately, Chrome no longer allows this). Instead, drag it into Chrome's Extensions page at chrome://extensions.</p>
+    <div class="HS-orb-legend">
+        <span class="HS-orb-legend-item">
+            <span class="HS-pill HS-pill--friend"></span> Friend
+        </span>
+        <span class="HS-orb-legend-item">
+            <span class="HS-pill HS-pill--neutral"></span> Neutral
+        </span>
+        <span class="HS-orb-legend-item">
+            <span class="HS-pill HS-pill--foe"></span> Foe
+        </span>
+    </div>
+    <div class="HS-orb-legend-row">
+        <span class="HS-orb-legend-item">
+            <span class="HS-pill-split HS-pill-split--foaf-friend">
+                <span class="HS-pill-split-start"></span><span class="HS-pill-split-end"></span>
+            </span> Friend of a Friend
+        </span>
+        <span class="HS-orb-legend-item">
+            <span class="HS-pill-split HS-pill-split--foaf-foe">
+                <span class="HS-pill-split-start"></span><span class="HS-pill-split-end"></span>
+            </span> Foe of a Friend
+        </span>
+    </div>
+</header>
 
-    <h3><a href="https://camo.githubusercontent.com/0ac4aa33f9884fb33895ac9b82ae968257b1e434/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f66697265666f782e706e67" target="_blank"><img src="https://camo.githubusercontent.com/0ac4aa33f9884fb33895ac9b82ae968257b1e434/68747470733a2f2f7777772e6861636b6572736d61636b65722e6f72672f696d616765732f66697265666f782e706e67" width="32" data-canonical-src="https://www.hackersmacker.org/images/firefox.png" style="max-width:100%;"></a> Firefox client</h3>
-    <p><a href="https://github.com/samuelclay/hackersmacker/blob/master/client/firefox.xpi?raw=true">Download the Firefox extension</a></p>
-    <p>To install the Firefox extension, just drag the .xpi file into an open Firefox window.</p>
 
-    <h2>Screenshots</h2>
-    <p>A friend or foe has not yet been made. The standard orb:</p>
-    <p><a href="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot1.png" target="_blank"><img src="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot1.png" alt="" style="max-width:100%;"></a></p>
-    <p>Choosing a friend or foe. Animation provides a nice slide out:</p>
-    <p><a href="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot2.png" target="_blank"><img src="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot2.png" alt="" style="max-width:100%;"></a></p>
-    <p>A blend of friends and foes illustrating the transformative experience of Hacker Smacker:</p>
-    <p><a href="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot3.png" target="_blank"><img src="https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot3.png" alt="" style="max-width:100%;"></a></p>
+<!-- ============ MAIN ============ -->
 
-    <h2>Examples of great Hacker News comments from which to start a collection of friends</h2>
-    <ul>
-        <li><a href="http://news.ycombinator.com/item?id=3871674" rel="nofollow">http://news.ycombinator.com/item?id=3871674</a></li>
-        <li><a href="http://news.ycombinator.com/item?id=3543440" rel="nofollow">http://news.ycombinator.com/item?id=3543440</a></li>
-        <li><a href="http://news.ycombinator.com/item?id=3576217" rel="nofollow">http://news.ycombinator.com/item?id=3576217</a></li>
-        <li><a href="http://news.ycombinator.com/item?id=3679698" rel="nofollow">http://news.ycombinator.com/item?id=3679698</a></li>
-        <li><a href="http://news.ycombinator.com/item?id=3702513" rel="nofollow">http://news.ycombinator.com/item?id=3702513</a></li>
-        <li><a href="https://news.ycombinator.com/item?id=7755927" rel="nofollow">https://news.ycombinator.com/item?id=7755927</a></li>
-        <li><a href="https://news.ycombinator.com/item?id=8082029" rel="nofollow">https://news.ycombinator.com/item?id=8082029</a></li>
-        <li><a href="https://news.ycombinator.com/item?id=19775789" rel="nofollow">https://news.ycombinator.com/item?id=19775789</a></li>
-    </ul>
+<main class="HS-main">
 
-    <h2>Acknowledgements</h2>
-    <ul>
-        <li><strong>Mihai Parparita</strong> <a href="mailto:mihaip@chromium.org">mihaip@chromium.org</a> - Help with fixing the issue around browsers not allowing a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.</li>
-    </ul>
 
-    <h2>Installation</h2>
-    <p>Hacker Smacker is divided into two parts:</p>
-    <ul>
-        <li><strong>Client</strong>: the extension that gets injected into Hacker News and reports back with friends and foes.</li>
-        <li><strong>Server</strong>: the Node.js/Express.js/Redis system that keeps track of all friends/foes and friend of a friend and foe of a friend relationships.</li>
-    </ul>
-    <h3>Server</h3>
-    <p>You can find the repo on GitHub: <a href="https://github.com/samuelclay/hackersmacker">https://github.com/samuelclay/hackersmacker</a></p>
-    <p>You don't need to install the server unless you want to run your own private version of Hacker Smacker. If you do decide to install your own server, you're on your own.</p>
-    
-    <h2 id="privacy">Privacy Policy</h2>
-    <p>None of the data stored by Hacker Smacker is sold or used in any way except for determining friend/foe and friend/foe of a friend relationships between authors. </p>
+    <!-- ---- Synopsis ---- -->
 
-    <h2>License</h2>
-    <ul>
-        <li>MIT License</li>
-    </ul>
+    <section class="HS-section" id="synopsis">
+        <h2 class="HS-section-title">Synopsis</h2>
+        <p>Hacker Smacker helps you identify quality authors and filter out obnoxious commenters on Hacker News. Three little orbs appear next to every author's name and you can choose to either friend or foe them.</p>
+        <blockquote class="HS-pullquote">If you friend people, and they also use Hacker Smacker, you'll see all of your friend's friends and foes. This helps you identify commenters that you want to read as you quickly scan a comment thread.</blockquote>
+        <p>I've found that this reduces the time I spent on Hacker News, as I can glance at long comment threads and just find the good stuff.</p>
+        <p>Hacker Smacker is directly inspired by Slashdot's friend/foe system. Hacker Smacker is also open-source and is <a href="https://github.com/samuelclay/hackersmacker">available on GitHub</a>.</p>
+    </section>
 
-    <h2>Background</h2>
-    <p>Hacker Smacker was built to learn how FoaF (Friend of a Friend) works. The idea is that not only do you want to surface content from your friends, but if you chose your friends well, they can help you surface more great content by highlighting comments from their friends.</p>
-    <p>The impetus for building a small system where the primary goal is simply to quickly show relationships was that I wanted to build the same system for <a href="http://www.newsblur.com" rel="nofollow">NewsBlur</a>, a visual RSS feed reader with intelligence. The backend is built using <a href="http://redis.io" rel="nofollow">Redis</a> sets and CoffeeScript/Node.js. NewsBlur's social layer, which was built immediately after this project, uses a very similar backend.</p>
-    <p>Learning how to build this project was the main reason, as I am now able to bring this technique to other projects.</p>
-    <h2>Author</h2>
-    <ul>
-        <li><strong>Samuel Clay</strong>: <a href="mailto:samuel@ofbrooklyn.com">samuel@ofbrooklyn.com</a></li>
-        <li><strong>On the web</strong>: <a href="http://www.samuelclay.com" rel="nofollow">www.samuelclay.com</a></li>
-        <li><strong>Twitter</strong>: <a href="http://twitter.com/samuelclay" rel="nofollow">@samuelclay</a></li>
-    </ul>
 
-</div>
+    <!-- ---- Divider ---- -->
 
-<div class="HS-footer">
+    <div class="HS-divider">
+        <span class="HS-pill HS-pill--friend"></span>
+        <span class="HS-pill HS-pill--neutral"></span>
+        <span class="HS-pill HS-pill--foe"></span>
+    </div>
 
-</div>
 
-<script type="text/javascript">
+    <!-- ---- Screenshots ---- -->
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-28121455-1']);
-    _gaq.push(['_trackPageview']);
+    <section class="HS-section" id="screenshots">
+        <h2 class="HS-section-title">Field Observations</h2>
+        <div class="HS-observations">
+            <figure class="HS-observation">
+                <img src="images/screenshot1.png" alt="A standard neutral orb next to a Hacker News comment">
+                <figcaption>
+                    <span class="HS-pill HS-pill--neutral"></span>
+                    A friend or foe has not yet been made. The standard orb.
+                </figcaption>
+            </figure>
+            <figure class="HS-observation">
+                <img src="images/screenshot2.png" alt="The orb expanding to show friend and foe options">
+                <figcaption>
+                    <span class="HS-pill HS-pill--friend"></span>
+                    Choosing a friend or foe. Animation provides a nice slide out.
+                </figcaption>
+            </figure>
+            <figure class="HS-observation">
+                <img src="images/screenshot3.png" alt="Multiple comments showing a mix of friends and foes">
+                <figcaption>
+                    <span class="HS-pill HS-pill--foe"></span>
+                    A blend of friends and foes illustrating the transformative experience of Hacker Smacker.
+                </figcaption>
+            </figure>
+        </div>
+    </section>
 
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
 
-    </script>
-    <!-- <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script> -->
+    <!-- ---- Divider ---- -->
+
+    <div class="HS-divider">
+        <span class="HS-pill HS-pill--friend"></span>
+        <span class="HS-pill HS-pill--neutral"></span>
+        <span class="HS-pill HS-pill--foe"></span>
+    </div>
+
+
+    <!-- ---- Browser downloads ---- -->
+
+    <section class="HS-section" id="download">
+        <h2 class="HS-section-title">Get the Extension</h2>
+        <div class="HS-browsers">
+            <div class="HS-browser">
+                <img src="images/safari.png" alt="Safari" class="HS-browser-icon">
+                <div class="HS-browser-info">
+                    <div class="HS-browser-name">Safari</div>
+                    <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true">Download</a>
+                    <p class="HS-browser-note">Double-click to install</p>
+                </div>
+            </div>
+            <div class="HS-browser">
+                <img src="images/chrome.png" alt="Chrome" class="HS-browser-icon">
+                <div class="HS-browser-info">
+                    <div class="HS-browser-name">Chrome</div>
+                    <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true">Download</a>
+                    <p class="HS-browser-note">Drag into chrome://extensions</p>
+                </div>
+            </div>
+            <div class="HS-browser">
+                <img src="images/firefox.png" alt="Firefox" class="HS-browser-icon">
+                <div class="HS-browser-info">
+                    <div class="HS-browser-name">Firefox</div>
+                    <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/firefox.xpi?raw=true">Download</a>
+                    <p class="HS-browser-note">Drag .xpi into Firefox</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ---- Great comments ---- -->
+
+    <section class="HS-section" id="comments">
+        <h2 class="HS-section-title">Great comments to start your collection</h2>
+        <ul class="HS-comment-list">
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="http://news.ycombinator.com/item?id=3871674" rel="nofollow">news.ycombinator.com/item?id=3871674</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="http://news.ycombinator.com/item?id=3543440" rel="nofollow">news.ycombinator.com/item?id=3543440</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="http://news.ycombinator.com/item?id=3576217" rel="nofollow">news.ycombinator.com/item?id=3576217</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="http://news.ycombinator.com/item?id=3679698" rel="nofollow">news.ycombinator.com/item?id=3679698</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="http://news.ycombinator.com/item?id=3702513" rel="nofollow">news.ycombinator.com/item?id=3702513</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="https://news.ycombinator.com/item?id=7755927" rel="nofollow">news.ycombinator.com/item?id=7755927</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="https://news.ycombinator.com/item?id=8082029" rel="nofollow">news.ycombinator.com/item?id=8082029</a></li>
+            <li><span class="HS-pill HS-pill--sm HS-pill--friend"></span><a href="https://news.ycombinator.com/item?id=19775789" rel="nofollow">news.ycombinator.com/item?id=19775789</a></li>
+        </ul>
+    </section>
+
+
+    <!-- ---- Divider ---- -->
+
+    <div class="HS-divider">
+        <span class="HS-pill HS-pill--friend"></span>
+        <span class="HS-pill HS-pill--neutral"></span>
+        <span class="HS-pill HS-pill--foe"></span>
+    </div>
+
+
+    <!-- ---- Background story ---- -->
+
+    <section class="HS-story" id="background">
+        <h2 class="HS-section-title">Background</h2>
+        <p>Hacker Smacker was built to learn how FoaF (Friend of a Friend) works. The idea is that not only do you want to surface content from your friends, but if you chose your friends well, they can help you surface more great content by highlighting comments from their friends.</p>
+        <p>The impetus for building a small system where the primary goal is simply to quickly show relationships was that I wanted to build the same system for <a href="http://www.newsblur.com" rel="nofollow">NewsBlur</a>, a visual RSS feed reader with intelligence. The backend is built using <a href="http://redis.io" rel="nofollow">Redis</a> sets and CoffeeScript/Node.js. NewsBlur's social layer, which was built immediately after this project, uses a very similar backend.</p>
+        <p>Learning how to build this project was the main reason, as I am now able to bring this technique to other projects.</p>
+    </section>
+
+
+    <!-- ============ APPENDIX ============ -->
+
+    <nav class="HS-appendix">
+        <div class="HS-appendix-label">Appendix</div>
+
+        <details open>
+            <summary>Installation</summary>
+            <div class="HS-appendix-body">
+                <p>Hacker Smacker is divided into two parts:</p>
+                <ul>
+                    <li><strong>Client</strong>: the extension that gets injected into Hacker News and reports back with friends and foes.</li>
+                    <li><strong>Server</strong>: the Node.js/Express.js/Redis system that keeps track of all friends/foes and friend of a friend and foe of a friend relationships.</li>
+                </ul>
+                <p>You can find the repo on GitHub: <a href="https://github.com/samuelclay/hackersmacker">github.com/samuelclay/hackersmacker</a></p>
+                <p>You don't need to install the server unless you want to run your own private version of Hacker Smacker. If you do decide to install your own server, you're on your own.</p>
+            </div>
+        </details>
+
+        <details open>
+            <summary>Acknowledgements</summary>
+            <div class="HS-appendix-body">
+                <ul>
+                    <li><strong>Mihai Parparita</strong> <a href="mailto:mihaip@chromium.org">mihaip@chromium.org</a> &mdash; Help with fixing the issue around browsers not allowing a JSONP AJAX request to modify the page, as it is sandboxed and cannot alter the page using arbitrary JavaScript (the JSONP) not included with the extension itself.</li>
+                    <li><strong>Greg Brockman</strong> <a href="mailto:greg@gregbrockman.com">greg@gregbrockman.com</a> &mdash; Helped design the authentication system, working through the security model to ensure that friend/foe relationships could be stored and verified without exposing user credentials.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details open>
+            <summary>Privacy Policy</summary>
+            <div class="HS-appendix-body">
+                <p>None of the data stored by Hacker Smacker is sold or used in any way except for determining friend/foe and friend/foe of a friend relationships between authors.</p>
+            </div>
+        </details>
+
+        <details open>
+            <summary>License</summary>
+            <div class="HS-appendix-body">
+                <p>MIT License</p>
+            </div>
+        </details>
+
+        <details open>
+            <summary>Why the chair?</summary>
+            <div class="HS-appendix-body">
+                <p>Some people express their enthusiasm for colleagues by friending them. Others, famously, express it by hurling furniture across the room. The chair is a nod to one such enthusiast who shall remain nameless, but who once demonstrated that the pen is mightier than the sword, and the chair is mightier than both. Besides, a launched laptop makes everyone reconsider.</p>
+            </div>
+        </details>
+    </nav>
+
+
+    <!-- ============ FOOTER ============ -->
+
+    <footer class="HS-footer">
+        <div class="HS-footer-author">
+            Built by <strong>Samuel Clay</strong>
+            <span class="HS-footer-sep">&middot;</span>
+            <a href="mailto:samuel@ofbrooklyn.com">samuel@ofbrooklyn.com</a>
+            <span class="HS-footer-sep">&middot;</span>
+            <a href="http://www.samuelclay.com" rel="nofollow">samuelclay.com</a>
+            <span class="HS-footer-sep">&middot;</span>
+            <a href="https://x.com/samuelclay" rel="nofollow">@samuelclay</a>
+        </div>
+        <div class="HS-footer-source">
+            <a href="https://github.com/samuelclay/hackersmacker">View source on GitHub</a>
+        </div>
+    </footer>
+
+
+</main>
+
+
+<!-- ============ FLOATING DOODLES ============ -->
+
+<script>
+(function() {
+    var field = document.getElementById('doodle-field');
+    if (!field || window.innerWidth < 640) return;
+
+    var icons = [
+        'icon-chair.png', 'icon-duck.png', 'icon-bottles.png',
+        'icon-harmonica.png', 'icon-globe.png', 'icon-shoes.png',
+        'icon-oranges.png', 'icon-peppers.png'
+    ];
+
+    // Shuffle the icons
+    for (var s = icons.length - 1; s > 0; s--) {
+        var j = Math.floor(Math.random() * (s + 1));
+        var tmp = icons[s]; icons[s] = icons[j]; icons[j] = tmp;
+    }
+
+    var sprites = [];
+    var count = 12;
+
+    for (var i = 0; i < count; i++) {
+        var img = document.createElement('img');
+        img.src = 'images/' + icons[i % icons.length];
+        img.className = 'HS-doodle-sprite';
+        img.alt = '';
+        field.appendChild(img);
+
+        var sprite = {
+            el: img,
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            vx: (Math.random() - 0.5) * 0.25,
+            vy: (Math.random() - 0.5) * 0.15,
+            rot: Math.random() * 360,
+            vrot: (Math.random() - 0.5) * 0.3,
+            wobblePhase: Math.random() * Math.PI * 2,
+            wobbleSpeed: 0.004 + Math.random() * 0.007,
+            wobbleAmp: 10 + Math.random() * 20,
+            opacity: 0.12 + Math.random() * 0.18,
+            scale: 0.7 + Math.random() * 0.7
+        };
+        sprites.push(sprite);
+
+        var px = 32 * sprite.scale;
+        img.style.opacity = sprite.opacity;
+        img.style.width = px + 'px';
+        img.style.height = px + 'px';
+    }
+
+    var w, h;
+    function updateSize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+    }
+    updateSize();
+    window.addEventListener('resize', updateSize);
+
+    function tick() {
+        for (var i = 0; i < sprites.length; i++) {
+            var sp = sprites[i];
+
+            sp.wobblePhase += sp.wobbleSpeed;
+            var wobbleX = Math.sin(sp.wobblePhase) * sp.wobbleAmp;
+            var wobbleY = Math.cos(sp.wobblePhase * 0.7) * sp.wobbleAmp * 0.6;
+
+            sp.x += sp.vx;
+            sp.y += sp.vy;
+            sp.rot += sp.vrot;
+
+            // Wrap around edges
+            if (sp.x < -80) sp.x = w + 40;
+            if (sp.x > w + 80) sp.x = -40;
+            if (sp.y < -80) sp.y = h + 40;
+            if (sp.y > h + 80) sp.y = -40;
+
+            var drawX = sp.x + wobbleX;
+            var drawY = sp.y + wobbleY;
+
+            sp.el.style.transform = 'translate(' + drawX + 'px, ' + drawY + 'px) rotate(' + sp.rot + 'deg)';
+        }
+        requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+})();
+</script>
+
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-28121455-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
 </body>
 </html>
