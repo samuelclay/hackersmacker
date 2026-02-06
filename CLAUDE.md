@@ -57,6 +57,33 @@ coffee -c client/common/client.coffee
 
 Chrome extension can be loaded unpacked from `client/chrome/` directory.
 
+### Deployment
+
+Production server is at `hackersmacker.org`. SSH using the NewsBlur key:
+
+```bash
+ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org
+```
+
+App lives at `/srv/hackersmacker` on the server, runs as `node server.js` under user `sclay`.
+
+To deploy:
+
+```bash
+# 1. Build for production and push
+make prod
+git add -A && git commit -m "message" && git push
+
+# 2. Pull on server and restart
+ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org "cd /srv/hackersmacker && git pull"
+# Kill node in a separate SSH call (kill signals disconnect the session)
+ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org "killall -u sclay node" 2>/dev/null
+sleep 2
+ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org "sudo -u sclay bash -c 'cd /srv/hackersmacker/server && nohup node server.js >> /srv/hackersmacker/logs/server.log 2>&1 &'"
+```
+
+Note: The server runs Node 7.x with an old Express version (2.x). No CoffeeScript compiler is installed on the server, so always commit compiled `.js` files. No Docker on the production server — it runs node directly.
+
 ### SSL Certificate Renewal
 
 ```bash
