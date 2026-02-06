@@ -321,12 +321,22 @@ a:hover {
     background: var(--hs-linen);
     border: 1px solid var(--hs-rule-light);
     border-radius: var(--radius-md);
-    transition: background 0.15s, border-color 0.15s;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
 
-.HS-browser:hover {
+.HS-browser--store {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    border-bottom: none;
+    cursor: pointer;
+}
+
+.HS-browser--store:hover {
     background: #fff;
     border-color: var(--hs-rule);
+    box-shadow: 0 2px 8px rgba(44, 36, 22, 0.08);
 }
 
 .HS-browser-icon {
@@ -341,19 +351,116 @@ a:hover {
     font-size: 0.82rem;
     font-weight: 500;
     color: var(--hs-ink);
-    margin-bottom: 6px;
+    margin-bottom: 10px;
     letter-spacing: -0.01em;
 }
 
-.HS-browser a {
-    font-size: 0.88rem;
+.HS-store-btn {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #fff;
+    background: var(--hs-ink);
+    padding: 7px 18px;
+    border-radius: 4px;
+    letter-spacing: 0.01em;
+    transition: background 0.15s;
+}
+
+.HS-browser--store:hover .HS-store-btn {
+    background: var(--hs-ink-light);
 }
 
 .HS-browser-note {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--hs-ink-muted);
     margin-top: 8px;
     line-height: 1.45;
+}
+
+/* ---- Sideload / manual install ---- */
+
+.HS-sideload {
+    margin-top: 28px;
+}
+
+.HS-sideload-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 20px;
+    margin-bottom: 4px;
+}
+
+.HS-sideload-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--hs-rule);
+}
+
+.HS-sideload-label {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--hs-ink-muted);
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+.HS-sideload-body {
+    padding: 0 20px 20px;
+}
+
+.HS-sideload-browsers {
+    display: flex;
+    gap: 8px;
+}
+
+.HS-sideload-browser {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--hs-linen);
+    border: 1px solid var(--hs-rule-light);
+    border-radius: var(--radius-md);
+}
+
+.HS-sideload-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.HS-sideload-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--hs-ink);
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+}
+
+.HS-sideload-info a {
+    font-size: 0.82rem;
+}
+
+.HS-sideload-note {
+    font-size: 0.72rem;
+    color: var(--hs-ink-muted);
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.HS-sideload-note code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    background: var(--hs-parchment);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--hs-ink);
 }
 
 /* ---- Great comments list ---- */
@@ -586,9 +693,9 @@ a:hover {
         gap: 10px;
     }
 
-    .HS-browser {
+    .HS-browser--store {
+        flex-direction: row;
         padding: 18px 16px;
-        display: flex;
         align-items: center;
         gap: 14px;
         text-align: left;
@@ -602,6 +709,28 @@ a:hover {
 
     .HS-browser-info {
         flex: 1;
+    }
+
+    .HS-browser-name {
+        margin-bottom: 6px;
+    }
+
+    .HS-sideload-header {
+        padding: 0;
+        gap: 12px;
+    }
+
+    .HS-sideload-label {
+        font-size: 0.84rem;
+    }
+
+    .HS-sideload-body {
+        padding: 0;
+    }
+
+    .HS-sideload-browsers {
+        flex-direction: column;
+        gap: 10px;
     }
 
     .HS-observation figcaption {

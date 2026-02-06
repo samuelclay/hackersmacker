@@ -114,29 +114,68 @@
 
     <section class="HS-section" id="download">
         <h2 class="HS-section-title">Get the Extension</h2>
+
+        <!-- Store install (primary) -->
         <div class="HS-browsers">
-            <div class="HS-browser">
-                <img src="images/safari.png" alt="Safari" class="HS-browser-icon">
-                <div class="HS-browser-info">
-                    <div class="HS-browser-name">Safari</div>
-                    <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true">Download</a>
-                    <p class="HS-browser-note">Double-click to install</p>
-                </div>
-            </div>
-            <div class="HS-browser">
+            <a href="#chrome-store" class="HS-browser HS-browser--store">
                 <img src="images/chrome.png" alt="Chrome" class="HS-browser-icon">
                 <div class="HS-browser-info">
                     <div class="HS-browser-name">Chrome</div>
-                    <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true">Download</a>
-                    <p class="HS-browser-note">Drag into chrome://extensions</p>
+                    <span class="HS-store-btn">Add to Chrome</span>
+                    <p class="HS-browser-note">Chrome Web Store</p>
                 </div>
-            </div>
-            <div class="HS-browser">
+            </a>
+            <a href="#firefox-store" class="HS-browser HS-browser--store">
                 <img src="images/firefox.png" alt="Firefox" class="HS-browser-icon">
                 <div class="HS-browser-info">
                     <div class="HS-browser-name">Firefox</div>
-                    <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/firefox.xpi?raw=true">Download</a>
-                    <p class="HS-browser-note">Drag .xpi into Firefox</p>
+                    <span class="HS-store-btn">Add to Firefox</span>
+                    <p class="HS-browser-note">Firefox Add-ons</p>
+                </div>
+            </a>
+            <a href="#safari-store" class="HS-browser HS-browser--store">
+                <img src="images/safari.png" alt="Safari" class="HS-browser-icon">
+                <div class="HS-browser-info">
+                    <div class="HS-browser-name">Safari</div>
+                    <span class="HS-store-btn">Add to Safari</span>
+                    <p class="HS-browser-note">Mac App Store</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- Manual / side-load install -->
+        <div class="HS-sideload">
+            <div class="HS-sideload-header">
+                <span class="HS-sideload-rule"></span>
+                <span class="HS-sideload-label">or, install manually</span>
+                <span class="HS-sideload-rule"></span>
+            </div>
+            <div class="HS-sideload-body">
+                <div class="HS-sideload-browsers">
+                    <div class="HS-sideload-browser">
+                        <img src="images/chrome.png" alt="" class="HS-sideload-icon">
+                        <div class="HS-sideload-info">
+                            <div class="HS-sideload-name">Chrome</div>
+                            <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/chrome.crx?raw=true">Download .crx</a>
+                            <p class="HS-sideload-note">Drag into <code>chrome://extensions</code></p>
+                        </div>
+                    </div>
+                    <div class="HS-sideload-browser">
+                        <img src="images/firefox.png" alt="" class="HS-sideload-icon">
+                        <div class="HS-sideload-info">
+                            <div class="HS-sideload-name">Firefox</div>
+                            <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/firefox.xpi?raw=true">Download .xpi</a>
+                            <p class="HS-sideload-note">Drag into Firefox to install</p>
+                        </div>
+                    </div>
+                    <div class="HS-sideload-browser">
+                        <img src="images/safari.png" alt="" class="HS-sideload-icon">
+                        <div class="HS-sideload-info">
+                            <div class="HS-sideload-name">Safari</div>
+                            <a href="https://github.com/samuelclay/hackersmacker/blob/master/client/Safari.safariextz?raw=true">Download .safariextz</a>
+                            <p class="HS-sideload-note">Double-click to install</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
