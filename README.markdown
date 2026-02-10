@@ -30,15 +30,15 @@ Hacker Smacker is directly inspired by Slashdot's friend/foe system.
 
 A friend or foe has not yet been made. The standard orb:
 
-![](https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot1.png)
+![](https://raw.githubusercontent.com/samuelclay/hackersmacker/main/docs/screenshot1.png)
 
 Choosing a friend or foe. Animation provides a nice slide out:
 
-![](https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot2.png)
+![](https://raw.githubusercontent.com/samuelclay/hackersmacker/main/docs/screenshot2.png)
 
 A blend of friends and foes illustrating the transformative experience of Hacker Smacker:
 
-![](https://raw.githubusercontent.com/samuelclay/hackersmacker/master/docs/screenshot3.png)
+![](https://raw.githubusercontent.com/samuelclay/hackersmacker/main/docs/screenshot3.png)
 
 ## Get the Extension
 
