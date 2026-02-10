@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    width: 220px;
+    padding: 12px 14px;
+    margin: 0;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    color: #333;
+    background: #F6F6EF;
+}
+h3 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: #2C2416;
+}
+label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 6px 0;
+}
+input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+.description {
+    font-size: 10px;
+    color: #828282;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+</style>
+</head>
+<body>
+<h3>Hacker Smacker</h3>
+<label>
+    <input type="checkbox" id="colorblind">
+    Colorblind mode
+</label>
+<div class="description">Uses blue/gold instead of green/red</div>
+
+<script>
+(function() {
+    var storage = (chrome && chrome.storage && chrome.storage.local) ||
+                  (typeof browser !== 'undefined' && browser && browser.storage && browser.storage.local);
+    var checkbox = document.getElementById('colorblind');
+
+    storage.get(['hs_colorblind'], function(data) {
+        checkbox.checked = !!(data && data.hs_colorblind);
+    });
+
+    checkbox.addEventListener('change', function() {
+        storage.set({ hs_colorblind: checkbox.checked });
+    });
+})();
+</script>
+</body>
+</html>

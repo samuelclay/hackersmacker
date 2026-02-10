@@ -20,12 +20,14 @@ class window.HSGraph
                 @auth_token = response?.auth_token or null
                 @stored_username = response?.username or null
                 @verified = !!@auth_token
+                @loadColorblindPref()
                 callback()
         else if typeof browser isnt 'undefined' and browser?.runtime?.sendMessage
             browser.runtime.sendMessage { action: 'getAuthToken' }, (response) =>
                 @auth_token = response?.auth_token or null
                 @stored_username = response?.username or null
                 @verified = !!@auth_token
+                @loadColorblindPref()
                 callback()
         else
             callback()
@@ -51,6 +53,24 @@ class window.HSGraph
             chrome.runtime.sendMessage msg
         else if typeof browser isnt 'undefined' and browser?.runtime?.sendMessage
             browser.runtime.sendMessage msg
+
+    loadColorblindPref: ->
+        sendMsg = chrome?.runtime?.sendMessage or (typeof browser isnt 'undefined' and browser?.runtime?.sendMessage)
+        return unless sendMsg
+        chrome.runtime.sendMessage { action: 'getColorblind' }, (response) =>
+            if response?.colorblind
+                $('body').addClass 'HS-colorblind'
+            else
+                $('body').removeClass 'HS-colorblind'
+        # Listen for storage changes so popup toggle takes effect immediately
+        storageApi = chrome?.storage?.onChanged or (typeof browser isnt 'undefined' and browser?.storage?.onChanged)
+        if storageApi
+            chrome.storage.onChanged.addListener (changes) =>
+                if changes.hs_colorblind?
+                    if changes.hs_colorblind.newValue
+                        $('body').addClass 'HS-colorblind'
+                    else
+                        $('body').removeClass 'HS-colorblind'
 
     decorateComments: ->
         found = @findCurrentUser()

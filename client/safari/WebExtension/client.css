@@ -190,3 +190,86 @@
         #C2483B 84%
     );
 }
+
+/* ========================== */
+/* = Colorblind Mode         = */
+/* ========================== */
+
+.HS-colorblind .HS-rater-button.HS-rater-friend {
+    background-color: #2B6CB0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #2563A8),
+        color-stop(0.84, #2B6CB0)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #2563A8 16%,
+        #2B6CB0 84%
+    );
+}
+
+.HS-colorblind .HS-rater-button.HS-rater-foe {
+    background-color: #C8850E;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #B8780C),
+        color-stop(0.84, #C8850E)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #B8780C 16%,
+        #C8850E 84%
+    );
+}
+
+.HS-colorblind .HS-foaf-friend .HS-foaf-start,
+.HS-colorblind .HS-foaf-foe    .HS-foaf-start {
+    background-color: #2B6CB0;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #2563A8),
+        color-stop(0.84, #2B6CB0)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #2563A8 16%,
+        #2B6CB0 84%
+    );
+}
+.HS-colorblind .HS-foaf-friend .HS-foaf-end {
+    background-color: #215A91;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #1D4F80),
+        color-stop(0.84, #215A91)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #1D4F80 16%,
+        #215A91 84%
+    );
+}
+.HS-colorblind .HS-foaf-foe .HS-foaf-end {
+    background-color: #A06A0A;
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.16, #8F5E09),
+        color-stop(0.84, #A06A0A)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #8F5E09 16%,
+        #A06A0A 84%
+    );
+}

@@ -29,6 +29,7 @@
           this.auth_token = (response != null ? response.auth_token : void 0) || null;
           this.stored_username = (response != null ? response.username : void 0) || null;
           this.verified = !!this.auth_token;
+          this.loadColorblindPref();
           return callback();
         });
       } else if (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0)) {
@@ -38,6 +39,7 @@
           this.auth_token = (response != null ? response.auth_token : void 0) || null;
           this.stored_username = (response != null ? response.username : void 0) || null;
           this.verified = !!this.auth_token;
+          this.loadColorblindPref();
           return callback();
         });
       } else {
@@ -80,6 +82,36 @@
         return chrome.runtime.sendMessage(msg);
       } else if (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0)) {
         return browser.runtime.sendMessage(msg);
+      }
+    }
+
+    loadColorblindPref() {
+      var ref, ref1, ref2, ref3, sendMsg, storageApi;
+      sendMsg = (typeof chrome !== "undefined" && chrome !== null ? (ref = chrome.runtime) != null ? ref.sendMessage : void 0 : void 0) || (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref1 = browser.runtime) != null ? ref1.sendMessage : void 0 : void 0));
+      if (!sendMsg) {
+        return;
+      }
+      chrome.runtime.sendMessage({
+        action: 'getColorblind'
+      }, (response) => {
+        if (response != null ? response.colorblind : void 0) {
+          return $('body').addClass('HS-colorblind');
+        } else {
+          return $('body').removeClass('HS-colorblind');
+        }
+      });
+      // Listen for storage changes so popup toggle takes effect immediately
+      storageApi = (typeof chrome !== "undefined" && chrome !== null ? (ref2 = chrome.storage) != null ? ref2.onChanged : void 0 : void 0) || (typeof browser !== 'undefined' && (typeof browser !== "undefined" && browser !== null ? (ref3 = browser.storage) != null ? ref3.onChanged : void 0 : void 0));
+      if (storageApi) {
+        return chrome.storage.onChanged.addListener((changes) => {
+          if (changes.hs_colorblind != null) {
+            if (changes.hs_colorblind.newValue) {
+              return $('body').addClass('HS-colorblind');
+            } else {
+              return $('body').removeClass('HS-colorblind');
+            }
+          }
+        });
       }
     }
 

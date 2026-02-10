@@ -45,6 +45,17 @@ handleMessage = (request, sender, sendResponse) ->
                 sendResponse { success: true }
             return true
 
+        when 'getColorblind'
+            storage.get ['hs_colorblind'], (data) ->
+                sendResponse
+                    colorblind: !!data?.hs_colorblind
+            return true
+
+        when 'setColorblind'
+            storage.set { hs_colorblind: !!request.enabled }, ->
+                sendResponse { success: true }
+            return true
+
 if chrome?.runtime?.onMessage
     chrome.runtime.onMessage.addListener handleMessage
 else if typeof browser isnt 'undefined' and browser?.runtime?.onMessage

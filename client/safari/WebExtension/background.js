@@ -58,6 +58,22 @@
           });
         });
         return true;
+      case 'getColorblind':
+        storage.get(['hs_colorblind'], function(data) {
+          return sendResponse({
+            colorblind: !!(data != null ? data.hs_colorblind : void 0)
+          });
+        });
+        return true;
+      case 'setColorblind':
+        storage.set({
+          hs_colorblind: !!request.enabled
+        }, function() {
+          return sendResponse({
+            success: true
+          });
+        });
+        return true;
     }
   };
 

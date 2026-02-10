@@ -37,11 +37,12 @@
     "https://www.hackersmacker.org/",
     "storage"
   ],
-  "page_action": {
+  "browser_action": {
     "default_icon": {
       "48": "images/icon-48.png",
       "64": "images/icon-64.png"
     },
-    "default_title": "Hacker Smacker"
+    "default_title": "Hacker Smacker",
+    "default_popup": "popup.html"
   }
 }

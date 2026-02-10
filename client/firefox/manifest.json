@@ -47,11 +47,12 @@
       }
     }
   },
-  "page_action": {
+  "browser_action": {
     "default_icon": {
       "16": "data/icon-16.png",
       "32": "data/icon-32.png"
     },
-    "default_title": "Hacker Smacker"
+    "default_title": "Hacker Smacker",
+    "default_popup": "data/popup.html"
   }
 }

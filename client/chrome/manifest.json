@@ -36,6 +36,7 @@
   ],
   "action": {
     "default_icon": "icon.png",
-    "default_title": "Hacker Smacker"
+    "default_title": "Hacker Smacker",
+    "default_popup": "popup.html"
   }
 }
