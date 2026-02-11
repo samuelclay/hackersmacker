@@ -620,7 +620,7 @@ class window.HSRater
                 <div class="HS-auth-error-content">
                     <div class="HS-auth-error-icon">&#9888;</div>
                     <div class="HS-auth-error-text">
-                        <div class="HS-auth-error-title">Session expired</div>
+                        <div class="HS-auth-error-title">Hacker Smacker session expired</div>
                         <div class="HS-auth-error-message">Your authentication has expired. Re-verify to continue rating.</div>
                     </div>
                 </div>
@@ -653,9 +653,32 @@ class window.HSRater
         # Re-verify button
         $popover.find('.HS-auth-error-action').on 'click', (e) =>
             e.preventDefault()
-            $popover.remove()
+            clearTimeout dismissTimeout
+            $(document).off 'click', dismissHandler
+            $popover.find('.HS-auth-error-action').text('Checking...').css('background', '#8A8272')
             HS.clearAuthToken()
-            HS.startVerification()
+            $.ajax
+                url: "#{HS_PROTOCOL}//#{HS_SERVER}/verify/start"
+                data: { me: HS.me }
+                dataType: 'json'
+                success: (response) =>
+                    if response.code is 2 and response.auth_token
+                        # Token recovered from server
+                        HS.storeAuthToken response.auth_token, HS.me
+                        $popover.find('.HS-auth-error-icon').html '&#10003;'
+                        $popover.find('.HS-auth-error-icon').css 'color', '#4F934D'
+                        $popover.find('.HS-auth-error-title').text 'Re-authenticated!'
+                        $popover.find('.HS-auth-error-message').text 'You can rate again now.'
+                        $popover.find('.HS-auth-error-action').remove()
+                        $popover.css 'border-color', '#B8D4B6'
+                        setTimeout (-> $popover.fadeOut 300, -> $popover.remove()), 3000
+                    else
+                        # Need full re-verification
+                        $popover.remove()
+                        HS.startVerification()
+                error: =>
+                    $popover.remove()
+                    HS.showWelcome()
 
         # Auto-dismiss after 8 seconds
         dismissTimeout = setTimeout ->
