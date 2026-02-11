@@ -501,6 +501,12 @@ class window.HSRater
             return
 
         $target = $ e.currentTarget
+
+        # Snapshot current state for rollback on error
+        prevRelationship = 'neutral'
+        prevRelationship = 'friend' if _.contains(HS.graph.friends, @username)
+        prevRelationship = 'foe' if _.contains(HS.graph.foes, @username)
+
         if $target.hasClass('HS-rater-friend')
             @relationship = 'friend'
             HS.graph.friends.push(@username)
@@ -533,6 +539,9 @@ class window.HSRater
             traditional: true
             error: (xhr) =>
                 console.log 'Hackersmacker save error:', xhr.status, xhr.responseText
+                @revertRating(prevRelationship)
+                if xhr.status is 401
+                    @showAuthErrorPopover()
 
         console.log 'Saving Hackersmacker', @relationship, @username, HS_SERVER
         @reset()
@@ -590,6 +599,78 @@ class window.HSRater
     resetDuplicates: ->
         $dupes = $("a[href^=\"user?id=#{@username}\"]").not(@$user)
         new HSRater $($dupe), @me for $dupe in $dupes
+
+    revertRating: (prevRelationship) ->
+        HS.graph.friends = _.without HS.graph.friends, @username
+        HS.graph.foes = _.without HS.graph.foes, @username
+        if prevRelationship is 'friend'
+            HS.graph.friends.push @username
+        else if prevRelationship is 'foe'
+            HS.graph.foes.push @username
+        @relationship = prevRelationship
+        @reset()
+        @resetDuplicates()
+
+    showAuthErrorPopover: ->
+        $('.HS-auth-error-popover').remove()
+
+        $popover = $ """
+            <div class="HS-auth-error-popover">
+                <div class="HS-auth-error-arrow"></div>
+                <div class="HS-auth-error-content">
+                    <div class="HS-auth-error-icon">&#9888;</div>
+                    <div class="HS-auth-error-text">
+                        <div class="HS-auth-error-title">Session expired</div>
+                        <div class="HS-auth-error-message">Your authentication has expired. Re-verify to continue rating.</div>
+                    </div>
+                </div>
+                <a href="#" class="HS-auth-error-action">Re-verify my account &rarr;</a>
+            </div>
+        """
+
+        $('body').append $popover
+
+        raterOffset = @rater.offset()
+        raterWidth = @rater.outerWidth()
+        popoverWidth = $popover.outerWidth()
+        popoverHeight = $popover.outerHeight()
+
+        # Position above the orb, centered horizontally
+        left = raterOffset.left + (raterWidth / 2) - (popoverWidth / 2)
+        top = raterOffset.top - popoverHeight - 8
+
+        # Keep within viewport
+        left = Math.max(8, Math.min(left, $(window).width() - popoverWidth - 8))
+
+        # If not enough room above, show below
+        if top < $(window).scrollTop() + 8
+            top = raterOffset.top + @rater.outerHeight() + 8
+            $popover.addClass 'HS-auth-error-below'
+
+        $popover.css left: left, top: top
+        $popover.hide().fadeIn 200
+
+        # Re-verify button
+        $popover.find('.HS-auth-error-action').on 'click', (e) =>
+            e.preventDefault()
+            $popover.remove()
+            HS.clearAuthToken()
+            HS.startVerification()
+
+        # Auto-dismiss after 8 seconds
+        dismissTimeout = setTimeout ->
+            $popover.fadeOut 300, -> $popover.remove()
+        , 8000
+
+        # Click outside to dismiss
+        dismissHandler = (e) ->
+            if not $(e.target).closest('.HS-auth-error-popover').length
+                clearTimeout dismissTimeout
+                $popover.fadeOut 200, -> $popover.remove()
+                $(document).off 'click', dismissHandler
+        setTimeout ->
+            $(document).on 'click', dismissHandler
+        , 100
 
 $(document).ready ->
     window.HS = new HSGraph()

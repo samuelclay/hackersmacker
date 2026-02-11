@@ -189,6 +189,25 @@
         }
       });
     },
+    debugAuthToken: function(username, providedToken, callback) {
+      var key;
+      key = `V:${username}:auth_token`;
+      return client.get(key, function(err, storedToken) {
+        if (err) {
+          return callback(`Redis error: ${err.message}`);
+        }
+        if (!storedToken) {
+          return callback(`No stored token in Redis (key ${key} missing — likely Redis restart)`);
+        }
+        if (!providedToken) {
+          return callback("Client sent empty token");
+        }
+        if (providedToken.length !== storedToken.length) {
+          return callback(`Token length mismatch: client=${providedToken.length} server=${storedToken.length}, client_prefix=${providedToken.substring(0, 8)}...`);
+        }
+        return callback(`Token mismatch: client_prefix=${providedToken.substring(0, 8)}... stored_prefix=${storedToken.substring(0, 8)}...`);
+      });
+    },
     scrapeHNProfile: function(username, callback) {
       var options, req;
       options = {

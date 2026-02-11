@@ -136,6 +136,19 @@ module.exports =
             catch
                 callback(false)
 
+    debugAuthToken: (username, providedToken, callback) ->
+        key = "V:#{username}:auth_token"
+        client.get key, (err, storedToken) ->
+            if err
+                return callback "Redis error: #{err.message}"
+            if not storedToken
+                return callback "No stored token in Redis (key #{key} missing — likely Redis restart)"
+            if not providedToken
+                return callback "Client sent empty token"
+            if providedToken.length isnt storedToken.length
+                return callback "Token length mismatch: client=#{providedToken.length} server=#{storedToken.length}, client_prefix=#{providedToken.substring(0, 8)}..."
+            return callback "Token mismatch: client_prefix=#{providedToken.substring(0, 8)}... stored_prefix=#{storedToken.substring(0, 8)}..."
+
     scrapeHNProfile: (username, callback) ->
         options =
             hostname: 'news.ycombinator.com'

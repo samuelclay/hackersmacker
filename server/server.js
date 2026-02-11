@@ -26,12 +26,13 @@
     }
   });
 
-  // Auth middleware (logs warnings for now, enforces on /save)
+  // Auth middleware (enforces on /save)
   requireAuth = function(req, res, next) {
     var authToken, ref, ref1, username;
     username = req.query.me || ((ref = req.body) != null ? ref.me : void 0);
     authToken = req.query.auth_token || ((ref1 = req.body) != null ? ref1.auth_token : void 0) || req.headers['x-hs-auth'];
     if (!username || !authToken) {
+      console.log(` ---> [AUTH FAIL] Missing credentials for ${username || '(no user)'} on ${req.method} ${req.url} from ${req.headers.referer || '(no referer)'}`);
       res.contentType('json');
       res.send(JSON.stringify({
         code: -1,
@@ -43,6 +44,9 @@
       if (valid) {
         return next();
       } else {
+        auth.debugAuthToken(username, authToken, function(info) {
+          return console.log(` ---> [AUTH FAIL] Invalid token for ${username}: ${info}`);
+        });
         res.contentType('json');
         return res.send(JSON.stringify({
           code: -1,
@@ -499,11 +503,6 @@ document.getElementById('HS-visibility-toggle').addEventListener('change', funct
       res.contentType('application/octet-stream');
       return res.send(data);
     });
-  });
-
-  // Privacy policy
-  app.get('/privacy', function(req, res) {
-    return res.redirect('/privacy.html');
   });
 
   // Static files

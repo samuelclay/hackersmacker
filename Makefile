@@ -41,10 +41,13 @@ compile-dev:
 	@mv client/chrome/manifest.dev.json client/chrome/manifest.json
 	@cp client/common/client.js client/chrome/client.js
 	@cp client/common/background.js client/chrome/background.js
+	@cp client/common/client.css client/chrome/client.css
 	@cp client/common/client.js client/firefox/data/client.js
 	@cp client/common/background.js client/firefox/data/background.js
+	@cp client/common/client.css client/firefox/data/client.css
 	@cp client/common/client.js client/safari/WebExtension/client.js
 	@cp client/common/background.js client/safari/WebExtension/background.js
+	@cp client/common/client.css client/safari/WebExtension/client.css
 
 compile-prod:
 	@coffee -c client/common/client.coffee
@@ -54,10 +57,13 @@ compile-prod:
 	@mv client/chrome/manifest.prod.json client/chrome/manifest.json
 	@cp client/common/client.js client/chrome/client.js
 	@cp client/common/background.js client/chrome/background.js
+	@cp client/common/client.css client/chrome/client.css
 	@cp client/common/client.js client/firefox/data/client.js
 	@cp client/common/background.js client/firefox/data/background.js
+	@cp client/common/client.css client/firefox/data/client.css
 	@cp client/common/client.js client/safari/WebExtension/client.js
 	@cp client/common/background.js client/safari/WebExtension/background.js
+	@cp client/common/client.css client/safari/WebExtension/client.css
 
 renew:
 	sudo /etc/init.d/haproxy stop

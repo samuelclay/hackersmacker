@@ -16,11 +16,12 @@ app.use (req, res, next) ->
     else
         next()
 
-# Auth middleware (logs warnings for now, enforces on /save)
+# Auth middleware (enforces on /save)
 requireAuth = (req, res, next) ->
     username = req.query.me or req.body?.me
     authToken = req.query.auth_token or req.body?.auth_token or req.headers['x-hs-auth']
     if not username or not authToken
+        console.log " ---> [AUTH FAIL] Missing credentials for #{username or '(no user)'} on #{req.method} #{req.url} from #{req.headers.referer or '(no referer)'}"
         res.contentType 'json'
         res.send JSON.stringify({ code: -1, message: 'Authentication required. Please verify your identity.' }), 401
         return
@@ -28,6 +29,8 @@ requireAuth = (req, res, next) ->
         if valid
             next()
         else
+            auth.debugAuthToken username, authToken, (info) ->
+                console.log " ---> [AUTH FAIL] Invalid token for #{username}: #{info}"
             res.contentType 'json'
             res.send JSON.stringify({ code: -1, message: 'Invalid authentication. Please re-verify.' }), 401
 

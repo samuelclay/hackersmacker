@@ -653,13 +653,21 @@
     }
 
     save(e) {
-      var $target, context, data;
+      var $target, context, data, prevRelationship;
       // Block saves if not verified — nudge user to verify
       if (!HS.verified) {
         HS.showVerifyNudge();
         return;
       }
       $target = $(e.currentTarget);
+      // Snapshot current state for rollback on error
+      prevRelationship = 'neutral';
+      if (_.contains(HS.graph.friends, this.username)) {
+        prevRelationship = 'friend';
+      }
+      if (_.contains(HS.graph.foes, this.username)) {
+        prevRelationship = 'foe';
+      }
       if ($target.hasClass('HS-rater-friend')) {
         this.relationship = 'friend';
         HS.graph.friends.push(this.username);
@@ -691,7 +699,11 @@
         data: data,
         traditional: true,
         error: (xhr) => {
-          return console.log('Hackersmacker save error:', xhr.status, xhr.responseText);
+          console.log('Hackersmacker save error:', xhr.status, xhr.responseText);
+          this.revertRating(prevRelationship);
+          if (xhr.status === 401) {
+            return this.showAuthErrorPopover();
+          }
         }
       });
       console.log('Saving Hackersmacker', this.relationship, this.username, HS_SERVER);
@@ -767,6 +779,81 @@
         results.push(new HSRater($($dupe), this.me));
       }
       return results;
+    }
+
+    revertRating(prevRelationship) {
+      HS.graph.friends = _.without(HS.graph.friends, this.username);
+      HS.graph.foes = _.without(HS.graph.foes, this.username);
+      if (prevRelationship === 'friend') {
+        HS.graph.friends.push(this.username);
+      } else if (prevRelationship === 'foe') {
+        HS.graph.foes.push(this.username);
+      }
+      this.relationship = prevRelationship;
+      this.reset();
+      return this.resetDuplicates();
+    }
+
+    showAuthErrorPopover() {
+      var $popover, dismissHandler, dismissTimeout, left, popoverHeight, popoverWidth, raterOffset, raterWidth, top;
+      $('.HS-auth-error-popover').remove();
+      $popover = $(`<div class="HS-auth-error-popover">
+    <div class="HS-auth-error-arrow"></div>
+    <div class="HS-auth-error-content">
+        <div class="HS-auth-error-icon">&#9888;</div>
+        <div class="HS-auth-error-text">
+            <div class="HS-auth-error-title">Session expired</div>
+            <div class="HS-auth-error-message">Your authentication has expired. Re-verify to continue rating.</div>
+        </div>
+    </div>
+    <a href="#" class="HS-auth-error-action">Re-verify my account &rarr;</a>
+</div>`);
+      $('body').append($popover);
+      raterOffset = this.rater.offset();
+      raterWidth = this.rater.outerWidth();
+      popoverWidth = $popover.outerWidth();
+      popoverHeight = $popover.outerHeight();
+      // Position above the orb, centered horizontally
+      left = raterOffset.left + (raterWidth / 2) - (popoverWidth / 2);
+      top = raterOffset.top - popoverHeight - 8;
+      // Keep within viewport
+      left = Math.max(8, Math.min(left, $(window).width() - popoverWidth - 8));
+      // If not enough room above, show below
+      if (top < $(window).scrollTop() + 8) {
+        top = raterOffset.top + this.rater.outerHeight() + 8;
+        $popover.addClass('HS-auth-error-below');
+      }
+      $popover.css({
+        left: left,
+        top: top
+      });
+      $popover.hide().fadeIn(200);
+      // Re-verify button
+      $popover.find('.HS-auth-error-action').on('click', (e) => {
+        e.preventDefault();
+        $popover.remove();
+        HS.clearAuthToken();
+        return HS.startVerification();
+      });
+      // Auto-dismiss after 8 seconds
+      dismissTimeout = setTimeout(function() {
+        return $popover.fadeOut(300, function() {
+          return $popover.remove();
+        });
+      }, 8000);
+      // Click outside to dismiss
+      dismissHandler = function(e) {
+        if (!$(e.target).closest('.HS-auth-error-popover').length) {
+          clearTimeout(dismissTimeout);
+          $popover.fadeOut(200, function() {
+            return $popover.remove();
+          });
+          return $(document).off('click', dismissHandler);
+        }
+      };
+      return setTimeout(function() {
+        return $(document).on('click', dismissHandler);
+      }, 100);
     }
 
   };

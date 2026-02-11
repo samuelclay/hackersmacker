@@ -190,3 +190,101 @@
         #C2483B 84%
     );
 }
+
+/* ========================== */
+/* = Auth Error Popover      = */
+/* ========================== */
+
+.HS-auth-error-popover {
+    position: absolute;
+    z-index: 10000;
+    width: 280px;
+    background: linear-gradient(to bottom, #FFFEF7, #FFF9E6);
+    border: 1px solid #D4A574;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.06);
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 11px;
+    color: #333;
+}
+
+.HS-auth-error-arrow {
+    position: absolute;
+    bottom: -7px;
+    left: 50%;
+    margin-left: -7px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid #D4A574;
+}
+
+.HS-auth-error-arrow::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -6px;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #FFF9E6;
+}
+
+.HS-auth-error-below .HS-auth-error-arrow {
+    top: -7px;
+    bottom: auto;
+    border-top: none;
+    border-bottom: 7px solid #D4A574;
+}
+
+.HS-auth-error-below .HS-auth-error-arrow::after {
+    top: 2px;
+    border-top: none;
+    border-bottom: 6px solid #FFFEF7;
+}
+
+.HS-auth-error-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px 8px;
+}
+
+.HS-auth-error-icon {
+    font-size: 18px;
+    line-height: 1;
+    color: #AC473B;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.HS-auth-error-title {
+    font-weight: bold;
+    font-size: 12px;
+    color: #7A3B10;
+    margin-bottom: 4px;
+}
+
+.HS-auth-error-message {
+    color: #5C5444;
+    line-height: 1.5;
+}
+
+.HS-auth-error-action {
+    display: block;
+    text-align: center;
+    padding: 8px 14px;
+    margin: 4px 10px 10px;
+    background: #96592A;
+    color: #fff !important;
+    text-decoration: none !important;
+    font-weight: bold;
+    font-size: 11px;
+    border-radius: 4px;
+}
+
+.HS-auth-error-action:hover {
+    background: #7A4820;
+}
