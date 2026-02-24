@@ -44,7 +44,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 
 ### <img src="web/images/chrome.png" width="32"> Chrome
 
-**From the Web Store:** [Install from Chrome Web Store](https://chrome.google.com/webstore/detail/hacker-smacker/) <!-- Update with actual Web Store URL -->
+**From the Web Store:** [Install from Chrome Web Store](https://chromewebstore.google.com/detail/hacker-smacker/lmcglejmapenkiabndkcnahfkmbohmhd)
 
 **Load unpacked (development):**
 1. Go to `chrome://extensions`
@@ -62,7 +62,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 
 ### <img src="web/images/safari.png" width="32"> Safari
 
-**From the App Store:** [Install from Mac App Store](https://apps.apple.com/app/hacker-smacker/) <!-- Update with actual App Store URL -->
+**From the App Store:** [Install from Mac App Store](https://apps.apple.com/us/app/hacker-smacker/id1480749725)
 
 **Build from source (development):**
 1. Open `client/safari/Hacker Smacker/Hacker Smacker.xcodeproj` in Xcode
