@@ -42,7 +42,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 
 ## Get the Extension
 
-### <img src="web/images/chrome.png" width="32"> Chrome
+### <img src="web/images/chrome.png" width="32"> <img src="web/images/edge.png" width="32"> Chrome / Edge
 
 **From the Web Store:** [Install from Chrome Web Store](https://chromewebstore.google.com/detail/hacker-smacker/lmcglejmapenkiabndkcnahfkmbohmhd)
 

@@ -346,6 +346,17 @@ a:hover {
     image-rendering: auto;
 }
 
+.HS-browser-icon-pair {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.HS-browser-icon-pair .HS-browser-icon {
+    margin: 0;
+}
+
 .HS-browser-name {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.82rem;
@@ -717,6 +728,10 @@ a:hover {
         margin: 0;
         width: 40px;
         height: 40px;
+    }
+
+    .HS-browser-icon-pair {
+        margin-bottom: 0;
     }
 
     .HS-browser-info {
