@@ -42,7 +42,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 
 ## Get the Extension
 
-### <img src="web/images/chrome.png" width="32"> <img src="web/images/edge.png" width="32"> Chrome / Edge
+### <img src="web/images/chrome.svg" width="32"> <img src="web/images/edge.svg" width="32"> Chrome / Edge
 
 **From the Web Store:** [Install from Chrome Web Store](https://chromewebstore.google.com/detail/hacker-smacker/lmcglejmapenkiabndkcnahfkmbohmhd)
 
@@ -51,7 +51,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 2. Enable "Developer mode" (top right)
 3. Click "Load unpacked" and select the `client/chrome/` directory
 
-### <img src="web/images/firefox.png" width="32"> Firefox
+### <img src="web/images/firefox.svg" width="32"> Firefox
 
 **From Add-ons:** [Install from Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/hacker-smacker/)
 
@@ -60,7 +60,7 @@ A blend of friends and foes illustrating the transformative experience of Hacker
 2. Click "Load Temporary Add-on"
 3. Select `client/firefox/manifest.json`
 
-### <img src="web/images/safari.png" width="32"> Safari
+### <img src="web/images/safari.svg" width="32"> Safari
 
 **From the App Store:** [Install from Mac App Store](https://apps.apple.com/us/app/hacker-smacker/id1480749725)
 
