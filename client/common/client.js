@@ -149,9 +149,9 @@
         },
         dataType: 'json',
         success: (response) => {
-          if (response.code === 2 && response.auth_token) {
-            // Already verified — restore token silently
-            return this.storeAuthToken(response.auth_token, this.me);
+          if (response.code === 2) {
+            // Already verified — show verified state
+            return this.showVerified();
           } else {
             return this.showWelcome();
           }
@@ -243,11 +243,9 @@
         },
         dataType: 'json',
         success: (response) => {
-          if (response.code === 2 && response.auth_token) {
-            // Already verified — restore auth token
-            return this.storeAuthToken(response.auth_token, this.me, () => {
-              return this.showVerified();
-            });
+          if (response.code === 2) {
+            // Already verified
+            return this.showVerified();
           } else if (response.code === 1) {
             // Save token to storage, then redirect to profile page
             return this._storePendingVerification(response.verification_token, () => {
@@ -854,25 +852,9 @@
           },
           dataType: 'json',
           success: (response) => {
-            if (response.code === 2 && response.auth_token) {
-              // Token recovered from server
-              HS.storeAuthToken(response.auth_token, HS.me);
-              $popover.find('.HS-auth-error-icon').html('&#10003;');
-              $popover.find('.HS-auth-error-icon').css('color', '#4F934D');
-              $popover.find('.HS-auth-error-title').text('Re-authenticated!');
-              $popover.find('.HS-auth-error-message').text('You can rate again now.');
-              $popover.find('.HS-auth-error-action').remove();
-              $popover.css('border-color', '#B8D4B6');
-              return setTimeout((function() {
-                return $popover.fadeOut(300, function() {
-                  return $popover.remove();
-                });
-              }), 3000);
-            } else {
-              // Need full re-verification
-              $popover.remove();
-              return HS.startVerification();
-            }
+            // Need full re-verification to get a new token
+            $popover.remove();
+            return HS.startVerification();
           },
           error: () => {
             $popover.remove();

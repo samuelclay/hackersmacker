@@ -100,9 +100,9 @@ class window.HSGraph
             data: { me: @me }
             dataType: 'json'
             success: (response) =>
-                if response.code is 2 and response.auth_token
-                    # Already verified — restore token silently
-                    @storeAuthToken response.auth_token, @me
+                if response.code is 2
+                    # Already verified — show verified state
+                    @showVerified()
                 else
                     @showWelcome()
             error: =>
@@ -179,10 +179,9 @@ class window.HSGraph
             data: { me: @me }
             dataType: 'json'
             success: (response) =>
-                if response.code is 2 and response.auth_token
-                    # Already verified — restore auth token
-                    @storeAuthToken response.auth_token, @me, =>
-                        @showVerified()
+                if response.code is 2
+                    # Already verified
+                    @showVerified()
                 else if response.code is 1
                     # Save token to storage, then redirect to profile page
                     @_storePendingVerification response.verification_token, =>
@@ -672,20 +671,9 @@ class window.HSRater
                 data: { me: HS.me }
                 dataType: 'json'
                 success: (response) =>
-                    if response.code is 2 and response.auth_token
-                        # Token recovered from server
-                        HS.storeAuthToken response.auth_token, HS.me
-                        $popover.find('.HS-auth-error-icon').html '&#10003;'
-                        $popover.find('.HS-auth-error-icon').css 'color', '#4F934D'
-                        $popover.find('.HS-auth-error-title').text 'Re-authenticated!'
-                        $popover.find('.HS-auth-error-message').text 'You can rate again now.'
-                        $popover.find('.HS-auth-error-action').remove()
-                        $popover.css 'border-color', '#B8D4B6'
-                        setTimeout (-> $popover.fadeOut 300, -> $popover.remove()), 3000
-                    else
-                        # Need full re-verification
-                        $popover.remove()
-                        HS.startVerification()
+                    # Need full re-verification to get a new token
+                    $popover.remove()
+                    HS.startVerification()
                 error: =>
                     $popover.remove()
                     HS.showWelcome()

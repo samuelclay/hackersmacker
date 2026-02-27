@@ -278,6 +278,7 @@
         // For each of the current user's friends, match the friend's friends/foes with users on the page
         multi1.smembers(friendsWith, function(e, m) {
           var friend, j, len;
+          m = m || [];
           for (j = 0, len = m.length; j < len; j++) {
             friend = m[j];
             (function(friend) {

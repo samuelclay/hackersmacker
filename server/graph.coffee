@@ -190,6 +190,7 @@ module.exports =
 
             # For each of the current user's friends, match the friend's friends/foes with users on the page
             multi1.smembers friendsWith, (e, m) ->
+                m = m or []
                 for friend in m
                     do (friend) ->
                         multi2.sinter "G:#{friend}:#{USER_FRIENDS_WITH}", onpageUserSet, (e, m) ->

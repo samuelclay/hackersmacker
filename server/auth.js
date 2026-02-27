@@ -45,13 +45,12 @@
       }
       pendingKey = `V:${username}:pending`;
       authKey = `V:${username}:auth_token`;
-      // Check if already verified — return auth token so extension can recover
+      // Check if already verified — don't return auth token (it's already stored in the extension)
       return client.get(authKey, (err, existingToken) => {
         if (existingToken) {
           return callback({
             code: 2,
-            status: 'already_verified',
-            auth_token: existingToken
+            status: 'already_verified'
           });
         }
         // Return existing token or generate one — token is stable per user
