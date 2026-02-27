@@ -12,6 +12,22 @@
 
   app = express.createServer();
 
+  // Reject multipart/form-data before bodyParser to avoid Buffer.write crash
+  // in old formidable (Node 7+ removed the 4-arg Buffer.write API)
+  app.use(function(req, res, next) {
+    var contentType;
+    contentType = req.headers['content-type'] || '';
+    if (contentType.indexOf('multipart/form-data') !== -1) {
+      res.contentType('json');
+      res.send(JSON.stringify({
+        code: -1,
+        message: 'Unsupported content type'
+      }), 400);
+      return;
+    }
+    return next();
+  });
+
   app.use(express.bodyParser());
 
   // CORS middleware for all requests

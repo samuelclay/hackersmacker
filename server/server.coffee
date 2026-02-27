@@ -4,6 +4,17 @@ graph = require './graph'
 auth = require './auth'
 
 app = express.createServer()
+
+# Reject multipart/form-data before bodyParser to avoid Buffer.write crash
+# in old formidable (Node 7+ removed the 4-arg Buffer.write API)
+app.use (req, res, next) ->
+    contentType = req.headers['content-type'] or ''
+    if contentType.indexOf('multipart/form-data') isnt -1
+        res.contentType 'json'
+        res.send JSON.stringify({ code: -1, message: 'Unsupported content type' }), 400
+        return
+    next()
+
 app.use express.bodyParser()
 
 # CORS middleware for all requests
