@@ -51,10 +51,16 @@ compile:
 	@cp client/common/client.css client/safari/WebExtension/client.css
 	@cp client/common/config.js client/safari/WebExtension/config.js
 
+ssh:
+	ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org
+
+tail:
+	ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org "journalctl -u hackersmacker -f"
+
 renew:
 	sudo /etc/init.d/haproxy stop
 	sudo letsencrypt renew
 	DOMAIN='hackersmacker.org' sudo -E bash -c 'cat /etc/letsencrypt/live/$$DOMAIN/fullchain.pem /etc/letsencrypt/live/$$DOMAIN/privkey.pem > /etc/haproxy/certs/$$DOMAIN.pem'
 	sudo /etc/init.d/haproxy start
 
-.PHONY: all up down logs restart dev prod compile-dev compile renew
+.PHONY: all up down logs restart dev prod compile-dev compile ssh tail renew
