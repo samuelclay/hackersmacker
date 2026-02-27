@@ -1,8 +1,7 @@
 window._HS = (e) ->
     console.log(["HS", e]);
 
-# window.HS_SERVER = 'nb.local.host:3030'
-window.HS_SERVER = 'www.hackersmacker.org'
+window.HS_SERVER = window.HS_SERVER or 'www.hackersmacker.org'
 window.HS_PROTOCOL = if HS_SERVER.indexOf('localhost') isnt -1 then 'http:' else 'https:'
 
 class window.HSGraph

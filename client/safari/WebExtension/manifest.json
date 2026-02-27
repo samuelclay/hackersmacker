@@ -26,6 +26,7 @@
         "jquery-171.min.js",
         "jquery.easing.js",
         "underscore-1.2.3.min.js",
+        "config.js",
         "client.js"
       ]
     }
@@ -35,6 +36,7 @@
     "http://news.ycombinator.com/",
     "http://www.hackersmacker.org/",
     "https://www.hackersmacker.org/",
+    "http://localhost:3040/",
     "storage"
   ],
   "page_action": {

@@ -21,6 +21,7 @@
         "jquery-171.min.js",
         "jquery.easing.js",
         "underscore-1.2.3.min.js",
+        "config.js",
         "client.js"
       ]
     }
@@ -32,7 +33,8 @@
     "https://news.ycombinator.com/",
     "http://news.ycombinator.com/",
     "http://www.hackersmacker.org/",
-    "https://www.hackersmacker.org/"
+    "https://www.hackersmacker.org/",
+    "http://localhost:3040/"
   ],
   "action": {
     "default_icon": "icon.png",
