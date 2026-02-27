@@ -467,6 +467,7 @@ class window.HSRater
         @$user.after @rater
 
     handle: ->
+        @expanded = false
         @animationOpts =
             duration : 300,
             easing   : 'easeOutQuint'
@@ -476,10 +477,14 @@ class window.HSRater
         _.each [@friend, @foe, @neutral], ($button) =>
             $button.bind 'click', (e) =>
                 @save e
+        $(document).on 'click', (e) =>
+            if @expanded and not $.contains(@rater[0], e.target)
+                @collapse()
         return
 
     expand: =>
         clearTimeout @collapseTimeout
+        @expanded = true
         @rater.animate  width: 70, @animationOpts
         @friend.animate left:  24, @animationOpts
         @foe.animate    left:  48, @animationOpts
@@ -490,11 +495,17 @@ class window.HSRater
         , 300
 
     collapse: =>
+        @expanded = false
         @rater.animate  width: 22, @animationOpts
         @friend.animate left:  0,  @animationOpts
         @foe.animate    left:  0,  @animationOpts
 
     save: (e) ->
+        # On mobile (no hover), first tap expands the orb instead of saving
+        if not @expanded
+            @expand()
+            return
+
         # Block saves if not verified — nudge user to verify
         if not HS.verified
             HS.showVerifyNudge()

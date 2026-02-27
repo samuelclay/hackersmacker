@@ -606,6 +606,7 @@
     }
 
     handle() {
+      this.expanded = false;
       this.animationOpts = {
         duration: 300,
         easing: 'easeOutQuint',
@@ -617,10 +618,16 @@
           return this.save(e);
         });
       });
+      $(document).on('click', (e) => {
+        if (this.expanded && !$.contains(this.rater[0], e.target)) {
+          return this.collapse();
+        }
+      });
     }
 
     expand() {
       clearTimeout(this.collapseTimeout);
+      this.expanded = true;
       this.rater.animate({
         width: 70
       }, this.animationOpts);
@@ -641,6 +648,7 @@
     }
 
     collapse() {
+      this.expanded = false;
       this.rater.animate({
         width: 22
       }, this.animationOpts);
@@ -654,6 +662,11 @@
 
     save(e) {
       var $target, context, data, prevRelationship;
+      // On mobile (no hover), first tap expands the orb instead of saving
+      if (!this.expanded) {
+        this.expand();
+        return;
+      }
       // Block saves if not verified — nudge user to verify
       if (!HS.verified) {
         HS.showVerifyNudge();
