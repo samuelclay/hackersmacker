@@ -78,7 +78,11 @@ git add -A && git commit -m "message" && git push
 ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org "cd /srv/hackersmacker && git pull && systemctl restart hackersmacker"
 ```
 
-Note: The server runs Node 7.x with an old Express version (2.x). No CoffeeScript compiler is installed on the server, so always commit compiled `.js` files. No Docker on the production server — it runs node directly via systemd.
+**IMPORTANT: Always compile CoffeeScript before committing.** The production server runs Node 7.x with no CoffeeScript compiler — it only runs `.js` files. After editing any `.coffee` file, compile it:
+- Client: `make prod` (compiles client .coffee and copies to all extension dirs)
+- Server: `coffee -c server/server.coffee` and/or `coffee -c server/auth.coffee` and/or `coffee -c server/graph.coffee`
+
+The server uses Express 2.x (very old API — no `res.sendFile`, use `fs.readFile` instead). No Docker on the production server — it runs node directly via systemd.
 
 ### SSL Certificate Renewal
 
