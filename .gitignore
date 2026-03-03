@@ -30,3 +30,7 @@ client/common/config.js
 client/chrome/config.js
 client/firefox/data/config.js
 client/safari/WebExtension/config.js
+*.zip
+*.crx
+*.xpi
+*.safariextz

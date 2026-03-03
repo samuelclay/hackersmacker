@@ -23,10 +23,14 @@ dev: compile-dev
 	@echo "  Chrome: Load unpacked from client/chrome/"
 	@echo "  Firefox: Load temporary add-on from client/firefox/manifest.json"
 
-# Build extensions pointing at production server
+# Build extensions pointing at production server and package for store submission
 prod: compile
+	@cd client/chrome && zip -r ../chrome.zip . -x "*.DS_Store"
+	@cd client/firefox && zip -r ../firefox.zip . -x "*.DS_Store"
 	@echo ""
 	@echo "Extensions built for production (www.hackersmacker.org)"
+	@echo "  Chrome/Edge: client/chrome.zip"
+	@echo "  Firefox:     client/firefox.zip"
 
 compile-dev: compile
 	@echo "window.HS_SERVER = 'localhost:3040';" > client/common/config.js
