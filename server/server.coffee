@@ -422,6 +422,9 @@ app.get '/safari.manifest.plist', (req, res) ->
         res.send data
 
 # Static files
+app.get '/privacy', (req, res) ->
+    res.sendfile "#{__dirname}/../web/privacy.html"
+
 app.use express.static "#{__dirname}/../web"
 
 app.listen 3040
