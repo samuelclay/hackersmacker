@@ -523,7 +523,13 @@ document.getElementById('HS-visibility-toggle').addEventListener('change', funct
 
   // Static files
   app.get('/privacy', function(req, res) {
-    return res.sendfile(`${__dirname}/../web/privacy.html`);
+    return fs.readFile(`${__dirname}/../web/privacy.html`, 'utf8', function(err, data) {
+      if (err) {
+        return res.send('Not found', 404);
+      }
+      res.contentType('text/html');
+      return res.send(data);
+    });
   });
 
   app.use(express.static(`${__dirname}/../web`));
