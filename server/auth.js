@@ -45,12 +45,27 @@
       }
       pendingKey = `V:${username}:pending`;
       authKey = `V:${username}:auth_token`;
-      // Check if already verified — don't return auth token (it's already stored in the extension)
+      // Check if already verified — try to re-issue token by checking HN profile
       return client.get(authKey, (err, existingToken) => {
         if (existingToken) {
-          return callback({
-            code: 2,
-            status: 'already_verified'
+          this.scrapeHNProfile(username, (err, foundToken) => {
+            if (!err && foundToken) {
+              // HN profile still has verification link — re-issue auth token
+              return this.generateAuthToken(function(newAuthToken) {
+                client.set(authKey, newAuthToken);
+                return callback({
+                  code: 2,
+                  status: 'already_verified',
+                  auth_token: newAuthToken
+                });
+              });
+            } else {
+              // No link in profile — can't re-issue silently
+              return callback({
+                code: 2,
+                status: 'already_verified'
+              });
+            }
           });
         }
         // Return existing token or generate one — token is stable per user

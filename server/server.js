@@ -522,6 +522,10 @@ document.getElementById('HS-visibility-toggle').addEventListener('change', funct
   });
 
   // Static files
+  app.get('/privacy', function(req, res) {
+    return res.sendfile(`${__dirname}/../web/privacy.html`);
+  });
+
   app.use(express.static(`${__dirname}/../web`));
 
   app.listen(3040);
