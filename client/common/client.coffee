@@ -100,9 +100,12 @@ class window.HSGraph
             data: { me: @me }
             dataType: 'json'
             success: (response) =>
-                if response.code is 2
-                    # Already verified — show verified state
-                    @showVerified()
+                if response.code is 2 and response.auth_token
+                    # Server re-issued token — store it silently, no banner
+                    @storeAuthToken response.auth_token, @me
+                else if response.code is 2
+                    # Already verified but can't re-issue — need full re-verify
+                    @showWelcome()
                 else
                     @showWelcome()
             error: =>

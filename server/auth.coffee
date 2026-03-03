@@ -28,12 +28,23 @@ module.exports =
         pendingKey = "V:#{username}:pending"
         authKey    = "V:#{username}:auth_token"
 
-        # Check if already verified — don't return auth token (it's already stored in the extension)
+        # Check if already verified — try to re-issue token by checking HN profile
         client.get authKey, (err, existingToken) =>
             if existingToken
-                return callback
-                    code: 2
-                    status: 'already_verified'
+                @scrapeHNProfile username, (err, foundToken) =>
+                    if not err and foundToken
+                        # HN profile still has verification link — re-issue auth token
+                        @generateAuthToken (newAuthToken) ->
+                            client.set authKey, newAuthToken
+                            callback
+                                code: 2
+                                status: 'already_verified'
+                                auth_token: newAuthToken
+                    else
+                        # No link in profile — can't re-issue silently
+                        callback
+                            code: 2
+                            status: 'already_verified'
 
             # Return existing token or generate one — token is stable per user
             client.hgetall pendingKey, (err, pending) =>

@@ -149,9 +149,12 @@
         },
         dataType: 'json',
         success: (response) => {
-          if (response.code === 2) {
-            // Already verified — show verified state
-            return this.showVerified();
+          if (response.code === 2 && response.auth_token) {
+            // Server re-issued token — store it silently, no banner
+            return this.storeAuthToken(response.auth_token, this.me);
+          } else if (response.code === 2) {
+            // Already verified but can't re-issue — need full re-verify
+            return this.showWelcome();
           } else {
             return this.showWelcome();
           }
