@@ -3,7 +3,7 @@
 
   "name": "Hacker Smacker",
   "description": "Highlight (friend) and filter (foe) individual authors on Hacker News",
-  "version": "2.0",
+  "version": "2.1",
   "icons": { "128": "icon.png" },
   "background": {
     "service_worker": "background.js"
