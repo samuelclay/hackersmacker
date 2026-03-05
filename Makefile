@@ -37,6 +37,9 @@ compile-dev: compile
 	@cp client/common/config.js client/chrome/config.js
 	@cp client/common/config.js client/firefox/data/config.js
 	@cp client/common/config.js client/safari/WebExtension/config.js
+	@# Add localhost permissions for local development
+	@sed -i '' 's|"https://www.hackersmacker.org/"|"https://www.hackersmacker.org/",\n    "http://localhost:3040/"|' client/chrome/manifest.json
+	@sed -i '' 's|"https://www.hackersmacker.org/",|"https://www.hackersmacker.org/",\n    "http://localhost:3040/",|' client/firefox/manifest.json client/safari/WebExtension/manifest.json
 
 compile:
 	@coffee -c client/common/client.coffee
@@ -54,6 +57,8 @@ compile:
 	@cp client/common/background.js client/safari/WebExtension/background.js
 	@cp client/common/client.css client/safari/WebExtension/client.css
 	@cp client/common/config.js client/safari/WebExtension/config.js
+	@# Strip localhost from manifests (safety net for production builds)
+	@node -e "var fs=require('fs');process.argv.slice(1).forEach(function(f){var c=fs.readFileSync(f,'utf8');c=c.replace(/,\n\s*\"http:\/\/localhost:[^\"]*\"/g,'');c=c.replace(/\n\s*\"http:\/\/localhost:[^\"]*\",?/g,'');fs.writeFileSync(f,c)});" client/chrome/manifest.json client/firefox/manifest.json client/safari/WebExtension/manifest.json
 
 ssh:
 	ssh -i /srv/secrets-newsblur/keys/newsblur.key root@hackersmacker.org

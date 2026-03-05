@@ -3,7 +3,7 @@
 
   "name": "Hacker Smacker",
   "description": "Highlight (friend) and filter (foe) individual authors on Hacker News",
-  "version": "2.1",
+  "version": "2.2",
   "icons": {
     "16": "data/icon-16.png",
     "32": "data/icon-32.png",
@@ -36,7 +36,6 @@
     "http://news.ycombinator.com/",
     "http://www.hackersmacker.org/",
     "https://www.hackersmacker.org/",
-    "http://localhost:3040/",
     "storage"
   ],
   "browser_specific_settings": {
