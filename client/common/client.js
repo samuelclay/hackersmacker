@@ -247,7 +247,14 @@
         dataType: 'json',
         success: (response) => {
           if (response.code === 2) {
-            // Already verified
+            // Already verified — store re-issued token if present
+            if (response.auth_token) {
+              this.storeAuthToken(response.auth_token, this.me, () => {
+                this._clearPendingVerification();
+                return this.showVerified();
+              });
+              return;
+            }
             return this.showVerified();
           } else if (response.code === 1) {
             // Save token to storage, then redirect to profile page

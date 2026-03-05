@@ -183,7 +183,12 @@ class window.HSGraph
             dataType: 'json'
             success: (response) =>
                 if response.code is 2
-                    # Already verified
+                    # Already verified — store re-issued token if present
+                    if response.auth_token
+                        @storeAuthToken response.auth_token, @me, =>
+                            @_clearPendingVerification()
+                            @showVerified()
+                        return
                     @showVerified()
                 else if response.code is 1
                     # Save token to storage, then redirect to profile page
