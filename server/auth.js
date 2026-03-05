@@ -48,7 +48,7 @@
       // Check if already verified — try to re-issue token by checking HN profile
       return client.get(authKey, (err, existingToken) => {
         if (existingToken) {
-          this.scrapeHNProfile(username, (err, foundToken) => {
+          return this.scrapeHNProfile(username, (err, foundToken) => {
             if (!err && foundToken) {
               // HN profile still has verification link — re-issue auth token
               return this.generateAuthToken(function(newAuthToken) {

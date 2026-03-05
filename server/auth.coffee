@@ -31,7 +31,7 @@ module.exports =
         # Check if already verified — try to re-issue token by checking HN profile
         client.get authKey, (err, existingToken) =>
             if existingToken
-                @scrapeHNProfile username, (err, foundToken) =>
+                return @scrapeHNProfile username, (err, foundToken) =>
                     if not err and foundToken
                         # HN profile still has verification link — re-issue auth token
                         @generateAuthToken (newAuthToken) ->
