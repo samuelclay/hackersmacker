@@ -862,9 +862,16 @@
           },
           dataType: 'json',
           success: (response) => {
-            // Need full re-verification to get a new token
             $popover.remove();
-            return HS.startVerification();
+            if (response.code === 2 && response.auth_token) {
+              // Already verified on server — store the token
+              return HS.storeAuthToken(response.auth_token, HS.me, function() {
+                return HS.showVerified();
+              });
+            } else {
+              // Need full re-verification
+              return HS.startVerification();
+            }
           },
           error: () => {
             $popover.remove();

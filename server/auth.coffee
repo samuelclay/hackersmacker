@@ -28,27 +28,19 @@ module.exports =
         pendingKey = "V:#{username}:pending"
         authKey    = "V:#{username}:auth_token"
 
-        # Check if already verified — try to re-issue token by checking HN profile
+        # Check if already verified — return existing token (never regenerate)
         client.get authKey, (err, existingToken) =>
             if existingToken
-                return @scrapeHNProfile username, (err, foundToken) =>
-                    if not err and foundToken
-                        # HN profile still has verification link — re-issue auth token
-                        @generateAuthToken (newAuthToken) ->
-                            client.set authKey, newAuthToken
-                            callback
-                                code: 2
-                                status: 'already_verified'
-                                auth_token: newAuthToken
-                    else
-                        # No link in profile — can't re-issue silently
-                        callback
-                            code: 2
-                            status: 'already_verified'
+                console.log " ---> [#{username}] /verify/start: already verified, returning existing token"
+                return callback
+                    code: 2
+                    status: 'already_verified'
+                    auth_token: existingToken
 
-            # Return existing token or generate one — token is stable per user
+            # Return existing pending token or generate one — token is stable per user
             client.hgetall pendingKey, (err, pending) =>
                 if pending and pending.token
+                    console.log " ---> [#{username}] /verify/start: returning existing pending token"
                     return callback
                         code: 1
                         username: username
@@ -63,6 +55,7 @@ module.exports =
                     'last_attempt', ''
                 # No TTL — token lives until verified
 
+                console.log " ---> [#{username}] /verify/start: generated new pending token"
                 callback
                     code: 1
                     username: username
@@ -107,11 +100,13 @@ module.exports =
                         client.set "V:#{username}:auth_token", authToken
                         client.set "V:#{username}:verified_at", new Date().toISOString()
                         client.del pendingKey
+                        console.log " ---> [#{username}] /verify/check: verified! Token issued."
                         callback
                             code: 1
                             status: 'verified'
                             auth_token: authToken
                 else
+                    console.log " ---> [#{username}] /verify/check: token not found in HN profile"
                     callback
                         code: 0
                         status: 'pending'

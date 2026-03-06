@@ -45,33 +45,21 @@
       }
       pendingKey = `V:${username}:pending`;
       authKey = `V:${username}:auth_token`;
-      // Check if already verified — try to re-issue token by checking HN profile
+      // Check if already verified — return existing token (never regenerate)
       return client.get(authKey, (err, existingToken) => {
         if (existingToken) {
-          return this.scrapeHNProfile(username, (err, foundToken) => {
-            if (!err && foundToken) {
-              // HN profile still has verification link — re-issue auth token
-              return this.generateAuthToken(function(newAuthToken) {
-                client.set(authKey, newAuthToken);
-                return callback({
-                  code: 2,
-                  status: 'already_verified',
-                  auth_token: newAuthToken
-                });
-              });
-            } else {
-              // No link in profile — can't re-issue silently
-              return callback({
-                code: 2,
-                status: 'already_verified'
-              });
-            }
+          console.log(` ---> [${username}] /verify/start: already verified, returning existing token`);
+          return callback({
+            code: 2,
+            status: 'already_verified',
+            auth_token: existingToken
           });
         }
-        // Return existing token or generate one — token is stable per user
+        // Return existing pending token or generate one — token is stable per user
         return client.hgetall(pendingKey, (err, pending) => {
           var now, token;
           if (pending && pending.token) {
+            console.log(` ---> [${username}] /verify/start: returning existing pending token`);
             return callback({
               code: 1,
               username: username,
@@ -83,6 +71,7 @@
           now = new Date().toISOString();
           client.hmset(pendingKey, 'token', token, 'created_at', now, 'last_attempt', '');
           // No TTL — token lives until verified
+          console.log(` ---> [${username}] /verify/start: generated new pending token`);
           return callback({
             code: 1,
             username: username,
@@ -138,6 +127,7 @@
               client.set(`V:${username}:auth_token`, authToken);
               client.set(`V:${username}:verified_at`, new Date().toISOString());
               client.del(pendingKey);
+              console.log(` ---> [${username}] /verify/check: verified! Token issued.`);
               return callback({
                 code: 1,
                 status: 'verified',
@@ -145,6 +135,7 @@
               });
             });
           } else {
+            console.log(` ---> [${username}] /verify/check: token not found in HN profile`);
             return callback({
               code: 0,
               status: 'pending',

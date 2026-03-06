@@ -679,9 +679,14 @@ class window.HSRater
                 data: { me: HS.me }
                 dataType: 'json'
                 success: (response) =>
-                    # Need full re-verification to get a new token
                     $popover.remove()
-                    HS.startVerification()
+                    if response.code is 2 and response.auth_token
+                        # Already verified on server — store the token
+                        HS.storeAuthToken response.auth_token, HS.me, ->
+                            HS.showVerified()
+                    else
+                        # Need full re-verification
+                        HS.startVerification()
                 error: =>
                     $popover.remove()
                     HS.showWelcome()
